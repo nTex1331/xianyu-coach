@@ -189,6 +189,38 @@ input[type=checkbox]{width:17px;height:17px;accent-color:var(--brand);margin-rig
 .statline:last-child{border-bottom:0}
 .statline b{color:var(--brand-d)}
 
+/* 排行榜 */
+.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}
+.lad{background:#f7faf8;border-radius:10px;padding:8px 5px;text-align:center;border:1.5px solid transparent}
+.lad b{display:block;font-size:11.5px;color:var(--brand-d);letter-spacing:.5px}
+.lad span{display:block;font-size:13.5px;font-weight:800;margin:1px 0}
+.lad i{font-size:10.5px;color:var(--sub);font-style:normal}
+.lad.on{background:var(--brand-soft);border-color:#bfe3d3;box-shadow:0 4px 10px rgba(15,138,95,.12)}
+.mblock{border-bottom:1px solid #f0f4f1}
+.mblock:last-child{border-bottom:0}
+.mrow{display:flex;align-items:center;gap:8px;padding:10px 0}
+.mr-pos{width:24px;flex:none;text-align:center;font-size:14px;font-weight:800;color:#9aa8a1}
+.mr-main{flex:1;min-width:0}
+.mr-name{font-size:14.5px;font-weight:800;display:flex;align-items:center;gap:5px;flex-wrap:wrap;line-height:1.5}
+.mr-sub{font-size:11.3px;color:var(--sub);margin-top:2px;line-height:1.45}
+.mr-pts{font-size:17px;font-weight:800;color:var(--brand-d);white-space:nowrap}
+.mr-pts span{font-size:10px;color:var(--sub);font-weight:600;margin-left:1px}
+.lvl{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:.2px;white-space:nowrap}
+.lv1{background:#eef1f0;color:#5d6b64}
+.lv2{background:#e7f0ff;color:#2b5fa8}
+.lv3{background:var(--brand-soft);color:var(--brand-d)}
+.lv4{background:#f1e9ff;color:#6b3fb0}
+.lv5{background:#fdeee0;color:#a55a00}
+.lv6{background:linear-gradient(135deg,#f8d97a,#e3ac12);color:#544000}
+.lvx{background:#141a17;color:#ffd60a}
+.mini{background:#eef2f0;border:0;border-radius:7px;padding:6px 7px;font-size:11px;font-weight:800;font-family:inherit;color:#41524a;cursor:pointer}
+.mini:active{background:#dde5e1}
+.mr-act{display:flex;gap:3px;flex:none}
+.editform{display:none;padding:0 0 12px 32px}
+.editform.on{display:block}
+.padbox{border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:16px;font-family:inherit;background:#fbfcfb;outline:none;width:100%}
+.padbox:focus{border-color:var(--brand);background:#fff}
+
 /* 底部导航 */
 nav.tabs{
   position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
@@ -222,7 +254,7 @@ footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;li
       <div class="logo">电</div>
       <div>
         <h1>卖车话术教练</h1>
-        <p>闲鱼 · 学生分销专用 · 45 个场景 / 29 条原理</p>
+        <p>闲鱼 · 学生分销专用 · 45 场景 / 29 原理 / 六级段位</p>
       </div>
     </div>
     <div class="quip" id="quip"></div>
@@ -274,6 +306,28 @@ footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;li
     <p style="font-size:13.5px;margin:0 0 10px;color:#3d5148" id="reviewTxt"></p>
     <button class="btn ghost small" id="btnReview">开始复习</button>
   </div>
+</section>
+
+<!-- ========== 榜单 ========== -->
+<section class="page" id="page-rank">
+  <div class="quip" id="shareBanner" style="display:none;margin-bottom:12px"></div>
+  <div class="card">
+    <div class="sec-t">等级阶梯（一至六级 · 老板在三级）</div>
+    <div class="ladder" id="ladder"></div>
+    <p class="advice" id="ladderTip" style="margin:9px 0 0"></p>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div class="sec-t" style="margin:0">积分排行榜</div>
+      <span id="boardCount" style="font-size:11.5px;color:#98a69f;font-weight:700"></span>
+    </div>
+    <div id="boardList" style="margin-top:2px"></div>
+  </div>
+  <details class="card" style="padding:0">
+    <summary style="padding:13px 14px;cursor:pointer;font-size:12.5px;font-weight:800;color:var(--sub);letter-spacing:.5px;list-style:none">积分规则（老板按这个加减分）</summary>
+    <div style="padding:0 14px 14px" id="ptsRules"></div>
+  </details>
+  <div class="card" id="adminBox"></div>
 </section>
 
 <!-- ========== 话术库 ========== -->
@@ -354,6 +408,7 @@ footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;li
 <nav class="tabs">
   <button data-tab="ask" class="on"><span class="ic">💬</span><span class="tx">查话术</span></button>
   <button data-tab="train"><span class="ic">🎯</span><span class="tx">训练场</span></button>
+  <button data-tab="rank"><span class="ic">🏆</span><span class="tx">榜单</span></button>
   <button data-tab="lib"><span class="ic">📚</span><span class="tx">话术库</span></button>
   <button data-tab="me"><span class="ic">🧰</span><span class="tx">我的</span></button>
 </nav>
@@ -1065,7 +1120,11 @@ function load() {
   } catch (e) {}
 }
 function save() {
-  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+  try {
+    const c = Object.assign({}, S);
+    delete c.snapshot;            // 只读榜单快照不写进本机
+    localStorage.setItem(KEY, JSON.stringify(c));
+  } catch (e) {}
 }
 function toast(msg) {
   const t = $('#toast');
@@ -1329,6 +1388,307 @@ function renderLibList() {
   $('#libList').innerHTML = html;
 }
 
+/* ================= 积分排行榜 ================= */
+const LEVELS = [
+  { n: 1, name: '见习', min: 0, right: '跟车学习、拍照整素材，不单独谈价' },
+  { n: 2, name: '上路', min: 100, right: '独立接待看车，按挂牌价报价' },
+  { n: 3, name: '教头', min: 300, right: '可带新人；底线之上可自主让价 50 以内' },
+  { n: 4, name: '掌柜', min: 600, right: '可自主定价（成本线以上），可申请多台备车' },
+  { n: 5, name: '合伙人', min: 1000, right: '分成上浮 5%，可跨校区出货' },
+  { n: 6, name: '宗师', min: 2000, right: '拿分红、优先挑车、可带团队' }
+];
+const CN = ['', '一', '二', '三', '四', '五', '六'];
+const PTS_RULES = [
+  ['训练场每答 1 题', '+2'],
+  ['训练答题 ≥85 分', '+3'],
+  ['成交一单（学生自售）', '+50'],
+  ['客户五星好评截图', '+10'],
+  ['带新人成交一单', '+30'],
+  ['月度销冠', '+100'],
+  ['虚标续航 / 私下收款', '−50'],
+  ['放鸽子 / 客户投诉', '−20']
+];
+
+let adminMem = false;
+function isAdmin() {
+  if (adminMem) return true;
+  try { return sessionStorage.getItem('sy_admin') === '1'; } catch (e) { return false; }
+}
+function setAdmin(v) {
+  adminMem = v;
+  try { v ? sessionStorage.setItem('sy_admin', '1') : sessionStorage.removeItem('sy_admin'); } catch (e) {}
+}
+function escA(s) { return esc(s).replace(/"/g, '&quot;'); }
+
+function b64e(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function b64d(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  const bin = atob(s);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(arr);
+}
+
+function ensureBoard() {
+  if (!S.board || !Array.isArray(S.board.members)) {
+    S.board = { members: [{ id: 'boss', name: '老板', pts: 300, lvl: 3, note: '', boss: true }], pass: '8888' };
+  }
+  if (!S.board.pass) S.board.pass = '8888';
+  S.board.members.forEach((m, i) => { if (!m.id) m.id = 'm' + i + '_' + Math.random().toString(36).slice(2, 7); });
+}
+function lvlOf(m) {
+  if (m.lvl) return LEVELS[Math.min(6, Math.max(1, m.lvl)) - 1];
+  let cur = LEVELS[0];
+  LEVELS.forEach(L => { if (m.pts >= L.min) cur = L; });
+  return cur;
+}
+function nextOf(m) {
+  if (m.lvl) return null;
+  return LEVELS[lvlOf(m).n] || null;   // LEVELS 索引从 0 起，n 即下一个
+}
+function boardSorted() {
+  return (S.board.members || []).slice().sort((a, b) => b.pts - a.pts || String(a.name).localeCompare(String(b.name), 'zh'));
+}
+function validName(n) {
+  n = (n || '').trim().replace(/\s+/g, ' ');
+  if (!n) return '名字不能为空';
+  if (n.length > 16) return '名字最多 16 个字';
+  if (/^(\+?86)?1[3-9]\d{9}$/.test(n.replace(/[\s-]/g, ''))) return '只填真名或微信名，不用手机号';
+  if (/^\d{5,}$/.test(n)) return '不要填手机号或学号，填真名或微信名';
+  if (/\d{9,}/.test(n)) return '看起来是手机号，只填真名或微信名';
+  if (/[|~!@"'<>]/.test(n)) return '名字里不要用 | ~ ! @ " 这些符号';
+  return '';
+}
+function findByName(n) {
+  const k = String(n).replace(/\s+/g, '').toLowerCase();
+  return S.board.members.find(m => String(m.name).replace(/\s+/g, '').toLowerCase() === k);
+}
+
+function renderRank() {
+  ensureBoard();
+  const snap = S.snapshot;
+  const banner = $('#shareBanner');
+  if (snap) {
+    banner.style.display = 'block';
+    banner.innerHTML = '<b>只读榜单</b>　这是老板 ' + esc(snap.t) + ' 发布的快照，你和同学看到的都一样，只有老板能改。';
+  } else banner.style.display = 'none';
+
+  const boss = S.board.members.find(m => m.boss);
+  const bl = boss ? lvlOf(boss).n : 0;
+  $('#ladder').innerHTML = LEVELS.map(L =>
+    '<div class="lad' + (L.n === bl ? ' on' : '') + '"><b>' + CN[L.n] + '级</b><span>' + L.name + '</span><i>' + L.min + ' 分</i></div>'
+  ).join('');
+  if (snap) {
+    $('#ladderTip').innerHTML = '三级是老板（组长）的位置，满级是 <b>六级 · 宗师</b>。你是几级，看下面榜单里自己名字后面那枚徽章。';
+  } else if (boss) {
+    $('#ladderTip').innerHTML = '你目前在 <b>' + CN[bl] + '级 · ' + lvlOf(boss).name + '</b>，满级是六级 · 宗师。本级权限：' + esc(lvlOf(boss).right) + '。';
+  } else {
+    $('#ladderTip').textContent = '积分到线自动升级；老板也可以手动指定等级。';
+  }
+
+  const list = snap ? snap.members.slice().sort((a, b) => b.pts - a.pts) : boardSorted();
+  const medal = ['🥇', '🥈', '🥉'];
+  const admin = (!snap && isAdmin());
+  let html = '';
+  list.forEach((m, i) => {
+    const L = lvlOf(m);
+    const nx = nextOf(m);
+    const sub = m.boss
+      ? '组长，等级固定不随积分变动'
+      : (m.lvl
+        ? '指定等级，不随积分变动'
+        : (nx ? '距 ' + CN[nx.n] + '级·' + nx.name + ' 还差 ' + Math.max(0, nx.min - m.pts) + ' 分' : '已到顶（六级·宗师）'));
+    html += '<div class="mblock">';
+    html += '<div class="mrow" data-id="' + m.id + '">'
+      + '<div class="mr-pos">' + (i < 3 ? medal[i] : (i + 1)) + '</div>'
+      + '<div class="mr-main"><div class="mr-name">' + esc(m.name)
+      + ' <span class="lvl lv' + L.n + '">' + CN[L.n] + '级 ' + L.name + '</span>'
+      + (m.boss ? ' <span class="lvl lvx">老板</span>' : '') + '</div>'
+      + '<div class="mr-sub">' + esc(sub) + '</div></div>'
+      + '<div class="mr-pts">' + m.pts + '<span>分</span></div>';
+    if (admin) {
+      html += '<div class="mr-act">'
+        + '<button class="mini" data-act="plus" data-id="' + m.id + '">+10</button>'
+        + '<button class="mini" data-act="minus" data-id="' + m.id + '">−10</button>'
+        + '<button class="mini" data-act="edit" data-id="' + m.id + '">改</button></div>';
+    }
+    html += '</div>';
+    if (admin) {
+      html += '<div class="editform" id="ef-' + m.id + '"><div class="grid2">'
+        + '<div class="field"><label>真名 / 微信名</label><input id="nm-' + m.id + '" value="' + escA(m.name) + '"></div>'
+        + '<div class="field"><label>积分</label><input id="pt-' + m.id + '" type="number" inputmode="numeric" value="' + m.pts + '"></div>'
+        + '<div class="field"><label>等级</label><select id="lv-' + m.id + '"><option value="0">按积分自动</option>'
+        + LEVELS.map(L2 => '<option value="' + L2.n + '"' + (m.lvl === L2.n ? ' selected' : '') + '>' + CN[L2.n] + '级 ' + L2.name + '</option>').join('')
+        + '</select></div>'
+        + '<div class="field"><label>备注（可空）</label><input id="nt-' + m.id + '" value="' + escA(m.note || '') + '"></div>'
+        + '</div><div class="row"><button class="btn ghost small" data-act="save" data-id="' + m.id + '">保存</button>'
+        + '<button class="btn ghost small" data-act="del" data-id="' + m.id + '" style="color:#a52f24">删除</button></div></div>';
+    }
+    html += '</div>';
+  });
+  if (!html) html = '<div class="empty" style="box-shadow:none;padding:12px">还没有人上榜。老板解锁后在下面添加成员。</div>';
+  $('#boardList').innerHTML = html;
+  $('#boardCount').textContent = list.length + ' 人';
+  renderAdmin();
+}
+
+function renderAdmin() {
+  const box = $('#adminBox');
+  if (S.snapshot) { box.style.display = 'none'; box.innerHTML = ''; return; }
+  box.style.display = '';
+  if (!isAdmin()) {
+    box.innerHTML = '<div class="sec-t">老板管理区</div>'
+      + '<p class="advice" style="margin:0 0 9px">只有你能改名单、积分和等级。默认口令 <b>8888</b>，解锁后可改。</p>'
+      + '<div class="row" style="margin-top:0"><input id="adminPass" class="padbox" style="flex:1" type="password" inputmode="numeric" placeholder="管理口令">'
+      + '<button class="btn primary" style="flex:none" data-act="unlock">解锁</button></div>';
+    return;
+  }
+  box.innerHTML = '<div class="sec-t">老板管理区（已解锁）</div>'
+    + '<div class="grid2">'
+    + '<div class="field"><label>添加成员：真名或微信名</label><input id="newName" class="padbox" placeholder="例：李健豪 / 阿豪"></div>'
+    + '<div class="field"><label>初始积分</label><input id="newPts" class="padbox" type="number" inputmode="numeric" value="0"></div>'
+    + '</div>'
+    + '<div class="row"><button class="btn primary" data-act="add">添加成员</button>'
+    + '<button class="btn ghost small" data-act="bulk">批量导入</button></div>'
+    + '<div id="bulkWrap" style="display:none;margin-top:10px">'
+    + '<textarea id="bulkTxt" placeholder="一行一个名字（真名或微信名），最多 50 个"></textarea>'
+    + '<div class="row"><button class="btn ghost small" data-act="bulkgo">确认导入</button></div></div>'
+    + '<div class="sec-t" style="margin-top:16px">发给群里（学生只能看，不能改）</div>'
+    + '<div class="row" style="margin-top:0"><button class="btn ghost small" data-act="link">生成榜单链接</button>'
+    + '<button class="btn ghost small" data-act="report">复制战报文案</button></div>'
+    + '<div class="out" id="linkOut" style="display:none"></div>'
+    + '<div class="sec-t" style="margin-top:16px">口令</div>'
+    + '<div class="row" style="margin-top:0"><input id="newPass" class="padbox" style="flex:1" placeholder="新口令（4位以上）">'
+    + '<button class="btn ghost small" data-act="setpass">修改</button>'
+    + '<button class="btn ghost small" data-act="lock">退出管理</button></div>';
+}
+
+function boardPayload() {
+  const rows = boardSorted().map(m => [m.name, m.pts, m.lvl || 0, m.boss ? 1 : 0].join('~')).join('!');
+  const d = new Date();
+  return (d.getMonth() + 1) + '/' + d.getDate() + '@' + rows;
+}
+function boardLink() {
+  return location.href.split('#')[0] + '#b=' + b64e(boardPayload());
+}
+function reportText() {
+  const d = new Date();
+  let s = '🏆 电动车小组 · 积分榜（' + (d.getMonth() + 1) + '/' + d.getDate() + '）\n';
+  boardSorted().forEach((m, i) => {
+    const L = lvlOf(m);
+    s += (i + 1) + '. ' + m.name + '　' + CN[L.n] + '级' + L.name + '　' + m.pts + '分\n';
+  });
+  s += '\n升级线：二级100 / 三级300 / 四级600 / 五级1000 / 六级2000';
+  return s;
+}
+
+function parseSnapshot() {
+  const h = location.hash || '';
+  if (h.indexOf('#b=') !== 0) return;
+  try {
+    const raw = b64d(h.slice(3));
+    const at = raw.indexOf('@');
+    const ts = at > 0 ? raw.slice(0, at) : '';
+    const rows = raw.slice(at + 1).split('!').filter(Boolean);
+    const members = rows.map((r, i) => {
+      const a = r.split('~');
+      return { id: 's' + i, name: a[0] || '匿名', pts: +a[1] || 0, lvl: +a[2] || 0, boss: a[3] === '1' };
+    }).filter(m => m.name);
+    if (members.length) S.snapshot = { t: ts, members };
+  } catch (e) { toast('榜单链接不完整，让老板重发一次'); }
+}
+
+function rankClick(e) {
+  const b = e.target.closest('[data-act]');
+  if (!b) return;
+  const act = b.dataset.act, id = b.dataset.id;
+  ensureBoard();
+  if (act === 'unlock') {
+    const v = ($('#adminPass').value || '').trim();
+    if (v === S.board.pass) { setAdmin(true); save(); renderRank(); toast('已解锁，可以改名单了'); }
+    else toast('口令不对');
+    return;
+  }
+  if (act === 'lock') { setAdmin(false); renderRank(); toast('已退出管理'); return; }
+  if (act === 'add') {
+    const nm = ($('#newName') && $('#newName').value) || '';
+    const err = validName(nm);
+    if (err) { toast(err); return; }
+    if (findByName(nm)) { toast('这个名字已经在榜上了'); return; }
+    S.board.members.push({ id: 'm' + Date.now(), name: nm.trim().replace(/\s+/g, ' '), pts: +($('#newPts').value) || 0, lvl: 0, note: '' });
+    save(); renderRank(); toast('已添加：' + nm);
+    return;
+  }
+  if (act === 'bulk') { const w = $('#bulkWrap'); w.style.display = w.style.display === 'none' ? 'block' : 'none'; return; }
+  if (act === 'bulkgo') {
+    const lines = ($('#bulkTxt').value || '').split('\n').map(x => x.trim()).filter(Boolean);
+    let ok = 0, skip = 0;
+    lines.slice(0, 50).forEach(nm => {
+      if (validName(nm) || findByName(nm)) { skip++; return; }
+      S.board.members.push({ id: 'm' + Date.now() + ok, name: nm, pts: 0, lvl: 0, note: '' }); ok++;
+    });
+    save(); renderRank(); toast('导入 ' + ok + ' 人' + (skip ? '，跳过 ' + skip + ' 条' : ''));
+    return;
+  }
+  if (act === 'plus' || act === 'minus') {
+    const m = S.board.members.find(x => x.id === id);
+    if (!m) return;
+    m.pts = Math.max(0, m.pts + (act === 'plus' ? 10 : -10));
+    save(); renderRank();
+    return;
+  }
+  if (act === 'edit') {
+    const f = document.getElementById('ef-' + id);
+    if (f) f.classList.toggle('on');
+    return;
+  }
+  if (act === 'save') {
+    const m = S.board.members.find(x => x.id === id);
+    if (!m) return;
+    const nm = ($('#nm-' + id).value || '');
+    const err = validName(nm);
+    if (err) { toast(err); return; }
+    const dup = findByName(nm);
+    if (dup && dup.id !== id) { toast('这个名字已经有人用了'); return; }
+    m.name = nm.trim().replace(/\s+/g, ' ');
+    m.pts = Math.max(0, parseInt($('#pt-' + id).value, 10) || 0);
+    m.lvl = parseInt($('#lv-' + id).value, 10) || 0;
+    m.note = ($('#nt-' + id).value || '').trim().slice(0, 40);
+    save(); renderRank(); toast('已保存');
+    return;
+  }
+  if (act === 'del') {
+    const m = S.board.members.find(x => x.id === id);
+    if (!m) return;
+    if (m.boss) { toast('老板本人不能删'); return; }
+    if (!confirm('把「' + m.name + '」从榜上删掉？')) return;
+    S.board.members = S.board.members.filter(x => x.id !== id);
+    save(); renderRank(); toast('已删除');
+    return;
+  }
+  if (act === 'link') {
+    const link = boardLink();
+    const out = $('#linkOut');
+    out.style.display = 'block';
+    out.textContent = link + '\n\n（长按全选复制，发到群里；学生打开是只读榜）';
+    copyText(link);
+    return;
+  }
+  if (act === 'report') { copyText(reportText()); return; }
+  if (act === 'setpass') {
+    const v = ($('#newPass').value || '').trim();
+    if (v.length < 4) { toast('口令至少 4 位'); return; }
+    S.board.pass = v; save(); toast('口令已改，记牢');
+    return;
+  }
+}
+
 /* ================= 我的 ================= */
 function calcPrice() {
   const cost = +$('#cCost').value || 0;
@@ -1464,7 +1824,7 @@ function init() {
   };
   $('#btnReset').onclick = () => {
     if (!confirm('清空所有练习记录和错题本？')) return;
-    S = { trained: 0, total: 0, wrong: {}, seen: [], libTab: 'scenes', cur: null, cat: 'all' };
+    S = { trained: 0, total: 0, wrong: {}, seen: [], libTab: 'scenes', cur: null, cat: 'all', board: S.board };
     save(); renderStats(); toast('已清空');
   };
 
@@ -1474,6 +1834,21 @@ function init() {
   renderStats();
   pickQuestion('all');
   $('#trainResult').innerHTML = '';
+
+  // 榜单
+  parseSnapshot();
+  ensureBoard();
+  $('#ptsRules').innerHTML = PTS_RULES.map(x => '<div class="statline"><span>' + esc(x[0]) + '</span><b>' + x[1] + '</b></div>').join('');
+  $('#page-rank').addEventListener('click', rankClick);
+  renderRank();
+  // 已经在页面里时点开分享链接（只有 hash 变化，不会重载）也要切到只读榜
+  window.addEventListener('hashchange', function () {
+    S.snapshot = null;
+    parseSnapshot();
+    renderRank();
+    if (S.snapshot) switchTab('rank');
+  });
+  if (S.snapshot) { document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === 'rank')); switchTab('rank'); }
 }
 
 document.addEventListener('keydown', e => {
