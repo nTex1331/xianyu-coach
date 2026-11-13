@@ -3,336 +3,381 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f8a5f">
+<meta name="theme-color" content="#0A6B52">
 <title>卖车话术教练 · 闲鱼版</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --bg:#f3f6f4;--card:#fff;--ink:#131a16;--sub:#6a7772;--line:#e5eae7;
-  --brand:#0f8a5f;--brand-d:#0a6d4a;--brand-soft:#e6f4ee;
-  --gold:#e59a12;--gold-soft:#fdf3e0;--red:#d94a3d;--red-soft:#fceceb;
-  --r:16px;--sh:0 1px 2px rgba(16,24,20,.04),0 8px 22px rgba(16,24,20,.055);
+  --bg:#F3F5F9;--card:#fff;--ink:#0F172A;--ink2:#334155;--sub:#6B7A90;
+  --line:#E7ECF3;--brand:#0E9F6E;--brand2:#0A7F58;--brand-soft:#E6F7F0;
+  --gold:#F59E0B;--gold-soft:#FEF5E5;--red:#E11D48;--red-soft:#FEEDF1;
+  --violet:#7C3AED;--violet-soft:#F2ECFE;
+  --r:20px;--r2:14px;
+  --sh:0 1px 2px rgba(15,23,42,.04),0 10px 26px -14px rgba(15,23,42,.22);
+  --sh-sm:0 1px 2px rgba(15,23,42,.04),0 6px 16px -10px rgba(15,23,42,.2);
 }
 html,body{margin:0;padding:0}
 body{
   background:var(--bg);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;
-  padding-bottom:calc(78px + env(safe-area-inset-bottom));
+  font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom));
 }
-.wrap{max-width:720px;margin:0 auto;padding:0 13px}
-header.top{
-  position:sticky;top:0;z-index:30;
-  background:rgba(243,246,244,.92);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-  padding:12px 0 10px;
+.wrap{max-width:700px;margin:0 auto;padding:0 14px}
+
+/* ---------- 顶部 ---------- */
+.hero{
+  position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(130% 150% at 12% 0%,#17C48E 0%,#0E9F6E 40%,#096A50 100%);
+  border-radius:0 0 26px 26px;padding:16px 0 17px;
+  box-shadow:0 16px 34px -22px rgba(9,106,80,.95);
 }
-.brand{display:flex;align-items:center;gap:10px}
-.logo{
-  width:38px;height:38px;border-radius:12px;flex:none;
-  background:linear-gradient(145deg,var(--brand),#12a873);
-  color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 14px rgba(15,138,95,.28);
+.hero::after{content:'';position:absolute;width:210px;height:210px;border-radius:50%;background:rgba(255,255,255,.10);right:-72px;top:-96px}
+.hero::before{content:'';position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.07);left:-56px;bottom:-86px}
+.hero .wrap{position:relative;z-index:1}
+.hr-top{display:flex;align-items:center;gap:10px}
+.mark{
+  width:38px;height:38px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);
+  font-weight:800;font-size:17px;backdrop-filter:blur(6px);
 }
-.brand h1{font-size:17px;margin:0;letter-spacing:.3px;font-weight:800}
-.brand p{margin:1px 0 0;font-size:11.5px;color:var(--sub);letter-spacing:.2px}
+.bt h1{margin:0;font-size:18px;font-weight:800;letter-spacing:.4px;line-height:1.25}
+.bt p{margin:1px 0 0;font-size:11px;opacity:.8;letter-spacing:.3px}
+.me-pill{
+  margin-left:auto;display:flex;align-items:center;gap:5px;max-width:44%;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.24);
+  border-radius:999px;padding:5px 10px;font-size:11.5px;font-weight:700;
+  white-space:nowrap;overflow:hidden;
+}
+.me-pill span{overflow:hidden;text-overflow:ellipsis}
+.me-pill:active{background:rgba(255,255,255,.26)}
 .quip{
-  margin-top:10px;font-size:12.5px;color:#3d5548;background:var(--brand-soft);
-  border-radius:10px;padding:8px 11px;line-height:1.5;
+  margin-top:12px;font-size:12px;line-height:1.55;color:#EAFBF4;
+  background:rgba(255,255,255,.12);border-left:2.5px solid rgba(255,255,255,.55);
+  border-radius:0 10px 10px 0;padding:8px 11px;
 }
-.quip b{color:var(--brand-d)}
+.quip b{color:#fff;opacity:.75;font-weight:700;margin-right:4px}
+body[data-tab="rank"] .quip,body[data-tab="train"] .quip{display:none}
 
-.page{display:none;padding-top:14px;animation:fade .22s ease}
-.page.on{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* ---------- 页面 ---------- */
+.page{display:none;padding:16px 0 4px}
+.page.on{display:block;animation:up .26s cubic-bezier(.2,.8,.3,1)}
+@keyframes up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:12px}
-.lbl{display:block;font-size:12.5px;color:var(--sub);font-weight:600;margin-bottom:7px;letter-spacing:.2px}
-textarea{
-  width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;
+.card{background:var(--card);border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh);border:1px solid rgba(15,23,42,.025)}
+.lab{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:1px;color:#8A97A8;margin-bottom:10px}
+.lab::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.lab .r{margin-left:auto;letter-spacing:0;font-size:11px;color:#A3AEBE;font-weight:700}
+
+/* ---------- 控件 ---------- */
+textarea,.inp,select{
+  width:100%;border:1.5px solid var(--line);border-radius:var(--r2);padding:12px 13px;
   font-size:16px;line-height:1.6;font-family:inherit;color:var(--ink);
-  background:#fbfcfb;resize:vertical;min-height:88px;outline:none;transition:border-color .15s;
+  background:#FBFCFE;outline:none;transition:border-color .16s,box-shadow .16s,background .16s;
 }
-textarea:focus{border-color:var(--brand);background:#fff}
+textarea{min-height:92px;resize:vertical}
+textarea:focus,.inp:focus,select:focus{border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px rgba(14,159,110,.11)}
+select{font-size:14px;padding:10px 12px}
 .row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.row.tight{margin-top:0}
 .btn{
-  border:0;border-radius:11px;padding:11px 16px;font-size:14.5px;font-weight:700;
-  font-family:inherit;cursor:pointer;transition:transform .08s,opacity .15s;
+  border:0;border-radius:var(--r2);padding:13px 18px;font-size:15px;font-weight:800;
+  font-family:inherit;cursor:pointer;transition:transform .09s,box-shadow .18s,background .18s;
 }
-.btn:active{transform:scale(.97)}
-.btn.primary{background:var(--brand);color:#fff;flex:1;box-shadow:0 6px 16px rgba(15,138,95,.25)}
-.btn.ghost{background:#eef2f0;color:#41524a}
-.btn.small{padding:8px 12px;font-size:13px;border-radius:9px}
-select{
-  border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;
-  font-family:inherit;background:#fbfcfb;color:var(--ink);outline:none;
-}
+.btn:active{transform:scale(.975)}
+.btn.primary{background:linear-gradient(135deg,#13BE86,#0A7F58);color:#fff;flex:1;box-shadow:0 10px 22px -12px rgba(14,159,110,.95)}
+.btn.ghost{background:#EEF2F7;color:#3D4C61}
+.btn.sm{padding:9px 13px;font-size:13px;border-radius:11px}
+.btn.tiny{padding:6px 9px;font-size:11.5px;border-radius:9px;font-weight:800;background:#EEF2F7;color:#4A5A6E}
+.btn.tiny.warn{background:var(--red-soft);color:#A81238}
+.btn.tiny.ok{background:var(--brand-soft);color:var(--brand2)}
+.btn[disabled]{opacity:.5;pointer-events:none}
 
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
 .chip{
-  background:#fff;border:1px solid var(--line);border-radius:999px;
-  padding:6px 12px;font-size:12.5px;color:#42544b;cursor:pointer;white-space:nowrap;
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;
+  font-size:12.5px;color:#42544B;cursor:pointer;white-space:nowrap;box-shadow:var(--sh-sm);
 }
-.chip:active{background:var(--brand-soft);border-color:#b9e0cf}
+.chip:active{background:var(--brand-soft);border-color:#BDE8D5;color:var(--brand2)}
 
-/* 场景卡 */
-.scene{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
-.sc-head{padding:13px 14px 11px;border-bottom:1px dashed var(--line)}
-.tag{
-  display:inline-block;font-size:11px;font-weight:700;color:var(--brand-d);
-  background:var(--brand-soft);border-radius:6px;padding:2px 7px;margin-bottom:6px;letter-spacing:.3px;
-}
-.sc-head h3{margin:0;font-size:15.5px;line-height:1.45;font-weight:800}
-.match{float:right;font-size:11px;color:var(--gold);font-weight:700}
-.sec{padding:11px 14px;border-bottom:1px solid #f2f5f3}
-.sec:last-child{border-bottom:0}
-.sec-t{font-size:11.5px;font-weight:800;color:var(--sub);letter-spacing:.6px;margin-bottom:6px}
-.sec p{margin:0;font-size:14.2px;line-height:1.66}
-.sec.why{background:#f7faf8}
-.sec.why p{font-size:13.6px;color:#3b4f45}
-.sec.bad{background:#fdf8f7}
-.sec.bad ul{margin:0;padding-left:18px;font-size:13.4px;color:#8a3b34}
-.sec.bad li{margin:2px 0}
-.reply{position:relative;background:#f6f9f7;border:1px solid #e7efeb;border-radius:11px;padding:10px 11px;margin-bottom:8px}
+/* ---------- 场景卡 ---------- */
+.scene{background:#fff;border-radius:var(--r);overflow:hidden;margin-bottom:12px;box-shadow:var(--sh);border:1px solid rgba(15,23,42,.025)}
+.sc-head{padding:14px 15px 12px;background:linear-gradient(180deg,#FCFDFE,#F7FAFC)}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;color:var(--brand2);background:var(--brand-soft);border-radius:7px;padding:2.5px 8px;letter-spacing:.5px}
+.sc-head h3{margin:7px 0 0;font-size:16px;line-height:1.45;font-weight:800;letter-spacing:.2px}
+.match{float:right;font-size:10.5px;color:#B07A00;background:var(--gold-soft);border-radius:6px;padding:2px 7px;font-weight:800}
+.sec{padding:13px 15px;border-top:1px solid #F3F6FA}
+.sec:first-of-type{border-top:0}
+.sec-t{font-size:11px;font-weight:800;color:#93A0B0;letter-spacing:.7px;margin-bottom:7px}
+.sec p{margin:0;font-size:14.2px;line-height:1.7;color:var(--ink2)}
+.sec.why{background:#F7FBF9}
+.sec.why p{font-size:13.4px;color:#33544A}
+.sec.bad{background:#FEF8F9}
+.sec.bad ul{margin:0;padding-left:0;list-style:none;font-size:13.3px;color:#8E3049}
+.sec.bad li{position:relative;padding-left:15px;margin:3px 0;line-height:1.6}
+.sec.bad li::before{content:'×';position:absolute;left:0;color:#D9637F;font-weight:800}
+.reply{position:relative;background:#F8FBF9;border:1px solid #E6F0EA;border-radius:13px;padding:11px 12px;margin-bottom:8px}
 .reply:last-child{margin-bottom:0}
-.rk{font-size:11px;font-weight:800;color:var(--brand-d);letter-spacing:.4px;margin-bottom:3px;padding-right:58px}
-.reply p{font-size:14.2px;margin:0}
+.rk-k{font-size:10.5px;font-weight:800;color:var(--brand2);letter-spacing:.5px;margin-bottom:4px;padding-right:60px}
+.reply p{margin:0;font-size:14.2px}
 .copy{
-  position:absolute;right:7px;top:6px;border:0;background:var(--brand);color:#fff;
-  font-size:11.5px;font-weight:700;border-radius:8px;padding:5px 9px;cursor:pointer;font-family:inherit;
+  position:absolute;right:7px;top:7px;border:0;border-radius:9px;padding:6px 10px;
+  background:linear-gradient(135deg,#13BE86,#0A7F58);color:#fff;font-size:11px;font-weight:800;
+  font-family:inherit;cursor:pointer;box-shadow:0 6px 14px -8px rgba(14,159,110,.9);
 }
-.copy:active{background:var(--brand-d)}
-.advice{margin:0 0 12px;font-size:12.5px;color:var(--sub);line-height:1.6;padding:0 4px}
+.copy:active{transform:scale(.95)}
+.stepline{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #F2F6FA}
+.stepline:last-child{border-bottom:0}
+.sn{width:22px;height:22px;flex:none;border-radius:8px;background:var(--brand-soft);color:var(--brand2);font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.stepline b{display:block;font-size:13.8px;font-weight:800;line-height:1.4}
+.stepline em{font-style:normal;font-size:12.3px;color:var(--sub);line-height:1.5}
+.hotrow{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid #F2F6FA;font-size:13.5px;cursor:pointer}
+.hotrow:last-child{border-bottom:0}
+.hotrow .em{font-size:15px;width:22px;text-align:center}
+.hotrow .ar{margin-left:auto;color:#C3CCD8;font-size:16px}
+.hotrow:active{background:#F7FAFC}
+.advice{margin:0 0 12px;font-size:12.3px;color:var(--sub);line-height:1.6;padding:0 3px}
+.empty{background:#fff;border-radius:var(--r);padding:20px 16px;text-align:center;color:var(--sub);font-size:13.5px;box-shadow:var(--sh);line-height:1.75}
+.empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:7px}
 
-/* 空状态 */
-.empty{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px 14px;text-align:center;color:var(--sub);font-size:13.5px}
-.empty b{color:var(--ink);display:block;font-size:14.5px;margin-bottom:6px}
-
-/* 训练场 */
+/* ---------- 训练场 ---------- */
 .buyer{
-  background:#e9f3ee;border-radius:14px 14px 14px 4px;padding:12px 14px;margin:10px 0 12px;
-  font-size:15.5px;line-height:1.6;color:#17352a;position:relative;
+  background:linear-gradient(135deg,#EAF8F1,#E3F4EC);border:1px solid #D5EDE2;
+  border-radius:16px 16px 16px 5px;padding:13px 15px;margin:11px 0 13px;
+  font-size:15.5px;line-height:1.65;color:#123B2C;font-weight:600;
 }
-.buyer .who{font-size:11px;color:#4e7a66;font-weight:800;letter-spacing:.5px;margin-bottom:4px}
-.trainbar{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub)}
-.trainbar b{color:var(--brand-d)}
-
-.scorecard{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:12px}
+.buyer .who{font-size:10.5px;color:#5A8574;font-weight:800;letter-spacing:.6px;margin-bottom:5px}
+.tbar{display:flex;justify-content:space-between;align-items:center;font-size:12.3px;color:var(--sub);gap:8px}
+.tbar b{color:var(--brand2)}
+.scorecard{display:flex;gap:15px;align-items:center;background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
 .ring{
-  --p:0;width:78px;height:78px;flex:none;border-radius:50%;
-  background:conic-gradient(var(--brand) calc(var(--p)*1%),#e8eeeb 0);
+  --p:0;width:82px;height:82px;flex:none;border-radius:50%;
+  background:conic-gradient(from -90deg,#13BE86 calc(var(--p)*1%),#EAF0F4 0);
   display:flex;align-items:center;justify-content:center;position:relative;
 }
-.ring::after{content:'';position:absolute;inset:7px;background:#fff;border-radius:50%}
-.ring span{position:relative;z-index:1;font-size:23px;font-weight:800;color:var(--brand-d)}
-.ring.low{background:conic-gradient(var(--gold) calc(var(--p)*1%),#e8eeeb 0)}
-.ring.low span{color:#a86b00}
-.ring.worst{background:conic-gradient(var(--red) calc(var(--p)*1%),#e8eeeb 0)}
-.ring.worst span{color:#a52f24}
+.ring::after{content:'';position:absolute;inset:8px;background:#fff;border-radius:50%}
+.ring span{position:relative;z-index:1;font-size:24px;font-weight:800;color:var(--brand2);letter-spacing:-.5px}
+.ring.low{background:conic-gradient(from -90deg,#F5A524 calc(var(--p)*1%),#EAF0F4 0)}
+.ring.low span{color:#A86B00}
+.ring.worst{background:conic-gradient(from -90deg,#E11D48 calc(var(--p)*1%),#EAF0F4 0)}
+.ring.worst span{color:#B01238}
 .sinfo{flex:1;min-width:0}
-.grade{font-size:15.5px;font-weight:800;margin-bottom:4px}
-.kv{font-size:12.5px;line-height:1.6;margin:2px 0;color:#3d5148}
-.kv.good{color:var(--brand-d)}
-.kv.warn{color:#a86b00}
-.kv.err{color:#a52f24}
+.grade{font-size:15.5px;font-weight:800;margin-bottom:5px}
+.kv{font-size:12.5px;line-height:1.65;margin:3px 0;color:#44566C}
+.kv.good{color:var(--brand2)}
+.kv.warn{color:#A86B00}
+.kv.err{color:#AB1236}
 
-/* 库 */
-.subtabs{display:flex;gap:6px;background:#e9eeeb;border-radius:12px;padding:4px;margin-bottom:13px}
-.subtabs button{
-  flex:1;border:0;background:transparent;padding:8px 4px;border-radius:9px;
-  font-size:13px;font-weight:700;color:#5a6b62;font-family:inherit;cursor:pointer;
-}
-.subtabs button.on{background:#fff;color:var(--brand-d);box-shadow:0 1px 4px rgba(0,0,0,.07)}
-details.sc{background:#fff;border-radius:13px;box-shadow:var(--sh);margin-bottom:9px;overflow:hidden}
-details.sc summary{
-  list-style:none;padding:12px 14px;cursor:pointer;font-size:14.5px;font-weight:700;
-  display:flex;align-items:center;gap:8px;
-}
-details.sc summary::-webkit-details-marker{display:none}
-details.sc summary::after{content:'›';margin-left:auto;color:#a9b6ae;font-size:20px;transition:transform .18s}
-details.sc[open] summary::after{transform:rotate(90deg)}
-.catrow{font-size:12px;font-weight:800;color:var(--sub);letter-spacing:1px;margin:16px 4px 8px}
-.pcard{background:#fff;border-radius:13px;box-shadow:var(--sh);padding:13px 14px;margin-bottom:10px}
-.pcard .book{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.4px}
-.pcard h4{margin:3px 0 7px;font-size:15px;font-weight:800}
-.pcard .d{font-size:13.4px;color:#3d5148;margin:0 0 8px}
-.pcard .u{font-size:13.4px;color:#26382f;margin:0 0 8px;padding-left:10px;border-left:2.5px solid var(--brand-soft)}
-.pcard .say{font-size:13.2px;background:var(--brand-soft);color:#0d5b41;border-radius:9px;padding:8px 10px;line-height:1.55}
-.pcard .say b{font-size:10.5px;letter-spacing:.5px;display:block;margin-bottom:2px;color:#3d8a6d}
-.num{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand-d);
-  font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
-.li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f0f4f1;font-size:13.8px}
-.li:last-child{border-bottom:0}
-.red{background:var(--red-soft);color:#8a2f26;font-size:13.2px;border-radius:10px;padding:9px 11px;margin-bottom:8px;line-height:1.6}
+/* ---------- 榜单 ---------- */
+.seg{display:flex;background:#EDF1F6;border-radius:13px;padding:4px;margin-bottom:13px}
+.seg button{flex:1;border:0;background:transparent;padding:9px 4px;border-radius:10px;font-size:13.5px;font-weight:800;color:#65758A;font-family:inherit;cursor:pointer;transition:.16s}
+.seg button.on{background:#fff;color:var(--brand2);box-shadow:0 2px 8px -4px rgba(15,23,42,.35)}
 
-/* 计算器 */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.field label{display:block;font-size:12px;color:var(--sub);font-weight:700;margin-bottom:4px}
-.field input{
-  width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:16px;
-  font-family:inherit;background:#fbfcfb;outline:none;color:var(--ink);
-}
-.field input:focus{border-color:var(--brand);background:#fff}
-.priceout{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.pbox{background:#f7faf8;border-radius:11px;padding:9px 8px;text-align:center}
-.pbox .n{font-size:9.5px;color:var(--sub);font-weight:800;letter-spacing:.3px}
-.pbox .v{font-size:19px;font-weight:800;color:var(--ink);line-height:1.3}
-.pbox.hi{background:var(--brand-soft)}
-.pbox.hi .v{color:var(--brand-d)}
-.pbox.mid{background:var(--gold-soft)}
-.pbox.mid .v{color:#a06a00}
-input[type=checkbox]{width:17px;height:17px;accent-color:var(--brand);margin-right:5px;vertical-align:-3px}
-.ckwrap{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;color:#33453c;margin-top:4px}
-.out{background:#0f1a15;color:#d7f0e5;border-radius:12px;padding:12px;font-size:12.8px;line-height:1.75;
-  white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Menlo,Consolas,"PingFang SC",monospace;margin-top:11px}
-.statline{display:flex;justify-content:space-between;font-size:13.4px;padding:7px 0;border-bottom:1px solid #f0f4f1}
-.statline:last-child{border-bottom:0}
-.statline b{color:var(--brand-d)}
+.podium{display:grid;grid-template-columns:1fr 1.18fr 1fr;gap:8px;align-items:end;margin:4px 0 16px}
+.pod{position:relative;background:#fff;border-radius:18px;padding:14px 8px 11px;text-align:center;box-shadow:var(--sh);border:1px solid rgba(15,23,42,.03)}
+.pod .av{width:44px;height:44px;margin:0 auto 8px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff}
+.pod .nm{font-size:12.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pod .pt{font-size:15px;font-weight:800;color:var(--brand2);margin-top:3px}
+.pod .pt i{font-size:9.5px;color:var(--sub);font-style:normal;margin-left:1px}
+.pod .crown{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:19px;line-height:1}
+.pod.p1{background:linear-gradient(180deg,#FFFBF0,#fff);border-color:#F6E3B8;padding-top:18px}
+.pod.p1 .av{width:56px;height:56px;font-size:20px;background:linear-gradient(135deg,#FFD54A,#E9A100);box-shadow:0 8px 18px -9px rgba(233,161,0,.95)}
+.pod.p1 .pt{font-size:18px}
+.pod.p2 .av{background:linear-gradient(135deg,#C9D4E1,#8B9AAF)}
+.pod.p3 .av{background:linear-gradient(135deg,#F0B584,#C77B44)}
 
-/* 排行榜 */
-.ladder{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}
-.lad{background:#f7faf8;border-radius:10px;padding:8px 5px;text-align:center;border:1.5px solid transparent}
-.lad b{display:block;font-size:11.5px;color:var(--brand-d);letter-spacing:.5px}
-.lad span{display:block;font-size:13.5px;font-weight:800;margin:1px 0}
-.lad i{font-size:10.5px;color:var(--sub);font-style:normal}
-.lad.on{background:var(--brand-soft);border-color:#bfe3d3;box-shadow:0 4px 10px rgba(15,138,95,.12)}
-.mblock{border-bottom:1px solid #f0f4f1}
-.mblock:last-child{border-bottom:0}
-.mrow{display:flex;align-items:center;gap:8px;padding:10px 0}
-.mr-pos{width:24px;flex:none;text-align:center;font-size:14px;font-weight:800;color:#9aa8a1}
-.mr-main{flex:1;min-width:0}
-.mr-name{font-size:14.5px;font-weight:800;display:flex;align-items:center;gap:5px;flex-wrap:wrap;line-height:1.5}
-.mr-sub{font-size:11.3px;color:var(--sub);margin-top:2px;line-height:1.45}
-.mr-pts{font-size:17px;font-weight:800;color:var(--brand-d);white-space:nowrap}
-.mr-pts span{font-size:10px;color:var(--sub);font-weight:600;margin-left:1px}
-.lvl{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:.2px;white-space:nowrap}
-.lv1{background:#eef1f0;color:#5d6b64}
-.lv2{background:#e7f0ff;color:#2b5fa8}
-.lv3{background:var(--brand-soft);color:var(--brand-d)}
-.lv4{background:#f1e9ff;color:#6b3fb0}
-.lv5{background:#fdeee0;color:#a55a00}
-.lv6{background:linear-gradient(135deg,#f8d97a,#e3ac12);color:#544000}
-.lvx{background:#141a17;color:#ffd60a}
-.mini{background:#eef2f0;border:0;border-radius:7px;padding:6px 7px;font-size:11px;font-weight:800;font-family:inherit;color:#41524a;cursor:pointer}
-.mini:active{background:#dde5e1}
-.mr-act{display:flex;gap:3px;flex:none}
-.editform{display:none;padding:0 0 12px 32px}
+.rowm{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #F2F6FA}
+.rowm:last-child{border-bottom:0}
+.rkn{width:20px;flex:none;text-align:center;font-size:12.5px;font-weight:800;color:#A9B4C4}
+.av2{width:36px;height:36px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:800;color:#fff}
+.rinfo{flex:1;min-width:0}
+.rname{display:flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:14.3px;font-weight:800;line-height:1.4}
+.rsub{font-size:10.8px;color:var(--sub);margin-top:2px;line-height:1.45}
+.rpts{font-size:16.5px;font-weight:800;color:var(--brand2);white-space:nowrap;letter-spacing:-.3px}
+.rpts i{font-size:9.5px;color:var(--sub);font-style:normal;font-weight:700;margin-left:1px}
+.pg{height:4px;border-radius:99px;background:#EDF1F6;overflow:hidden;margin-top:6px}
+.pg i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#13BE86,#0A7F58);transition:width .5s}
+.bdg{font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;letter-spacing:.2px;white-space:nowrap}
+.lv1{background:#EEF2F6;color:#64748B}
+.lv2{background:#E8F0FE;color:#2B5FA8}
+.lv3{background:var(--brand-soft);color:var(--brand2)}
+.lv4{background:var(--violet-soft);color:#6B3FB0}
+.lv5{background:#FDEFE2;color:#A55A00}
+.lv6{background:linear-gradient(135deg,#FADB84,#E4AE15);color:#544000}
+.lvx{background:#0F172A;color:#FFD84A}
+.editform{display:none;padding:0 0 13px 32px}
 .editform.on{display:block}
-.padbox{border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:16px;font-family:inherit;background:#fbfcfb;outline:none;width:100%}
-.padbox:focus{border-color:var(--brand);background:#fff}
 
-/* 底部导航 */
-nav.tabs{
-  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
-  background:rgba(255,255,255,.96);backdrop-filter:blur(16px);
-  border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom));
+.me-card{background:linear-gradient(135deg,#0F172A,#1B2B43);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 14px 30px -18px rgba(11,20,35,.9);position:relative;overflow:hidden}
+.me-card::after{content:'';position:absolute;width:150px;height:150px;border-radius:50%;background:rgba(19,190,134,.18);right:-50px;top:-60px}
+.me-card .ml1{font-size:11px;letter-spacing:1px;color:#8FA3B8;font-weight:800}
+.me-card .mname{font-size:20px;font-weight:800;margin:3px 0 8px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.me-card .mstat{display:flex;gap:18px;font-size:12px;color:#B9C7D6}
+.me-card .mstat b{display:block;font-size:17px;color:#fff;font-weight:800;letter-spacing:-.3px}
+.me-card .pg{background:rgba(255,255,255,.14);margin-top:12px}
+.me-card .pg i{background:linear-gradient(90deg,#2EE0A5,#13BE86)}
+.me-card .ptip{font-size:11px;color:#9FB2C4;margin-top:6px}
+
+/* ---------- 库 ---------- */
+details.sc{background:#fff;border-radius:15px;margin-bottom:9px;overflow:hidden;box-shadow:var(--sh-sm);border:1px solid rgba(15,23,42,.025)}
+details.sc summary{list-style:none;padding:13px 14px;cursor:pointer;font-size:14.3px;font-weight:700;display:flex;align-items:center;gap:8px}
+details.sc summary::-webkit-details-marker{display:none}
+details.sc summary::after{content:'›';margin-left:auto;color:#B6C1CF;font-size:20px;transition:transform .18s}
+details.sc[open] summary::after{transform:rotate(90deg)}
+details.sc .scene{box-shadow:none;border:0;border-top:1px solid #F2F6FA;border-radius:0;margin:0}
+.catrow{font-size:11px;font-weight:800;color:#8A97A8;letter-spacing:1.2px;margin:18px 4px 9px}
+.pcard{background:#fff;border-radius:16px;padding:14px 15px;margin-bottom:10px;box-shadow:var(--sh-sm);border:1px solid rgba(15,23,42,.025)}
+.pcard .book{font-size:10px;font-weight:800;color:#B07A00;background:var(--gold-soft);border-radius:6px;padding:2px 7px;letter-spacing:.4px;display:inline-block}
+.pcard h4{margin:7px 0 8px;font-size:15.5px;font-weight:800}
+.pcard .d{font-size:13.3px;color:#44566C;margin:0 0 9px;line-height:1.6}
+.pcard .u{font-size:13.3px;color:#26382F;margin:0 0 9px;padding-left:11px;border-left:3px solid var(--brand-soft);line-height:1.6}
+.pcard .say{font-size:13.2px;background:#F3FAF7;color:#0D5B41;border-radius:11px;padding:9px 11px;line-height:1.6;border:1px solid #E3F1EA}
+.pcard .say b{font-size:9.5px;letter-spacing:.6px;display:block;margin-bottom:3px;color:#4C9377;font-weight:800}
+.num{width:27px;height:27px;border-radius:9px;background:var(--brand-soft);color:var(--brand2);font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.li{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #F2F6FA;font-size:13.8px}
+.li:last-child{border-bottom:0}
+.red{background:var(--red-soft);color:#8A2F3F;font-size:13.2px;border-radius:12px;padding:10px 12px;margin-bottom:8px;line-height:1.6;border:1px solid #FBDDE5}
+
+/* ---------- 工具 ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.field label{display:block;font-size:11.5px;color:var(--sub);font-weight:700;margin-bottom:5px;letter-spacing:.2px}
+.field .inp{padding:11px 12px}
+.priceout{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.pbox{background:#F7FAFD;border-radius:13px;padding:10px 8px;text-align:center;border:1px solid #EFF3F8}
+.pbox .n{font-size:9.5px;color:var(--sub);font-weight:800;letter-spacing:.4px}
+.pbox .v{font-size:19px;font-weight:800;line-height:1.35;letter-spacing:-.5px}
+.pbox.hi{background:var(--brand-soft);border-color:#CDEBDD}
+.pbox.hi .v{color:var(--brand2)}
+.pbox.mid{background:var(--gold-soft);border-color:#F8E6C4}
+.pbox.mid .v{color:#A06A00}
+input[type=checkbox]{width:17px;height:17px;accent-color:var(--brand);margin-right:5px;vertical-align:-3px}
+.ckwrap{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:13.2px;color:#33453C;margin-top:4px}
+.out{background:#0F172A;color:#CFEFE2;border-radius:13px;padding:13px;font-size:12.6px;line-height:1.8;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Menlo,Consolas,"PingFang SC",monospace;margin-top:12px}
+.statline{display:flex;justify-content:space-between;font-size:13.3px;padding:8px 0;border-bottom:1px solid #F2F6FA}
+.statline:last-child{border-bottom:0}
+.statline b{color:var(--brand2)}
+.note{font-size:12.2px;color:var(--sub);line-height:1.7;margin:10px 0 0}
+.note b{color:var(--ink2)}
+
+/* ---------- 底部导航 ---------- */
+.tabs{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:2px;
+  background:rgba(255,255,255,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+  box-shadow:0 -10px 28px -22px rgba(15,23,42,.6);
 }
-nav.tabs button{
-  flex:1;border:0;background:transparent;font-family:inherit;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;color:#9aa8a1;
+.tabs button{
+  flex:1;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:6px 0;border-radius:13px;color:#8E9AAA;font-family:inherit;cursor:pointer;transition:.18s;
 }
-nav.tabs button .ic{font-size:19px;line-height:1;filter:grayscale(1);opacity:.65}
-nav.tabs button .tx{font-size:10.5px;font-weight:700;letter-spacing:.3px}
-nav.tabs button.on{color:var(--brand-d)}
-nav.tabs button.on .ic{filter:none;opacity:1}
+.tabs button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.85;stroke-linecap:round;stroke-linejoin:round}
+.tabs button span{font-size:10px;font-weight:700;letter-spacing:.2px}
+.tabs button.on{color:var(--brand2);background:var(--brand-soft)}
+.tabs button.on svg{stroke-width:2.2}
 
 #toast{
-  position:fixed;left:50%;bottom:96px;transform:translate(-50%,16px);
-  background:rgba(18,26,22,.94);color:#fff;font-size:13.5px;font-weight:600;
-  padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;
-  transition:opacity .2s,transform .2s;z-index:99;max-width:80vw;text-align:center;
+  position:fixed;left:50%;bottom:104px;transform:translate(-50%,14px);
+  background:rgba(15,23,42,.95);color:#fff;font-size:13.2px;font-weight:600;
+  padding:11px 18px;border-radius:999px;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;z-index:99;max-width:82vw;text-align:center;
+  box-shadow:0 12px 28px -12px rgba(0,0,0,.6);
 }
 #toast.on{opacity:1;transform:translate(-50%,0)}
-footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;line-height:1.7}
+
+footer.ft{text-align:center;font-size:11.2px;color:#A9B4C4;padding:18px 0 8px;line-height:1.8}
 </style>
 </head>
-<body>
+<body data-tab="ask">
 
-<header class="top">
-  <div class="wrap">
-    <div class="brand">
-      <div class="logo">电</div>
-      <div>
+<div class="hero">
+  <div class="wrap hero-in">
+    <div class="hr-top">
+      <div class="mark">电</div>
+      <div class="bt">
         <h1>卖车话术教练</h1>
-        <p>闲鱼 · 学生分销专用 · 45 场景 / 29 原理 / 六级段位</p>
+        <p>闲鱼分销 · 45 场景 · 29 原理 · 六级段位</p>
       </div>
+      <div class="me-pill" id="mePill" style="display:none"></div>
     </div>
     <div class="quip" id="quip"></div>
   </div>
-</header>
+</div>
 
-<div class="wrap">
+<main class="wrap">
 
-<!-- ========== 查话术 ========== -->
+<!-- ============ 查话术 ============ -->
 <section class="page on" id="page-ask">
   <div class="card">
-    <label class="lbl">把买家说的话粘进来（整段聊天也行）</label>
-    <textarea id="askInput" placeholder="例如：老板这个车还在吗？电池还能跑多远？能便宜点不？"></textarea>
+    <div class="lab">买家说了什么</div>
+    <textarea id="askInput" placeholder="把买家的话粘进来，整段聊天也行&#10;例：老板这车还在吗？电池还能跑多远？能便宜点不"></textarea>
     <div class="row">
       <button class="btn primary" id="btnAsk">给我回复 →</button>
-      <button class="btn ghost small" id="btnPaste">粘贴</button>
-      <button class="btn ghost small" id="btnClear">清空</button>
+      <button class="btn ghost sm" id="btnPaste">粘贴</button>
+      <button class="btn ghost sm" id="btnClear">清空</button>
     </div>
   </div>
   <div class="chips" id="chips"></div>
+  <div id="askIntro">
+    <div class="card">
+      <div class="lab">三步用法</div>
+      <div class="stepline"><span class="sn">1</span><div><b>粘对话</b><em>买家说什么就粘什么，整段聊天也行</em></div></div>
+      <div class="stepline"><span class="sn">2</span><div><b>看回复</b><em>每条话术下面都写了为什么这么说</em></div></div>
+      <div class="stepline"><span class="sn">3</span><div><b>复制发出去</b><em>把【】换成你的实数，别照抄</em></div></div>
+    </div>
+    <div class="card">
+      <div class="lab">今天最常被问</div>
+      <div id="hotList"></div>
+    </div>
+  </div>
   <div id="askResult"></div>
 </section>
 
-<!-- ========== 训练场 ========== -->
+<!-- ============ 训练场 ============ -->
 <section class="page" id="page-train">
   <div class="card">
-    <div class="trainbar">
+    <div class="tbar">
       <span>出题方式
-        <select id="trainCat" style="margin-left:6px">
-          <option value="all">混合出题</option>
-        </select>
+        <select id="trainCat" style="width:auto;margin-left:6px"></select>
       </span>
       <span id="trainStat">已练 <b>0</b> 题</span>
     </div>
     <div class="buyer">
-      <div class="who">买家发来 · 你要怎么回？</div>
+      <div class="who">买家发来 · 你会怎么回</div>
       <div id="trainQ">…</div>
     </div>
-    <textarea id="trainA" placeholder="先自己写一句，写完再点评分。看完再写＝白练。"></textarea>
+    <textarea id="trainA" placeholder="先自己写，写完再看教练版。先看＝白练。"></textarea>
     <div class="row">
       <button class="btn primary" id="btnScore">提交评分</button>
-      <button class="btn ghost small" id="btnSkip">换一题</button>
+      <button class="btn ghost sm" id="btnSkip">换一题</button>
     </div>
-    <p class="advice" style="margin:10px 0 0">提示：写清楚「给什么信息 + 为什么 + 下一步」，分数自然高。</p>
   </div>
   <div id="trainResult"></div>
   <div class="card" id="reviewCard" style="display:none">
-    <div class="sec-t">今日复习（错过的题，隔天再来一遍）</div>
-    <p style="font-size:13.5px;margin:0 0 10px;color:#3d5148" id="reviewTxt"></p>
-    <button class="btn ghost small" id="btnReview">开始复习</button>
+    <div class="lab">今日复习</div>
+    <p class="note" id="reviewTxt" style="margin:0 0 10px"></p>
+    <button class="btn ghost sm" id="btnReview">开始复习</button>
   </div>
 </section>
 
-<!-- ========== 榜单 ========== -->
+<!-- ============ 榜单 ============ -->
 <section class="page" id="page-rank">
-  <div class="quip" id="shareBanner" style="display:none;margin-bottom:12px"></div>
+  <div id="authBox"></div>
+  <div id="meBox"></div>
   <div class="card">
-    <div class="sec-t">等级阶梯（一至六级 · 老板在三级）</div>
-    <div class="ladder" id="ladder"></div>
-    <p class="advice" id="ladderTip" style="margin:9px 0 0"></p>
+    <div class="lab">积分榜<span class="r">满级 六级 · 宗师</span></div>
+    <div class="podium" id="podium"></div>
+    <div id="boardList"></div>
   </div>
-  <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:baseline">
-      <div class="sec-t" style="margin:0">积分排行榜</div>
-      <span id="boardCount" style="font-size:11.5px;color:#98a69f;font-weight:700"></span>
-    </div>
-    <div id="boardList" style="margin-top:2px"></div>
-  </div>
+  <div id="adminBox"></div>
   <details class="card" style="padding:0">
-    <summary style="padding:13px 14px;cursor:pointer;font-size:12.5px;font-weight:800;color:var(--sub);letter-spacing:.5px;list-style:none">积分规则（老板按这个加减分）</summary>
-    <div style="padding:0 14px 14px" id="ptsRules"></div>
+    <summary style="padding:14px 16px;cursor:pointer;font-size:11px;font-weight:800;color:#8A97A8;letter-spacing:1px;list-style:none">加分参考 · 段位权益</summary>
+    <div style="padding:0 16px 16px" id="ptsRules"></div>
   </details>
-  <div class="card" id="adminBox"></div>
 </section>
 
-<!-- ========== 话术库 ========== -->
+<!-- ============ 话术库 ============ -->
 <section class="page" id="page-lib">
-  <div class="subtabs">
+  <div class="seg">
     <button data-lib="scenes" class="on">场景库</button>
     <button data-lib="prin">原理卡</button>
     <button data-lib="list">SOP·红线</button>
@@ -342,34 +387,36 @@ footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;li
   <div id="libList" style="display:none"></div>
 </section>
 
-<!-- ========== 我的 ========== -->
+<!-- ============ 我的 ============ -->
 <section class="page" id="page-me">
+  <div id="accBox"></div>
+
   <div class="card">
-    <div class="sec-t">定价计算器（留 12% 砍价空间）</div>
+    <div class="lab">定价计算器<span class="r">留 12% 砍价空间</span></div>
     <div class="grid2">
-      <div class="field"><label>收车成本</label><input id="cCost" type="number" inputmode="numeric" value="700"></div>
-      <div class="field"><label>整备成本（换件/清洗）</label><input id="cPrep" type="number" inputmode="numeric" value="50"></div>
-      <div class="field"><label>想赚多少</label><input id="cProfit" type="number" inputmode="numeric" value="250"></div>
-      <div class="field"><label>砍价空间 %</label><input id="cPad" type="number" inputmode="numeric" value="12"></div>
+      <div class="field"><label>收车成本</label><input class="inp" id="cCost" type="number" inputmode="numeric" value="700"></div>
+      <div class="field"><label>整备成本</label><input class="inp" id="cPrep" type="number" inputmode="numeric" value="50"></div>
+      <div class="field"><label>想赚多少</label><input class="inp" id="cProfit" type="number" inputmode="numeric" value="250"></div>
+      <div class="field"><label>砍价空间 %</label><input class="inp" id="cPad" type="number" inputmode="numeric" value="12"></div>
     </div>
     <div class="priceout">
       <div class="pbox mid"><div class="n">挂牌价</div><div class="v" id="pList">—</div></div>
       <div class="pbox hi"><div class="n">目标成交</div><div class="v" id="pTarget">—</div></div>
-      <div class="pbox"><div class="n">底线（不破）</div><div class="v" id="pFloor">—</div></div>
+      <div class="pbox"><div class="n">底线</div><div class="v" id="pFloor">—</div></div>
     </div>
-    <p class="advice" style="margin:9px 0 0">挂牌价尾数用 99，显得算过账；底线价只写在心里。</p>
+    <p class="note">挂牌尾数用 99，显得算过账；底线只写在心里，不写嘴上。</p>
   </div>
 
   <div class="card">
-    <div class="sec-t">闲鱼标题 / 文案生成器</div>
+    <div class="lab">闲鱼标题 · 文案生成</div>
     <div class="grid2">
-      <div class="field"><label>车型</label><input id="tModel" placeholder="爱玛小乔 / 雅迪DE2"></div>
-      <div class="field"><label>电池</label><input id="tBatt" placeholder="48V20Ah锂电"></div>
-      <div class="field"><label>实测续航 km</label><input id="tRange" type="number" inputmode="numeric" placeholder="40"></div>
-      <div class="field"><label>价格</label><input id="tPrice" type="number" inputmode="numeric" placeholder="1150"></div>
+      <div class="field"><label>车型</label><input class="inp" id="tModel" placeholder="爱玛小乔"></div>
+      <div class="field"><label>电池</label><input class="inp" id="tBatt" placeholder="48V20Ah锂电"></div>
+      <div class="field"><label>实测续航 km</label><input class="inp" id="tRange" type="number" inputmode="numeric" placeholder="40"></div>
+      <div class="field"><label>价格</label><input class="inp" id="tPrice" type="number" inputmode="numeric" placeholder="1150"></div>
     </div>
-    <div class="field" style="margin-top:9px"><label>位置（校区/小区）</label><input id="tLoc" placeholder="银杏学院红光校区"></div>
-    <div class="ckwrap" style="margin-top:10px">
+    <div class="field" style="margin-top:9px"><label>位置</label><input class="inp" id="tLoc" placeholder="银杏学院红光校区"></div>
+    <div class="ckwrap" style="margin-top:11px">
       <label><input type="checkbox" class="tExtra" value="手续齐全可上牌" checked>手续齐全可上牌</label>
       <label><input type="checkbox" class="tExtra" value="电池去年新换">电池去年新换</label>
       <label><input type="checkbox" class="tExtra" value="学生自用无事故">学生自用无事故</label>
@@ -381,42 +428,55 @@ footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;li
   </div>
 
   <div class="card">
-    <div class="sec-t">训练数据（存在这台手机上）</div>
+    <div class="lab">我的练习数据</div>
     <div class="statline"><span>练过的题</span><b id="stCount">0</b></div>
     <div class="statline"><span>平均分</span><b id="stAvg">0</b></div>
     <div class="statline"><span>错题本</span><b id="stWrong">0</b></div>
-    <div class="statline"><span>掌握度（70分以上占比）</span><b id="stMaster">0%</b></div>
-    <div class="row" style="margin-top:12px">
-      <button class="btn ghost small" id="btnExport">导出备份</button>
-      <button class="btn ghost small" id="btnImport">导入备份</button>
-      <button class="btn ghost small" id="btnReset" style="color:#a52f24">清空重来</button>
+    <div class="statline"><span>掌握度（≥70分）</span><b id="stMaster">0%</b></div>
+    <div class="row">
+      <button class="btn ghost sm" id="btnExport">导出备份</button>
+      <button class="btn ghost sm" id="btnImport">导入备份</button>
+      <button class="btn ghost sm" id="btnReset" style="color:#AB1236">清空练习</button>
     </div>
   </div>
 
   <div class="card">
-    <div class="sec-t">这套东西怎么来的</div>
-    <p style="font-size:13.4px;margin:0;color:#3d5148;line-height:1.7">
-      话术骨架来自四本书：《关键对话》给安全感，《影响力》《先发影响力》给说服路径，《影响力大师》给团队落地，训练机制用《认知天性》的检索练习＋间隔重复。《毛选》负责定方向——抓主要矛盾、不打无准备之仗、集中优势兵力打歼灭战。<br><br>
-      它不是让你背话术，是让你在被问住的时候，知道下一句该往哪走。
-    </p>
+    <div class="lab">云端同步（学生跨手机注册必须开）</div>
+    <div id="cloudBox"></div>
   </div>
-  <footer class="ft">卖车话术教练 · 数据只存在你手机本地<br>换手机先点“导出备份”</footer>
+
+  <footer class="ft">卖车话术教练 · 练习数据只存本机<br>账号数据在云端（未配置时只在本机有效）</footer>
 </section>
 
-</div>
+</main>
 
 <nav class="tabs">
-  <button data-tab="ask" class="on"><span class="ic">💬</span><span class="tx">查话术</span></button>
-  <button data-tab="train"><span class="ic">🎯</span><span class="tx">训练场</span></button>
-  <button data-tab="rank"><span class="ic">🏆</span><span class="tx">榜单</span></button>
-  <button data-tab="lib"><span class="ic">📚</span><span class="tx">话术库</span></button>
-  <button data-tab="me"><span class="ic">🧰</span><span class="tx">我的</span></button>
+  <button data-tab="ask" class="on">
+    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-3.9-.9L3 21l1.9-5a8.4 8.4 0 0 1-.9-3.6A8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+    <span>查话术</span>
+  </button>
+  <button data-tab="train">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg>
+    <span>训练场</span>
+  </button>
+  <button data-tab="rank">
+    <svg viewBox="0 0 24 24"><path d="M8 4h8v4.5a4 4 0 0 1-8 0V4z"/><path d="M8 5.2H5v1.6a3 3 0 0 0 3 3M16 5.2h3v1.6a3 3 0 0 1-3 3"/><path d="M12 12.5V17M9.5 20.5h5M10.5 20.5V17h3v3.5"/></svg>
+    <span>榜单</span>
+  </button>
+  <button data-tab="lib">
+    <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg>
+    <span>话术库</span>
+  </button>
+  <button data-tab="me">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.2a7.5 7.5 0 0 1 15 0"/></svg>
+    <span>我的</span>
+  </button>
 </nav>
 
 <div id="toast"></div>
 
 <script>
-/* ================= 数据 ================= */
+/* ==================== 数据 ==================== */
 const SCENES = [
 /* ===== 开场破冰 ===== */
 {
@@ -1106,49 +1166,229 @@ const QUIPS = [
  '真正会卖的人，话都不多，但每一句都在推进下一步。'
 ];
 
-/* ================= 基础 ================= */
+const LEVELS = [
+  { n:1, name:'见习', min:0,    right:'跟车学习、拍照整素材，不单独谈价' },
+  { n:2, name:'上路', min:100,  right:'独立接待看车，按挂牌价报价' },
+  { n:3, name:'教头', min:300,  right:'可带新人；底线之上可自主让价 50 以内' },
+  { n:4, name:'掌柜', min:600,  right:'可自主定价（成本线以上），可申请多台备车' },
+  { n:5, name:'合伙人', min:1000, right:'分成上浮 5%，可跨校区出货' },
+  { n:6, name:'宗师', min:2000, right:'拿分红、优先挑车、可带团队' }
+];
+const CN = ['','一','二','三','四','五','六'];
+// 积分只来自卖车，加多少由老板当场决定；下面只是参考档位
+const PTS_RULES = [
+  ['成交一单（学生自售）','+50'],
+  ['带新人成交一单','+30'],
+  ['客户五星好评截图','+10'],
+  ['月度销冠','+100'],
+  ['虚标续航 / 私下收款','−50'],
+  ['放鸽子 / 客户投诉','−20']
+];
+const ADMIN_NAME = '老板';
+const ADMIN_SALT = 'a1b2c3d4e5f60718';   // 与 SQL 里的管理员行一致
+const ADMIN_PASS = 'che1688';
+const AV_COLORS = ['#0E9F6E','#2B6CB0','#7C3AED','#E11D48','#F59E0B','#0891B2','#DB2777','#65A30D'];
+
+/* ==================== 基础 ==================== */
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
-const KEY = 'sy_coach_v1';
+const KEY = 'xy_coach_v3';
+const MKEY = 'xy_me_v3';
 
-let S = { trained: 0, total: 0, wrong: {}, seen: [], libTab: 'scenes', cur: null, cat: 'all' };
+let S = {
+  trained: 0, total: 0, ok: 0, wrong: {}, seen: [], cat: 'all',
+  users: [], cfg: { url: '', key: '' }, me: null, snapshot: null
+};
+let meHash = null;
 
 function load() {
+  try { const raw = localStorage.getItem(KEY); if (raw) Object.assign(S, JSON.parse(raw)); } catch (e) {}
   try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) { const o = JSON.parse(raw); Object.assign(S, o); }
+    const m = sessionStorage.getItem(MKEY);
+    if (m) { const o = JSON.parse(m); S.me = o.me; meHash = o.hash; }
   } catch (e) {}
 }
 function save() {
   try {
     const c = Object.assign({}, S);
-    delete c.snapshot;            // 只读榜单快照不写进本机
+    delete c.me; delete c.snapshot;
     localStorage.setItem(KEY, JSON.stringify(c));
   } catch (e) {}
+}
+function saveMe() {
+  try { sessionStorage.setItem(MKEY, JSON.stringify({ me: S.me, hash: meHash })); } catch (e) {}
 }
 function toast(msg) {
   const t = $('#toast');
   t.textContent = msg; t.classList.add('on');
-  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1600);
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1900);
 }
 function copyText(txt) {
+  const done = () => toast('已复制');
   if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(txt).then(() => toast('已复制，直接发给客户')).catch(() => fallbackCopy(txt));
-  } else fallbackCopy(txt);
+    navigator.clipboard.writeText(txt).then(done).catch(() => fb());
+  } else fb();
+  function fb() {
+    const ta = document.createElement('textarea');
+    ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) { toast('复制失败，长按文字手动选'); }
+    document.body.removeChild(ta);
+  }
 }
-function fallbackCopy(txt) {
-  const ta = document.createElement('textarea');
-  ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
-  document.body.appendChild(ta); ta.select();
-  try { document.execCommand('copy'); toast('已复制，直接发给客户'); }
-  catch (e) { toast('复制失败，长按文字手动选'); }
-  document.body.removeChild(ta);
+function esc(s) { return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escA(s) { return esc(s).replace(/"/g,'&quot;'); }
+function avColor(name) {
+  let h = 0; const s = String(name);
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 9973;
+  return AV_COLORS[h % AV_COLORS.length];
 }
-function esc(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function initial(name) { const s = String(name || '?').trim(); return s ? s.slice(0, 1) : '?'; }
+
+/* ==================== 密码 ==================== */
+function hexToBytes(hex) {
+  const a = new Uint8Array(hex.length / 2);
+  for (let i = 0; i < a.length; i++) a[i] = parseInt(hex.substr(i * 2, 2), 16);
+  return a;
+}
+function bytesToHex(b) { return Array.from(b).map(x => x.toString(16).padStart(2, '0')).join(''); }
+function makeSalt() {
+  const b = new Uint8Array(8);
+  (window.crypto || window.msCrypto).getRandomValues(b);
+  return bytesToHex(b);
+}
+async function pbkdf2(pass, saltHex) {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey('raw', enc.encode(pass), { name: 'PBKDF2' }, false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: hexToBytes(saltHex), iterations: 120000, hash: 'SHA-256' }, key, 256);
+  return bytesToHex(new Uint8Array(bits));
 }
 
-/* ================= 匹配 ================= */
+/* ==================== 账号校验 ==================== */
+function validName(n) {
+  n = (n || '').trim().replace(/\s+/g, ' ');
+  if (n.length < 2) return '名字至少 2 个字（真名或微信名）';
+  if (n.length > 12) return '名字最多 12 个字';
+  if (/^(\+?86)?1[3-9]\d{9}$/.test(n.replace(/[\s-]/g, ''))) return '只填真名或微信名，不用手机号';
+  if (/^\d{5,}$/.test(n)) return '不要填手机号或学号';
+  if (/\d{9,}/.test(n)) return '看起来是手机号，填真名或微信名';
+  if (/[|~!@"'<>\/\\]/.test(n)) return '名字里不要用特殊符号';
+  return '';
+}
+function validPass(p) {
+  if (!p || p.length < 6) return '密码至少 6 位';
+  if (p.length > 32) return '密码最多 32 位';
+  return '';
+}
+function lvlOf(u) {
+  if (u.level) return LEVELS[Math.min(6, Math.max(1, u.level)) - 1];
+  let cur = LEVELS[0];
+  LEVELS.forEach(L => { if (u.points >= L.min) cur = L; });
+  return cur;
+}
+function nextOf(u) {
+  if (u.level) return null;
+  return LEVELS[lvlOf(u).n] || null;
+}
+
+/* ==================== 存储层：本地 / 云端 ==================== */
+const Store = {
+  cloud() { return !!(S.cfg && S.cfg.url && S.cfg.key); },
+  base() { return String(S.cfg.url).replace(/\/+$/, ''); },
+  head() {
+    return { 'Content-Type': 'application/json', 'apikey': S.cfg.key, 'Authorization': 'Bearer ' + S.cfg.key };
+  },
+  async rpc(fn, body) {
+    const r = await fetch(this.base() + '/rest/v1/rpc/' + fn, {
+      method: 'POST', headers: this.head(), body: JSON.stringify(body || {})
+    });
+    const txt = await r.text();
+    if (!r.ok) {
+      let msg = txt;
+      try { const j = JSON.parse(txt); msg = j.message || j.hint || txt; } catch (e) {}
+      throw new Error(String(msg).replace(/^xy_[a-z_]+:\s*/i, ''));
+    }
+    if (!txt) return null;
+    try { return JSON.parse(txt); } catch (e) { return null; }
+  },
+  async list() {
+    if (!this.cloud()) return S.users.map(u => ({ id:u.id, username:u.username, level:u.level, points:u.points, role:u.role, note:u.note||'' }));
+    const r = await fetch(this.base() + '/rest/v1/xy_board?select=id,username,level,points,role,note', { headers: this.head() });
+    if (!r.ok) throw new Error('云端读取失败，检查 URL / anon key');
+    return await r.json();
+  },
+  async saltOf(name) {
+    if (!this.cloud()) {
+      const u = S.users.find(x => x.username.toLowerCase() === String(name).toLowerCase());
+      return u ? u.salt : null;
+    }
+    return await this.rpc('xy_salt', { p_user: name });
+  },
+  async register(name, salt, hash) {
+    if (!this.cloud()) {
+      if (S.users.some(x => x.username.toLowerCase() === String(name).toLowerCase())) throw new Error('这个名字已经有人用了');
+      const u = { id:'u' + Date.now(), username: name, salt: salt, hash: hash, level:0, points:0, role:'student', note:'' };
+      S.users.push(u); save();
+      return { id:u.id, username:u.username, level:0, points:0, role:'student' };
+    }
+    return await this.rpc('xy_register', { p_user: name, p_salt: salt, p_hash: hash });
+  },
+  async login(name, hash) {
+    if (!this.cloud()) {
+      const u = S.users.find(x => x.username.toLowerCase() === String(name).toLowerCase());
+      if (!u || u.hash !== hash) throw new Error('名字或密码不对');
+      return { id:u.id, username:u.username, level:u.level, points:u.points, role:u.role };
+    }
+    return await this.rpc('xy_login', { p_user: name, p_hash: hash });
+  },
+  async adminSet(id, points, level) {
+    if (!this.cloud()) {
+      const u = S.users.find(x => String(x.id) === String(id));
+      if (!u) throw new Error('用户不存在');
+      u.points = Math.max(0, points); u.level = level || 0; save();
+      return true;
+    }
+    await this.rpc('xy_admin_set', { p_admin: S.me.username, p_adminhash: meHash, p_id: id, p_points: points, p_level: level || 0 });
+    return true;
+  },
+  async adminDel(id) {
+    if (!this.cloud()) {
+      const u = S.users.find(x => String(x.id) === String(id));
+      if (!u) throw new Error('用户不存在');
+      if (u.role === 'admin') throw new Error('不能删除管理员');
+      S.users = S.users.filter(x => String(x.id) !== String(id)); save();
+      return true;
+    }
+    await this.rpc('xy_admin_del', { p_admin: S.me.username, p_adminhash: meHash, p_id: id });
+    return true;
+  },
+  async adminPass(id, salt, hash) {
+    if (!this.cloud()) {
+      const u = S.users.find(x => String(x.id) === String(id));
+      if (!u) throw new Error('用户不存在');
+      u.salt = salt; u.hash = hash; save();
+      return true;
+    }
+    await this.rpc('xy_admin_pass', { p_admin: S.me.username, p_adminhash: meHash, p_id: id, p_salt: salt, p_hash: hash });
+    return true;
+  },
+  async probe() {
+    const rows = await this.list();
+    return rows.length;
+  }
+};
+
+async function ensureAdmin() {
+  if (Store.cloud()) return;
+  if (S.users.some(u => u.role === 'admin')) return;
+  const salt = ADMIN_SALT;
+  const hash = await pbkdf2(ADMIN_PASS, salt);
+  S.users.push({ id:'admin', username:ADMIN_NAME, salt:salt, hash:hash, level:3, points:300, role:'admin', note:'老板' });
+  save();
+}
+
+/* ==================== 匹配 & 评分 ==================== */
 function matchScenes(text) {
   const q = String(text || '').replace(/\s+/g, '').replace(/[，。！？、,.!?~]/g, '');
   if (!q) return [];
@@ -1159,7 +1399,6 @@ function matchScenes(text) {
       const k = p.replace(/\s+/g, '');
       if (k && q.indexOf(k) >= 0) { sc += Math.min(14, 4 + k.length); hits.push(p); }
     });
-    // 标题里的核心词也算一层
     const tcore = s.t.replace(/[「」【】·—……：:]/g, '');
     if (tcore.length >= 4 && q.indexOf(tcore) >= 0) sc += 10;
     if (sc > 0) out.push({ s, sc, hits });
@@ -1167,53 +1406,44 @@ function matchScenes(text) {
   out.sort((a, b) => b.sc - a.sc);
   return out;
 }
-
-/* ================= 场景卡 ================= */
 function sceneCard(s, matchScore) {
   const reps = (s.r || []).map(x =>
-    '<div class="reply"><div class="rk">' + esc(x.k) + '</div><p>' + esc(x.x) + '</p><button class="copy">复制</button></div>'
+    '<div class="reply"><div class="rk-k">' + esc(x.k) + '</div><p>' + esc(x.x) + '</p><button class="copy">复制</button></div>'
   ).join('');
   const bad = (s.a || []).map(x => '<li>' + esc(x) + '</li>').join('');
   return '<div class="scene">' +
     '<div class="sc-head">' +
       (matchScore ? '<span class="match">匹配 ' + matchScore + '</span>' : '') +
-      '<span class="tag">' + esc(s.c) + '</span>' +
-      '<h3>' + esc(s.t) + '</h3>' +
+      '<span class="tag">' + esc(s.c) + '</span><h3>' + esc(s.t) + '</h3>' +
     '</div>' +
-    '<div class="sec"><div class="sec-t">推荐回复（点复制直接发 · 把【】换成你的实数）</div>' + reps + '</div>' +
+    '<div class="sec"><div class="sec-t">推荐回复（点复制直接发 · 【】换你的实数）</div>' + reps + '</div>' +
     '<div class="sec why"><div class="sec-t">为什么这么说</div><p>' + esc(s.p) + '</p></div>' +
     '<div class="sec"><div class="sec-t">下一句往哪走</div><p>' + esc(s.n) + '</p></div>' +
     '<div class="sec bad"><div class="sec-t">千万别这么说</div><ul>' + bad + '</ul></div>' +
   '</div>';
 }
-
-const FALLBACK = '<div class="empty"><b>没匹配到特别贴的场景</b>' +
-  '先别急着回，按这三步走：<br><br>' +
-  '① <b>先给信息</b>：电池实测续航 + 手续情况 + 可试骑<br>' +
+const FALLBACK = '<div class="empty"><b>没匹配到特别贴的场景</b>先别急着回，按三步走：<br><br>' +
+  '① <b>先给信息</b>：电池实测续航 + 手续 + 可试骑<br>' +
   '② <b>先给理由</b>：为什么是这个价（因为…）<br>' +
   '③ <b>给二选一</b>：今天7点还是明天中午？<br><br>' +
-  '换个关键词再搜一次，比如「电池」「便宜」「定金」「上牌」「骗子」。</div>';
-
-/* ================= 页面：查话术 ================= */
-const CHIPS = ['在吗', '能便宜点吗', '最低多少', '电池还能跑多远', '能上牌吗',
-  '是不是翻新电池', '我再看看', '能包售后吗', '是不是骗子', '能送到学校吗'];
+  '换个关键词再搜：电池 / 便宜 / 定金 / 上牌 / 骗子</div>';
 
 function ask() {
   const q = $('#askInput').value.trim();
   const box = $('#askResult');
   if (!q) { toast('先把买家说的话粘进来'); return; }
+  const intro = $('#askIntro');
+  if (intro) intro.style.display = 'none';
   const rs = matchScenes(q);
   if (!rs.length) { box.innerHTML = FALLBACK; return; }
   const top = rs.slice(0, 3);
-  let html = '<p class="advice">找到 ' + rs.length + ' 个相关场景，按相关度排序。先看第一个，不够再往下翻。</p>';
-  html += top.map(x => sceneCard(x.s, x.sc)).join('');
+  let html = '<p class="advice">找到 ' + rs.length + ' 个相关场景，按相关度排序。</p>' +
+    top.map(x => sceneCard(x.s, x.sc)).join('');
   if (rs.length > 3) {
     html += '<div id="moreWrap"><button class="btn ghost" id="btnMore" style="width:100%">还有 ' +
-      (rs.length - 3) + ' 个相关场景，展开</button></div>';
+      (rs.length - 3) + ' 个相关场景</button></div>';
     box.innerHTML = html;
-    $('#btnMore').onclick = () => {
-      $('#moreWrap').outerHTML = rs.slice(3).map(x => sceneCard(x.s, x.sc)).join('');
-    };
+    $('#btnMore').onclick = () => { $('#moreWrap').outerHTML = rs.slice(3).map(x => sceneCard(x.s, x.sc)).join(''); bindCopy(); };
     bindCopy();
     return;
   }
@@ -1221,18 +1451,54 @@ function ask() {
   bindCopy();
 }
 function bindCopy() {
-  $$('#askResult .copy, #trainResult .copy, #libScenes .copy, #libPrin .copy').forEach(b => {
+  $$('.copy').forEach(b => {
     b.onclick = () => {
       const p = b.closest('.reply') || b.closest('.say');
-      copyText(p ? (p.querySelector('p') || p).textContent.replace(/^复制$/, '').trim() : '');
+      if (!p) return;
+      const t = (p.querySelector('p') || p).textContent.trim();
+      copyText(t);
     };
   });
 }
 
-/* ================= 训练场 ================= */
+const REF_DIV = {};
+function rawScore(s, text) {
+  const t = (text || '').trim().replace(/\s+/g, '');
+  let score = 0; const hit = [], miss = [], bad = [], notes = [];
+  if (t.length < 10) return { score: 0, hit, miss: ['先写一句完整的话，至少给一条具体信息'], bad, notes: ['太短了。客户看到“嗯”“在的”就走了。'] };
+  (s.m || []).forEach(g => {
+    if (g.some(k => t.indexOf(k) >= 0)) hit.push(g[0]); else miss.push(g[0]);
+  });
+  score += hit.length * 20;
+  if (/因为|所以|这样|如果|要是|只要|可以|不过/.test(t)) { score += 9; notes.push('给了理由或条件 —— 《先发影响力》“因为”效应'); }
+  if (/[?？]|吗|呢|好不好|行不行|要不要/.test(t)) { score += 8; notes.push('留了推进式提问，对话不会死在这儿'); }
+  if (/[0-9０-９]|一|二|三|两|几/.test(t)) { score += 8; notes.push('有具体数字，比“很好”“很多”可信'); }
+  if (/您|你/.test(t) && /我/.test(t)) { score += 5; notes.push('“你”“我”都在句子里，像人话'); }
+  if (/来|过来|试骑|定位|发您|约|拍下|看车|骑走/.test(t)) { score += 6; notes.push('给了下一步动作，不是停在解释上'); }
+  if (t.length >= 35 && t.length <= 130) { score += 5; notes.push('长度正好：说清了事，又没把人吓跑'); }
+  const BAD = ['骗子','傻','最低','爱要不要','绝对','百分百','包你一年','包上牌','不可能','随便','不知道','不议价','勿扰','爱买不买','我骗你'];
+  BAD.forEach(b => { if (t.indexOf(b) >= 0) { score -= 13; if (bad.indexOf(b) < 0) bad.push(b); } });
+  if (score < 0) score = 0; if (score > 100) score = 100;
+  return { score, hit, miss, bad, notes };
+}
+// 每个场景用它自己的参考答案做标尺：照抄参考答案 ≈ 92 分，差多少按比例掉
+function scoreReply(s, text) {
+  const r = rawScore(s, text);
+  if (!(s.id in REF_DIV)) REF_DIV[s.id] = Math.max(58, rawScore(s, s.r[0].x).score);
+  const ref = REF_DIV[s.id];
+  if (r.score <= 0) { r.score = 0; return r; }
+  r.score = Math.max(1, Math.min(100, Math.round(r.score / ref * 95)));
+  return r;
+}
+function gradeOf(n) {
+  if (n >= 85) return ['高手级，这单基本能拿下', ''];
+  if (n >= 70) return ['及格线以上，能开单', ''];
+  if (n >= 55) return ['方向对了，火候差一点', 'low'];
+  return ['容易被绕进去', 'worst'];
+}
+
 function pickQuestion(cat) {
   let pool = SCENES.filter(s => (cat === 'all' || s.c === cat));
-  // 错题优先：1/3 概率先出错过且没掌握的
   const wrongIds = Object.keys(S.wrong).filter(id => S.wrong[id].n < 3);
   if (cat === 'all' && wrongIds.length && Math.random() < 0.34) {
     const w = SCENES.filter(s => wrongIds.indexOf(s.id) >= 0);
@@ -1244,64 +1510,27 @@ function pickQuestion(cat) {
 }
 function renderQuestion() {
   const s = SCENES.find(x => x.id === S.cur) || SCENES[0];
-  // 挑一句买家原话展示
   const raw = (s.b || [''])[0];
-  const q = raw.indexOf('（') === 0 ? '（客户没有回复，半天没动静）' : raw;
+  const q = raw.indexOf('（') === 0 ? '（客户没回复，半天没动静）' : raw;
   $('#trainQ').textContent = q + '　—　' + s.t.replace(/[「」]/g, '');
   $('#trainA').value = '';
   $('#trainResult').innerHTML = '';
-  $('#trainA').focus();
   renderStats();
 }
 function renderStats() {
   const n = S.trained || 0;
   const avg = n ? Math.round(S.total / n) : 0;
-  $('#trainStat').innerHTML = '已练 <b>' + n + '</b> 题 · 平均 <b>' + avg + '</b> 分';
+  $('#trainStat').innerHTML = '已练 <b>' + n + '</b> 题';
   $('#stCount').textContent = n;
   $('#stAvg').textContent = avg;
   $('#stWrong').textContent = Object.keys(S.wrong).length;
-  const mastered = n ? Math.round(((S.ok || 0) / n) * 100) : 0;
-  $('#stMaster').textContent = mastered + '%';
+  $('#stMaster').textContent = (n ? Math.round(((S.ok || 0) / n) * 100) : 0) + '%';
   const wc = Object.keys(S.wrong).length;
   if (wc) {
     $('#reviewCard').style.display = 'block';
     $('#reviewTxt').textContent = '你有 ' + wc + ' 道题没掌握（80分以下）。隔一天再练一次，比连着练五遍记得牢。';
-  } else {
-    $('#reviewCard').style.display = 'none';
-  }
+  } else $('#reviewCard').style.display = 'none';
 }
-
-function scoreReply(s, text) {
-  const t = (text || '').trim().replace(/\s+/g, '');
-  let score = 0; const hit = [], miss = [], bad = [], notes = [];
-  if (t.length < 10) {
-    return { score: 0, hit, miss: ['先写一句完整的话，至少给一条具体信息'], bad, notes: ['太短了。客户看到“嗯”“在的”就走了。'] };
-  }
-  (s.m || []).forEach(g => {
-    if (g.some(k => t.indexOf(k) >= 0)) hit.push(g[0]);
-    else miss.push(g[0]);
-  });
-  score += hit.length * 20;
-  if (/因为|所以|这样|如果|要是|只要|可以|不过/.test(t)) { score += 9; notes.push('给了理由或条件 —— 《先发影响力》“因为”效应'); }
-  if (/[?？]|吗|呢|好不好|行不行|要不要/.test(t)) { score += 8; notes.push('留了一个推进式提问，对话不会死在这儿'); }
-  if (/[0-9０-９]|一|二|三|两|几/.test(t)) { score += 8; notes.push('出现了具体数字，比“很好”“很多”可信'); }
-  if (/您|你/.test(t) && /我/.test(t)) { score += 5; notes.push('“你”“我”都在句子里，像人话，不像群发模板'); }
-  if (/来|过来|试骑|定位|发您|约|拍下|看车|骑走/.test(t)) { score += 6; notes.push('给了下一步动作，不是停在解释上'); }
-  if (t.length >= 35 && t.length <= 130) { score += 5; notes.push('长度正好：说清了事，又没把人吓跑'); }
-  const BAD = ['骗子', '傻', '最低', '爱要不要', '绝对', '百分百', '包你一年', '包上牌', '不可能', '随便', '不知道', '不议价', '勿扰', '爱买不买', '我骗你'];
-  BAD.forEach(b => { if (t.indexOf(b) >= 0) { score -= 13; if (bad.indexOf(b) < 0) bad.push(b); } });
-  if (score < 0) score = 0;
-  if (score > 100) score = 100;
-  return { score, hit, miss, bad, notes };
-}
-
-function gradeOf(n) {
-  if (n >= 85) return ['高手级，这单基本能拿下', ''];
-  if (n >= 70) return ['及格线以上，能开单', ''];
-  if (n >= 55) return ['方向对了，火候差一点', 'low'];
-  return ['容易被绕进去', 'worst'];
-}
-
 function doScore() {
   const s = SCENES.find(x => x.id === S.cur);
   const txt = $('#trainA').value;
@@ -1313,41 +1542,36 @@ function doScore() {
   if (r.score >= 70) S.ok = (S.ok || 0) + 1;
   if (r.score < 80) {
     const w = S.wrong[s.id] || { n: 0 };
-    w.n = (w.n || 0) + 1; w.last = Date.now();
-    S.wrong[s.id] = w;
-  } else if (S.wrong[s.id]) { delete S.wrong[s.id]; }
+    w.n = (w.n || 0) + 1; w.last = Date.now(); S.wrong[s.id] = w;
+  } else if (S.wrong[s.id]) delete S.wrong[s.id];
   save(); renderStats();
 
   const reps = s.r.map(x =>
-    '<div class="reply"><div class="rk">' + esc(x.k) + '</div><p>' + esc(x.x) + '</p><button class="copy">复制</button></div>'
-  ).join('');
+    '<div class="reply"><div class="rk-k">' + esc(x.k) + '</div><p>' + esc(x.x) + '</p><button class="copy">复制</button></div>').join('');
 
   $('#trainResult').innerHTML =
     '<div class="scorecard">' +
       '<div class="ring ' + g[1] + '" style="--p:' + r.score + '"><span>' + r.score + '</span></div>' +
-      '<div class="sinfo">' +
-        '<div class="grade">' + g[0] + '</div>' +
+      '<div class="sinfo"><div class="grade">' + g[0] + '</div>' +
         (r.hit.length ? '<div class="kv good">✓ 说到了：' + r.hit.map(esc).join('、') + '</div>' : '') +
         (r.miss.length ? '<div class="kv warn">✗ 还差：' + r.miss.slice(0, 3).map(esc).join('、') + '</div>' : '') +
-        (r.bad.length ? '<div class="kv err">⚠ 踩雷：' + r.bad.map(esc).join('、') + '（这几句会让客户立刻防御）</div>' : '') +
-      '</div>' +
-    '</div>' +
-    (r.notes.length ? '<div class="card"><div class="sec-t">你做到的地方</div>' +
+        (r.bad.length ? '<div class="kv err">⚠ 踩雷：' + r.bad.map(esc).join('、') + '</div>' : '') +
+      '</div></div>' +
+    (r.notes.length ? '<div class="card"><div class="lab">你做到的地方</div>' +
       r.notes.map(n => '<div class="kv good" style="margin:3px 0">· ' + esc(n) + '</div>').join('') + '</div>' : '') +
-    '<div class="scene"><div class="sc-head"><span class="tag">' + esc(s.c) + '</span><h3>教练版参考：' +
-      esc(s.t) + '</h3></div><div class="sec"><div class="sec-t">推荐回复（【】里换成你的实数）</div>' + reps + '</div>' +
+    '<div class="scene"><div class="sc-head"><span class="tag">' + esc(s.c) + '</span><h3>教练版：' + esc(s.t) + '</h3></div>' +
+      '<div class="sec"><div class="sec-t">推荐回复（【】换你的实数）</div>' + reps + '</div>' +
       '<div class="sec why"><div class="sec-t">为什么这么说</div><p>' + esc(s.p) + '</p></div>' +
       '<div class="sec"><div class="sec-t">下一句往哪走</div><p>' + esc(s.n) + '</p></div>' +
       '<div class="sec bad"><div class="sec-t">千万别这么说</div><ul>' +
         (s.a || []).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></div>' +
     '<div class="row"><button class="btn primary" id="btnNext">再来一题 →</button></div>';
-
   bindCopy();
   $('#btnNext').onclick = () => { pickQuestion($('#trainCat').value); window.scrollTo({ top: 0, behavior: 'smooth' }); };
   $('#trainResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/* ================= 话术库 ================= */
+/* ==================== 话术库 ==================== */
 function renderLibScenes() {
   const cats = [];
   SCENES.forEach(s => { if (cats.indexOf(s.c) < 0) cats.push(s.c); });
@@ -1363,12 +1587,10 @@ function renderLibScenes() {
 }
 function renderLibPrin() {
   let html = '', lastBook = '';
-  // 按书分组，保持数据顺序
   PRINCIPLES.forEach(p => {
     if (p.b !== lastBook) { html += '<div class="catrow">' + esc(p.b) + '</div>'; lastBook = p.b; }
-    html += '<div class="pcard"><div class="book">' + esc(p.b) + '</div><h4>' + esc(p.n) + '</h4>' +
-      '<p class="d">' + esc(p.d) + '</p>' +
-      '<p class="u">卖车怎么用：' + esc(p.u) + '</p>' +
+    html += '<div class="pcard"><span class="book">' + esc(p.b) + '</span><h4>' + esc(p.n) + '</h4>' +
+      '<p class="d">' + esc(p.d) + '</p><p class="u">卖车怎么用：' + esc(p.u) + '</p>' +
       '<div class="say"><b>直接能说</b><p style="margin:0">' + esc(p.s) + '</p></div></div>';
   });
   $('#libPrin').innerHTML = html;
@@ -1377,332 +1599,433 @@ function renderLibPrin() {
 function renderLibList() {
   let html = '<div class="catrow">七步成交 SOP</div>';
   SOP.forEach(x => {
-    html += '<div class="card" style="padding:12px 14px"><div style="display:flex;gap:10px;align-items:flex-start">' +
+    html += '<div class="card" style="padding:13px 15px"><div style="display:flex;gap:11px;align-items:flex-start">' +
       '<span class="num">' + esc(x.n) + '</span><div><div style="font-weight:800;font-size:14.5px">' + esc(x.t) + '</div>' +
-      '<div style="font-size:13.4px;color:#3d5148;line-height:1.6;margin-top:2px">' + esc(x.d) + '</div></div></div></div>';
+      '<div style="font-size:13.3px;color:#44566C;line-height:1.65;margin-top:2px">' + esc(x.d) + '</div></div></div></div>';
   });
-  html += '<div class="catrow">五条红线（碰一条就停）</div>';
-  REDLINES.forEach((x, i) => {
-    html += '<div class="red">' + (i + 1) + '. ' + esc(x) + '</div>';
-  });
+  html += '<div class="catrow">五条红线</div>';
+  REDLINES.forEach((x, i) => { html += '<div class="red">' + (i + 1) + '. ' + esc(x) + '</div>'; });
   $('#libList').innerHTML = html;
 }
 
-/* ================= 积分排行榜 ================= */
-const LEVELS = [
-  { n: 1, name: '见习', min: 0, right: '跟车学习、拍照整素材，不单独谈价' },
-  { n: 2, name: '上路', min: 100, right: '独立接待看车，按挂牌价报价' },
-  { n: 3, name: '教头', min: 300, right: '可带新人；底线之上可自主让价 50 以内' },
-  { n: 4, name: '掌柜', min: 600, right: '可自主定价（成本线以上），可申请多台备车' },
-  { n: 5, name: '合伙人', min: 1000, right: '分成上浮 5%，可跨校区出货' },
-  { n: 6, name: '宗师', min: 2000, right: '拿分红、优先挑车、可带团队' }
-];
-const CN = ['', '一', '二', '三', '四', '五', '六'];
-const PTS_RULES = [
-  ['训练场每答 1 题', '+2'],
-  ['训练答题 ≥85 分', '+3'],
-  ['成交一单（学生自售）', '+50'],
-  ['客户五星好评截图', '+10'],
-  ['带新人成交一单', '+30'],
-  ['月度销冠', '+100'],
-  ['虚标续航 / 私下收款', '−50'],
-  ['放鸽子 / 客户投诉', '−20']
-];
-
-let adminMem = false;
-function isAdmin() {
-  if (adminMem) return true;
-  try { return sessionStorage.getItem('sy_admin') === '1'; } catch (e) { return false; }
+/* ==================== 榜单 / 账号 ==================== */
+function sortedUsers(list) {
+  return list.slice().sort((a, b) => b.points - a.points || String(a.username).localeCompare(String(b.username), 'zh'));
 }
-function setAdmin(v) {
-  adminMem = v;
-  try { v ? sessionStorage.setItem('sy_admin', '1') : sessionStorage.removeItem('sy_admin'); } catch (e) {}
-}
-function escA(s) { return esc(s).replace(/"/g, '&quot;'); }
-
-function b64e(str) {
-  const bytes = new TextEncoder().encode(str);
-  let bin = '';
-  bytes.forEach(b => { bin += String.fromCharCode(b); });
-  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-function b64d(s) {
-  s = s.replace(/-/g, '+').replace(/_/g, '/');
-  while (s.length % 4) s += '=';
-  const bin = atob(s);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-  return new TextDecoder().decode(arr);
+function renderMePill() {
+  const pill = $('#mePill');
+  if (!S.me) { pill.style.display = 'none'; return; }
+  const L = lvlOf(S.me);
+  pill.style.display = 'flex';
+  pill.innerHTML = '<span>' + esc(S.me.username) + ' · ' + CN[L.n] + '级</span>';
+  pill.onclick = () => switchTab('rank');
 }
 
-function ensureBoard() {
-  if (!S.board || !Array.isArray(S.board.members)) {
-    S.board = { members: [{ id: 'boss', name: '老板', pts: 300, lvl: 3, note: '', boss: true }], pass: '8888' };
-  }
-  if (!S.board.pass) S.board.pass = '8888';
-  S.board.members.forEach((m, i) => { if (!m.id) m.id = 'm' + i + '_' + Math.random().toString(36).slice(2, 7); });
-}
-function lvlOf(m) {
-  if (m.lvl) return LEVELS[Math.min(6, Math.max(1, m.lvl)) - 1];
-  let cur = LEVELS[0];
-  LEVELS.forEach(L => { if (m.pts >= L.min) cur = L; });
-  return cur;
-}
-function nextOf(m) {
-  if (m.lvl) return null;
-  return LEVELS[lvlOf(m).n] || null;   // LEVELS 索引从 0 起，n 即下一个
-}
-function boardSorted() {
-  return (S.board.members || []).slice().sort((a, b) => b.pts - a.pts || String(a.name).localeCompare(String(b.name), 'zh'));
-}
-function validName(n) {
-  n = (n || '').trim().replace(/\s+/g, ' ');
-  if (!n) return '名字不能为空';
-  if (n.length > 16) return '名字最多 16 个字';
-  if (/^(\+?86)?1[3-9]\d{9}$/.test(n.replace(/[\s-]/g, ''))) return '只填真名或微信名，不用手机号';
-  if (/^\d{5,}$/.test(n)) return '不要填手机号或学号，填真名或微信名';
-  if (/\d{9,}/.test(n)) return '看起来是手机号，只填真名或微信名';
-  if (/[|~!@"'<>]/.test(n)) return '名字里不要用 | ~ ! @ " 这些符号';
-  return '';
-}
-function findByName(n) {
-  const k = String(n).replace(/\s+/g, '').toLowerCase();
-  return S.board.members.find(m => String(m.name).replace(/\s+/g, '').toLowerCase() === k);
-}
-
-function renderRank() {
-  ensureBoard();
-  const snap = S.snapshot;
-  const banner = $('#shareBanner');
-  if (snap) {
-    banner.style.display = 'block';
-    banner.innerHTML = '<b>只读榜单</b>　这是老板 ' + esc(snap.t) + ' 发布的快照，你和同学看到的都一样，只有老板能改。';
-  } else banner.style.display = 'none';
-
-  const boss = S.board.members.find(m => m.boss);
-  const bl = boss ? lvlOf(boss).n : 0;
-  $('#ladder').innerHTML = LEVELS.map(L =>
-    '<div class="lad' + (L.n === bl ? ' on' : '') + '"><b>' + CN[L.n] + '级</b><span>' + L.name + '</span><i>' + L.min + ' 分</i></div>'
-  ).join('');
-  if (snap) {
-    $('#ladderTip').innerHTML = '三级是老板（组长）的位置，满级是 <b>六级 · 宗师</b>。你是几级，看下面榜单里自己名字后面那枚徽章。';
-  } else if (boss) {
-    $('#ladderTip').innerHTML = '你目前在 <b>' + CN[bl] + '级 · ' + lvlOf(boss).name + '</b>，满级是六级 · 宗师。本级权限：' + esc(lvlOf(boss).right) + '。';
-  } else {
-    $('#ladderTip').textContent = '积分到线自动升级；老板也可以手动指定等级。';
-  }
-
-  const list = snap ? snap.members.slice().sort((a, b) => b.pts - a.pts) : boardSorted();
-  const medal = ['🥇', '🥈', '🥉'];
-  const admin = (!snap && isAdmin());
-  let html = '';
-  list.forEach((m, i) => {
-    const L = lvlOf(m);
-    const nx = nextOf(m);
-    const sub = m.boss
-      ? '组长，等级固定不随积分变动'
-      : (m.lvl
-        ? '指定等级，不随积分变动'
-        : (nx ? '距 ' + CN[nx.n] + '级·' + nx.name + ' 还差 ' + Math.max(0, nx.min - m.pts) + ' 分' : '已到顶（六级·宗师）'));
-    html += '<div class="mblock">';
-    html += '<div class="mrow" data-id="' + m.id + '">'
-      + '<div class="mr-pos">' + (i < 3 ? medal[i] : (i + 1)) + '</div>'
-      + '<div class="mr-main"><div class="mr-name">' + esc(m.name)
-      + ' <span class="lvl lv' + L.n + '">' + CN[L.n] + '级 ' + L.name + '</span>'
-      + (m.boss ? ' <span class="lvl lvx">老板</span>' : '') + '</div>'
-      + '<div class="mr-sub">' + esc(sub) + '</div></div>'
-      + '<div class="mr-pts">' + m.pts + '<span>分</span></div>';
-    if (admin) {
-      html += '<div class="mr-act">'
-        + '<button class="mini" data-act="plus" data-id="' + m.id + '">+10</button>'
-        + '<button class="mini" data-act="minus" data-id="' + m.id + '">−10</button>'
-        + '<button class="mini" data-act="edit" data-id="' + m.id + '">改</button></div>';
-    }
-    html += '</div>';
-    if (admin) {
-      html += '<div class="editform" id="ef-' + m.id + '"><div class="grid2">'
-        + '<div class="field"><label>真名 / 微信名</label><input id="nm-' + m.id + '" value="' + escA(m.name) + '"></div>'
-        + '<div class="field"><label>积分</label><input id="pt-' + m.id + '" type="number" inputmode="numeric" value="' + m.pts + '"></div>'
-        + '<div class="field"><label>等级</label><select id="lv-' + m.id + '"><option value="0">按积分自动</option>'
-        + LEVELS.map(L2 => '<option value="' + L2.n + '"' + (m.lvl === L2.n ? ' selected' : '') + '>' + CN[L2.n] + '级 ' + L2.name + '</option>').join('')
-        + '</select></div>'
-        + '<div class="field"><label>备注（可空）</label><input id="nt-' + m.id + '" value="' + escA(m.note || '') + '"></div>'
-        + '</div><div class="row"><button class="btn ghost small" data-act="save" data-id="' + m.id + '">保存</button>'
-        + '<button class="btn ghost small" data-act="del" data-id="' + m.id + '" style="color:#a52f24">删除</button></div></div>';
-    }
-    html += '</div>';
+function renderAuth() {
+  const box = $('#authBox');
+  if (S.me) { box.innerHTML = ''; return; }
+  box.innerHTML = '<div class="card">' +
+    '<div class="seg"><button data-auth="login" class="on">登录</button><button data-auth="reg">注册新账号</button></div>' +
+    '<div class="field"><label>真名 / 微信名</label><input class="inp" id="aUser" placeholder="例：李健豪 / 阿豪" autocomplete="username"></div>' +
+    '<div class="field" style="margin-top:9px"><label>密码</label><input class="inp" id="aPass" type="password" placeholder="至少 6 位" autocomplete="current-password"></div>' +
+    '<div class="field" id="aPass2Wrap" style="margin-top:9px;display:none"><label>再输一次密码</label><input class="inp" id="aPass2" type="password" placeholder="确认密码"></div>' +
+    '<div class="row"><button class="btn primary" id="btnAuth">登录</button></div>' +
+    '<p class="note" id="authHint">不用手机号，起个名字加密码就能上榜。</p>' +
+    '</div>';
+  let mode = 'login';
+  $$('[data-auth]', box).forEach(b => b.onclick = () => {
+    mode = b.dataset.auth;
+    $$('[data-auth]', box).forEach(x => x.classList.toggle('on', x === b));
+    $('#aPass2Wrap').style.display = mode === 'reg' ? 'block' : 'none';
+    $('#btnAuth').textContent = mode === 'reg' ? '注册并上榜' : '登录';
+    $('#authHint').textContent = mode === 'reg'
+      ? '注册后直接进榜，初始 0 分、一级见习。'
+      : '不用手机号，名字 + 密码就能登录。';
   });
-  if (!html) html = '<div class="empty" style="box-shadow:none;padding:12px">还没有人上榜。老板解锁后在下面添加成员。</div>';
-  $('#boardList').innerHTML = html;
-  $('#boardCount').textContent = list.length + ' 人';
+  $('#btnAuth').onclick = () => doAuth(mode);
+  $('#aPass').onkeydown = e => { if (e.key === 'Enter') doAuth(mode); };
+}
+
+async function doAuth(mode) {
+  const btn = $('#btnAuth');
+  const name = ($('#aUser').value || '').trim().replace(/\s+/g, ' ');
+  const pass = $('#aPass').value || '';
+  if (mode === 'reg') {
+    const e1 = validName(name); if (e1) { toast(e1); return; }
+    const e2 = validPass(pass); if (e2) { toast(e2); return; }
+    if (pass !== ($('#aPass2').value || '')) { toast('两次密码不一样'); return; }
+    if (btn) btn.disabled = true;
+    try {
+      const salt = await pbkdf2Salt();
+      const hash = await pbkdf2(pass, salt);
+      const row = await Store.register(name, salt, hash);
+      await finishLogin(row, hash, '已加入榜单，一级见习');
+    } catch (err) { toast(err.message || '注册失败'); }
+    if (btn) btn.disabled = false;
+    return;
+  }
+  if (!name || !pass) { toast('填名字和密码'); return; }
+  if (btn) btn.disabled = true;
+  try {
+    const salt = await Store.saltOf(name);
+    if (!salt) throw new Error('没有这个账号，先注册');
+    const hash = await pbkdf2(pass, salt);
+    const row = await Store.login(name, hash);
+    await finishLogin(row, hash, '欢迎回来，' + row.username);
+  } catch (err) { toast(err.message || '登录失败'); }
+  if (btn) btn.disabled = false;
+}
+function pbkdf2Salt() { return Promise.resolve(makeSalt()); }
+
+async function finishLogin(row, hash, tip) {
+  S.me = { id: row.id, username: row.username, role: row.role, points: row.points, level: row.level };
+  meHash = hash;
+  saveMe();
+  toast(tip);
+  await renderRank();
+  renderMePill();
+  renderAuth();
+  renderAcc();
+}
+
+function logout() {
+  S.me = null; meHash = null;
+  try { sessionStorage.removeItem(MKEY); } catch (e) {}
+  renderRank(); renderMePill(); renderAuth(); renderAcc();
+  toast('已退出');
+}
+
+async function renderRank() {
+  const meBox = $('#meBox'), adminBox = $('#adminBox'), listBox = $('#boardList');
+  const snap = !!S.snapshot;
+  let users = [];
+  if (snap) users = S.snapshot.users;
+  else {
+    try { users = await Store.list(); }
+    catch (e) { listBox.innerHTML = '<div class="empty"><b>云端连不上</b>' + esc(e.message) + '</div>'; return; }
+  }
+
+  // 我自己的分数同步
+  if (S.me) {
+    const mine = users.find(u => String(u.id) === String(S.me.id));
+    if (mine) { S.me.points = mine.points; S.me.level = mine.level; S.me.role = mine.role; }
+  }
+
+  // 我的卡片
+  if (!snap && S.me) {
+    const L = lvlOf(S.me), nx = nextOf(S.me);
+    const nxp = LEVELS[L.n] || null;          // 画进度用：即使等级被固定也能看到离下一档多远
+    const rank = sortedUsers(users).findIndex(u => String(u.id) === String(S.me.id)) + 1;
+    const pct = nxp ? Math.min(100, Math.max(0, Math.round(((S.me.points - L.min) / (nxp.min - L.min)) * 100))) : 100;
+    meBox.innerHTML = '<div class="me-card">' +
+      '<div class="ml1">我的段位</div>' +
+      '<div class="mname">' + esc(S.me.username) +
+        '<span class="bdg lv' + L.n + '">' + CN[L.n] + '级 ' + L.name + '</span>' +
+        (S.me.role === 'admin' ? '<span class="bdg lvx">管理员</span>' : '') + '</div>' +
+      '<div class="mstat"><div><b>' + S.me.points + '</b>积分</div><div><b>' + (rank || '-') + '</b>名次</div><div><b>' + users.length + '</b>总人数</div></div>' +
+      '<div class="pg"><i style="width:' + pct + '%"></i></div>' +
+      '<div class="ptip">' + (S.me.level
+        ? ('等级由老板指定，不随积分变动' + (nxp ? '（' + nxp.name + ' 需 ' + nxp.min + ' 分）' : ''))
+        : (nx ? (nx.name + ' 还差 ' + Math.max(0, nx.min - S.me.points) + ' 分') : '已到顶 · 六级宗师')) + '</div>' +
+      '<div class="row"><button class="btn ghost sm" id="btnLogout" style="background:rgba(255,255,255,.14);color:#fff">退出登录</button>' +
+        (S.me.role === 'admin' ? '<button class="btn ghost sm" id="btnAdminMode" style="background:rgba(255,216,74,.16);color:#FFD84A">' + (adminOpen ? '收起管理' : '管理榜单') + '</button>' : '') +
+      '</div></div>';
+    $('#btnLogout').onclick = logout;
+    if ($('#btnAdminMode')) $('#btnAdminMode').onclick = () => { adminOpen = !adminOpen; renderRank(); };
+  } else meBox.innerHTML = snap ? '<div class="card"><div class="lab">只读榜单</div><p class="note" style="margin:0">这是老板 ' + esc(S.snapshot.t || '') + ' 发的快照。想上榜就在正式链接里注册一个名字。</p></div>' : '';
+
+  // 领奖台
+  const top = sortedUsers(users).slice(0, 3);
+  const podium = $('#podium');
+  if (top.length < 3) {
+    podium.innerHTML = '';
+    podium.style.display = 'none';
+  } else {
+    podium.style.display = 'grid';
+    const order = top.length === 3 ? [top[1], top[0], top[2]] : top.map((_, i) => top[i]);
+    podium.innerHTML = order.map(u => {
+      if (!u) return '<div></div>';
+      const L = lvlOf(u);
+      const pos = top.indexOf(u) + 1;
+      return '<div class="pod p' + pos + '">' +
+        (pos === 1 ? '<div class="crown">👑</div>' : '') +
+        '<div class="av" style="background:linear-gradient(135deg,' + avColor(u.username) + ',' + avColor(u.username) + 'cc)">' + esc(initial(u.username)) + '</div>' +
+        '<div class="nm">' + esc(u.username) + '</div>' +
+        '<div class="pt">' + u.points + '<i>分</i></div>' +
+        '<div style="font-size:9.5px;color:#94A3B8;margin-top:1px">' + CN[L.n] + '级' + L.name + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // 列表
+  const rank3 = sortedUsers(users);
+  listBox.innerHTML = rank3.length ? rank3.map((u, i) => {
+    const L = lvlOf(u), nx = nextOf(u);
+    const nxp = LEVELS[L.n] || null;
+    const pct = nxp ? Math.min(100, Math.max(0, Math.round(((u.points - L.min) / (nxp.min - L.min)) * 100))) : 100;
+    const sub = u.level ? '指定等级，不随积分变动'
+      : (nx ? '距 ' + CN[nx.n] + '级' + nx.name + ' 还差 ' + Math.max(0, nx.min - u.points) + ' 分' : '已到顶');
+    const admin = !snap && S.me && S.me.role === 'admin' && adminOpen;
+    return '<div class="mblock">' +
+      '<div class="rowm">' +
+        '<div class="rkn">' + (i + 1) + '</div>' +
+        '<div class="av2" style="background:linear-gradient(135deg,' + avColor(u.username) + ',' + avColor(u.username) + 'bb)">' + esc(initial(u.username)) + '</div>' +
+        '<div class="rinfo"><div class="rname">' + esc(u.username) +
+          '<span class="bdg lv' + L.n + '">' + CN[L.n] + '级 ' + L.name + '</span>' +
+          (u.role === 'admin' ? '<span class="bdg lvx">管理员</span>' : '') + '</div>' +
+          '<div class="rsub">' + esc(sub) + '</div>' +
+          '<div class="pg"><i style="width:' + pct + '%"></i></div></div>' +
+        '<div class="rpts">' + u.points + '<i>分</i></div>' +
+        (admin ? '<button class="btn tiny" data-act="edit" data-id="' + u.id + '">改</button>' : '') +
+      '</div>' +
+      (admin ? '<div class="editform" id="ef-' + u.id + '">' +
+        '<div class="grid2">' +
+          '<div class="field"><label>积分</label><input class="inp" id="pt-' + u.id + '" type="number" inputmode="numeric" value="' + u.points + '"></div>' +
+          '<div class="field"><label>等级</label><select id="lv-' + u.id + '"><option value="0">按积分自动</option>' +
+            LEVELS.map(L2 => '<option value="' + L2.n + '"' + (u.level === L2.n ? ' selected' : '') + '>' + CN[L2.n] + '级 ' + L2.name + '</option>').join('') +
+          '</select></div>' +
+        '</div>' +
+        '<div class="row">' +
+          '<button class="btn tiny ok" data-act="save" data-id="' + u.id + '">保存</button>' +
+          '<button class="btn tiny" data-act="pwd" data-id="' + u.id + '">重置密码</button>' +
+          '<button class="btn tiny warn" data-act="del" data-id="' + u.id + '">删除</button>' +
+        '</div></div>' : '') +
+      '</div>';
+  }).join('') : '';
+
   renderAdmin();
 }
 
+let adminOpen = false;
 function renderAdmin() {
   const box = $('#adminBox');
-  if (S.snapshot) { box.style.display = 'none'; box.innerHTML = ''; return; }
-  box.style.display = '';
-  if (!isAdmin()) {
-    box.innerHTML = '<div class="sec-t">老板管理区</div>'
-      + '<p class="advice" style="margin:0 0 9px">只有你能改名单、积分和等级。默认口令 <b>8888</b>，解锁后可改。</p>'
-      + '<div class="row" style="margin-top:0"><input id="adminPass" class="padbox" style="flex:1" type="password" inputmode="numeric" placeholder="管理口令">'
-      + '<button class="btn primary" style="flex:none" data-act="unlock">解锁</button></div>';
+  if (S.snapshot) { box.innerHTML = ''; return; }
+  if (!S.me || S.me.role !== 'admin') { box.innerHTML = ''; return; }
+  if (!adminOpen) {
+    box.innerHTML = '<div class="empty" style="text-align:left;font-size:13px;line-height:1.7">' +
+      '<b style="margin-bottom:4px">你是管理员</b>' +
+      '点上面的「管理榜单」，就能直接改每个人的分数和等级、重置别人密码、把人删掉。<br>' +
+      '学员自己注册就自动进榜，不用你录。</div>';
     return;
   }
-  box.innerHTML = '<div class="sec-t">老板管理区（已解锁）</div>'
-    + '<div class="grid2">'
-    + '<div class="field"><label>添加成员：真名或微信名</label><input id="newName" class="padbox" placeholder="例：李健豪 / 阿豪"></div>'
-    + '<div class="field"><label>初始积分</label><input id="newPts" class="padbox" type="number" inputmode="numeric" value="0"></div>'
-    + '</div>'
-    + '<div class="row"><button class="btn primary" data-act="add">添加成员</button>'
-    + '<button class="btn ghost small" data-act="bulk">批量导入</button></div>'
-    + '<div id="bulkWrap" style="display:none;margin-top:10px">'
-    + '<textarea id="bulkTxt" placeholder="一行一个名字（真名或微信名），最多 50 个"></textarea>'
-    + '<div class="row"><button class="btn ghost small" data-act="bulkgo">确认导入</button></div></div>'
-    + '<div class="sec-t" style="margin-top:16px">发给群里（学生只能看，不能改）</div>'
-    + '<div class="row" style="margin-top:0"><button class="btn ghost small" data-act="link">生成榜单链接</button>'
-    + '<button class="btn ghost small" data-act="report">复制战报文案</button></div>'
-    + '<div class="out" id="linkOut" style="display:none"></div>'
-    + '<div class="sec-t" style="margin-top:16px">口令</div>'
-    + '<div class="row" style="margin-top:0"><input id="newPass" class="padbox" style="flex:1" placeholder="新口令（4位以上）">'
-    + '<button class="btn ghost small" data-act="setpass">修改</button>'
-    + '<button class="btn ghost small" data-act="lock">退出管理</button></div>';
+  box.innerHTML = '<div class="card"><div class="lab">管理员操作<span class="r">' + (Store.cloud() ? '云端' : '本机') + '</span></div>' +
+    '<div class="row tight"><button class="btn ghost sm" data-act="report">复制战报</button>' +
+    '<button class="btn ghost sm" data-act="snap">生成快照链接</button>' +
+    '<button class="btn ghost sm" data-act="add">手动加人</button></div>' +
+    '<div class="out" id="snapOut" style="display:none"></div>' +
+    '<p class="note">改分会立刻写进榜单，学员刷新就能看到。'+ (Store.cloud() ? '' : '（当前是本机模式，只有这台手机能看见，要让学员跨手机注册请在「我的」里配云端）') +'</p>' +
+    '</div>';
+  bindCopy();
 }
 
-function boardPayload() {
-  const rows = boardSorted().map(m => [m.name, m.pts, m.lvl || 0, m.boss ? 1 : 0].join('~')).join('!');
-  const d = new Date();
-  return (d.getMonth() + 1) + '/' + d.getDate() + '@' + rows;
-}
-function boardLink() {
-  return location.href.split('#')[0] + '#b=' + b64e(boardPayload());
-}
-function reportText() {
-  const d = new Date();
-  let s = '🏆 电动车小组 · 积分榜（' + (d.getMonth() + 1) + '/' + d.getDate() + '）\n';
-  boardSorted().forEach((m, i) => {
-    const L = lvlOf(m);
-    s += (i + 1) + '. ' + m.name + '　' + CN[L.n] + '级' + L.name + '　' + m.pts + '分\n';
-  });
-  s += '\n升级线：二级100 / 三级300 / 四级600 / 五级1000 / 六级2000';
-  return s;
-}
-
-function parseSnapshot() {
-  const h = location.hash || '';
-  if (h.indexOf('#b=') !== 0) return;
-  try {
-    const raw = b64d(h.slice(3));
-    const at = raw.indexOf('@');
-    const ts = at > 0 ? raw.slice(0, at) : '';
-    const rows = raw.slice(at + 1).split('!').filter(Boolean);
-    const members = rows.map((r, i) => {
-      const a = r.split('~');
-      return { id: 's' + i, name: a[0] || '匿名', pts: +a[1] || 0, lvl: +a[2] || 0, boss: a[3] === '1' };
-    }).filter(m => m.name);
-    if (members.length) S.snapshot = { t: ts, members };
-  } catch (e) { toast('榜单链接不完整，让老板重发一次'); }
-}
-
-function rankClick(e) {
+async function rankClick(e) {
   const b = e.target.closest('[data-act]');
   if (!b) return;
   const act = b.dataset.act, id = b.dataset.id;
-  ensureBoard();
-  if (act === 'unlock') {
-    const v = ($('#adminPass').value || '').trim();
-    if (v === S.board.pass) { setAdmin(true); save(); renderRank(); toast('已解锁，可以改名单了'); }
-    else toast('口令不对');
-    return;
-  }
-  if (act === 'lock') { setAdmin(false); renderRank(); toast('已退出管理'); return; }
-  if (act === 'add') {
-    const nm = ($('#newName') && $('#newName').value) || '';
-    const err = validName(nm);
-    if (err) { toast(err); return; }
-    if (findByName(nm)) { toast('这个名字已经在榜上了'); return; }
-    S.board.members.push({ id: 'm' + Date.now(), name: nm.trim().replace(/\s+/g, ' '), pts: +($('#newPts').value) || 0, lvl: 0, note: '' });
-    save(); renderRank(); toast('已添加：' + nm);
-    return;
-  }
-  if (act === 'bulk') { const w = $('#bulkWrap'); w.style.display = w.style.display === 'none' ? 'block' : 'none'; return; }
-  if (act === 'bulkgo') {
-    const lines = ($('#bulkTxt').value || '').split('\n').map(x => x.trim()).filter(Boolean);
-    let ok = 0, skip = 0;
-    lines.slice(0, 50).forEach(nm => {
-      if (validName(nm) || findByName(nm)) { skip++; return; }
-      S.board.members.push({ id: 'm' + Date.now() + ok, name: nm, pts: 0, lvl: 0, note: '' }); ok++;
-    });
-    save(); renderRank(); toast('导入 ' + ok + ' 人' + (skip ? '，跳过 ' + skip + ' 条' : ''));
-    return;
-  }
-  if (act === 'plus' || act === 'minus') {
-    const m = S.board.members.find(x => x.id === id);
-    if (!m) return;
-    m.pts = Math.max(0, m.pts + (act === 'plus' ? 10 : -10));
-    save(); renderRank();
-    return;
-  }
   if (act === 'edit') {
     const f = document.getElementById('ef-' + id);
     if (f) f.classList.toggle('on');
     return;
   }
   if (act === 'save') {
-    const m = S.board.members.find(x => x.id === id);
-    if (!m) return;
-    const nm = ($('#nm-' + id).value || '');
-    const err = validName(nm);
-    if (err) { toast(err); return; }
-    const dup = findByName(nm);
-    if (dup && dup.id !== id) { toast('这个名字已经有人用了'); return; }
-    m.name = nm.trim().replace(/\s+/g, ' ');
-    m.pts = Math.max(0, parseInt($('#pt-' + id).value, 10) || 0);
-    m.lvl = parseInt($('#lv-' + id).value, 10) || 0;
-    m.note = ($('#nt-' + id).value || '').trim().slice(0, 40);
-    save(); renderRank(); toast('已保存');
+    const pts = parseInt($('#pt-' + id).value, 10);
+    if (isNaN(pts) || pts < 0) { toast('积分要填 0 或正数'); return; }
+    const lv = parseInt($('#lv-' + id).value, 10) || 0;
+    try { await Store.adminSet(id, pts, lv); toast('已保存'); await renderRank(); }
+    catch (err) { toast(err.message || '保存失败'); }
+    return;
+  }
+  if (act === 'pwd') {
+    const u = (await Store.list()).find(x => String(x.id) === String(id));
+    const np = prompt('给「' + (u ? u.username : '该学员') + '」设置新密码（至少 6 位）\n设完把新密码告诉本人');
+    if (np === null) return;
+    const err = validPass(np); if (err) { toast(err); return; }
+    try {
+      const salt = makeSalt();
+      const h = await pbkdf2(np, salt);
+      await Store.adminPass(id, salt, h);
+      toast('密码已重置');
+    } catch (err2) { toast(err2.message || '重置失败'); }
     return;
   }
   if (act === 'del') {
-    const m = S.board.members.find(x => x.id === id);
-    if (!m) return;
-    if (m.boss) { toast('老板本人不能删'); return; }
-    if (!confirm('把「' + m.name + '」从榜上删掉？')) return;
-    S.board.members = S.board.members.filter(x => x.id !== id);
-    save(); renderRank(); toast('已删除');
+    const u = (await Store.list()).find(x => String(x.id) === String(id));
+    if (!confirm('把「' + (u ? u.username : '') + '」踢出榜单？')) return;
+    try { await Store.adminDel(id); toast('已删除'); await renderRank(); }
+    catch (err) { toast(err.message || '删除失败'); }
     return;
   }
-  if (act === 'link') {
-    const link = boardLink();
-    const out = $('#linkOut');
-    out.style.display = 'block';
-    out.textContent = link + '\n\n（长按全选复制，发到群里；学生打开是只读榜）';
-    copyText(link);
+  if (act === 'add') {
+    const nm = prompt('手动添加学员：填真名或微信名');
+    if (nm === null) return;
+    const err = validName(nm);
+    if (err) { toast(err); return; }
+    const pw = prompt('给他设个初始密码（至少 6 位），告诉他就能登录');
+    if (pw === null) return;
+    const err2 = validPass(pw); if (err2) { toast(err2); return; }
+    try {
+      const salt = makeSalt();
+      const h = await pbkdf2(pw, salt);
+      await Store.register(nm.trim(), salt, h);
+      toast('已添加，初始密码就是刚才那个');
+      await renderRank();
+    } catch (err3) { toast(err3.message || '添加失败'); }
     return;
   }
   if (act === 'report') { copyText(reportText()); return; }
-  if (act === 'setpass') {
-    const v = ($('#newPass').value || '').trim();
-    if (v.length < 4) { toast('口令至少 4 位'); return; }
-    S.board.pass = v; save(); toast('口令已改，记牢');
+  if (act === 'snap') {
+    try {
+      const users = await Store.list();
+      const link = location.href.split('#')[0] + '#b=' + b64e(boardPayload(users));
+      const out = $('#snapOut');
+      out.style.display = 'block';
+      out.textContent = link + '\n\n（这是只读快照，学员没账号也能看）';
+      copyText(link);
+    } catch (err) { toast('生成失败'); }
     return;
   }
 }
 
-/* ================= 我的 ================= */
+function boardPayload(users) {
+  const d = new Date();
+  const rows = sortedUsers(users).map(u => [u.username, u.points, u.level || 0, u.role === 'admin' ? 1 : 0, lvlOf(u).n].join('~')).join('!');
+  return (d.getMonth() + 1) + '/' + d.getDate() + '@' + rows;
+}
+function b64e(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function b64d(s) {
+  s = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (s.length % 4) s += '=';
+  const bin = atob(s); const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(arr);
+}
+function parseSnapshot() {
+  const h = location.hash || '';
+  if (h.indexOf('#b=') !== 0) return;
+  try {
+    const raw = b64d(h.slice(3));
+    const at = raw.indexOf('@');
+    const rows = raw.slice(at + 1).split('!').filter(Boolean);
+    const users = rows.map((r, i) => {
+      const a = r.split('~');
+      return { id:'s' + i, username:a[0] || '匿名', points:+a[1] || 0, level:+a[2] || 0, role:a[3] === '1' ? 'admin' : 'student' };
+    });
+    if (users.length) S.snapshot = { t: raw.slice(0, at), users };
+  } catch (e) {}
+}
+function reportText() {
+  const d = new Date();
+  let s = '🏆 电动车小组 · 积分榜（' + (d.getMonth() + 1) + '/' + d.getDate() + '）\n';
+  sortedUsers(S.snapshot ? S.snapshot.users : S.users).forEach((u, i) => {
+    const L = lvlOf(u);
+    s += (i + 1) + '. ' + u.username + '　' + CN[L.n] + '级' + L.name + '　' + u.points + '分\n';
+  });
+  s += '\n升级线：二级100 / 三级300 / 四级600 / 五级1000 / 六级2000';
+  return s;
+}
+
+/* ==================== 我的：账号 & 云端 ==================== */
+function renderAcc() {
+  const box = $('#accBox');
+  if (!S.me) {
+    box.innerHTML = '<div class="card"><div class="lab">账号</div>' +
+      '<p class="note" style="margin:0 0 10px">还没有登录。登录后才能在榜单上看到自己的段位。</p>' +
+      '<button class="btn ghost sm" onclick="switchTab(\'rank\')">去登录 / 注册</button></div>';
+    return;
+  }
+  const L = lvlOf(S.me);
+  box.innerHTML = '<div class="card"><div class="lab">账号</div>' +
+    '<div style="display:flex;align-items:center;gap:10px">' +
+      '<div class="av2" style="background:linear-gradient(135deg,' + avColor(S.me.username) + ',' + avColor(S.me.username) + 'bb)">' + esc(initial(S.me.username)) + '</div>' +
+      '<div style="flex:1"><div style="font-weight:800;font-size:15px">' + esc(S.me.username) + '</div>' +
+      '<div style="font-size:12px;color:var(--sub)">' + CN[L.n] + '级 ' + L.name + ' · ' + S.me.points + ' 分' + (S.me.role === 'admin' ? ' · 管理员' : '') + '</div></div>' +
+    '</div>' +
+    '<div class="row"><button class="btn ghost sm" id="btnGoRank">看榜单</button>' +
+    '<button class="btn ghost sm" id="btnChangePwd">改密码</button>' +
+    '<button class="btn ghost sm" id="btnLogout2" style="color:#AB1236">退出</button></div></div>';
+  $('#btnGoRank').onclick = () => switchTab('rank');
+  $('#btnLogout2').onclick = logout;
+  $('#btnChangePwd').onclick = changeMyPass;
+}
+
+async function changeMyPass() {
+  const np = prompt('新密码（至少 6 位）');
+  if (np === null) return;
+  const err = validPass(np); if (err) { toast(err); return; }
+  try {
+    const s2 = makeSalt();
+    const h = await pbkdf2(np, s2);
+    if (Store.cloud()) {
+      await Store.rpc('xy_self_pass', { p_user: S.me.username, p_oldhash: meHash, p_salt: s2, p_hash: h });
+    } else {
+      const u = S.users.find(x => String(x.id) === String(S.me.id));
+      u.salt = s2; u.hash = h; save();
+    }
+    meHash = h; saveMe();
+    toast('密码已改，别忘');
+  } catch (e) { toast(e.message || '改密码失败'); }
+}
+
+function renderCloud() {
+  const box = $('#cloudBox');
+  const on = Store.cloud();
+  box.innerHTML =
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">' +
+      '<span class="bdg ' + (on ? 'lv3' : 'lv1') + '">' + (on ? '云端已连接' : '本机模式') + '</span>' +
+      '<span style="font-size:11.5px;color:var(--sub)">' + (on ? '学员跨手机注册可用' : '只有这台手机能注册') + '</span>' +
+    '</div>' +
+    '<div class="field"><label>Supabase 项目 URL</label><input class="inp" id="cfUrl" placeholder="https://xxxx.supabase.co" value="' + escA(S.cfg.url) + '"></div>' +
+    '<div class="field" style="margin-top:9px"><label>anon public key</label><input class="inp" id="cfKey" placeholder="eyJhbGciOi..." value="' + escA(S.cfg.key) + '"></div>' +
+    '<div class="row"><button class="btn primary" id="btnCloudSave">保存并测试</button>' +
+    '<button class="btn ghost sm" id="btnCloudOff">退回本机</button></div>' +
+    '<div class="row"><button class="btn ghost sm" id="btnSql">复制建表 SQL</button></div>' +
+    '<div class="note" id="cloudMsg"></div>' +
+    '<details style="margin-top:8px"><summary style="font-size:12.5px;font-weight:700;color:var(--brand2);cursor:pointer">三步开通（5 分钟）</summary>' +
+      '<div class="note" style="margin-top:8px">' +
+      '<b>1.</b> 打开 supabase.com 用邮箱注册，新建一个免费项目（区域选 Singapore）。<br>' +
+      '<b>2.</b> 左边 SQL Editor → 粘贴「复制建表 SQL」的内容 → Run。<br>' +
+      '<b>3.</b> Project Settings → API，复制 <b>Project URL</b> 和 <b>anon public</b>，填到上面保存。<br><br>' +
+      '完成后学员在你发的链接里自己注册，你在榜单点「管理榜单」就能改分。管理员账号 <b>老板 / 密码 che1688</b>（SQL 里已建好）。' +
+      '</div></details>';
+  $('#btnCloudSave').onclick = async () => {
+    const u = ($('#cfUrl').value || '').trim();
+    const k = ($('#cfKey').value || '').trim();
+    if (!u || !k) { toast('两个都要填'); return; }
+    if (!/^https?:\/\//.test(u)) { toast('URL 要以 https:// 开头'); return; }
+    S.cfg = { url: u, key: k }; save();
+    try {
+      const n = await Store.probe();
+      $('#cloudMsg').innerHTML = '<b style="color:var(--brand2)">连接成功</b>，云端已有 ' + n + ' 个账号。';
+      toast('云端已连接');
+      await renderRank(); renderCloud();
+    } catch (e) {
+      $('#cloudMsg').innerHTML = '<b style="color:#AB1236">连不上：</b>' + esc(e.message || '') + '<br>检查 URL / key，以及 SQL 是否执行过。';
+      S.cfg = { url: '', key: '' }; save();
+    }
+  };
+  $('#btnCloudOff').onclick = () => {
+    S.cfg = { url: '', key: '' }; save();
+    toast('已退回本机模式'); renderCloud(); renderRank();
+  };
+  $('#btnSql').onclick = () => copyText(SCHEMA_SQL);
+}
+
+/* ==================== 定价 / 标题 ==================== */
 function calcPrice() {
-  const cost = +$('#cCost').value || 0;
-  const prep = +$('#cPrep').value || 0;
+  const cost = +$('#cCost').value || 0, prep = +$('#cPrep').value || 0;
   const profit = +$('#cProfit').value || 0;
   const pad = Math.min(40, Math.max(0, +$('#cPad').value || 12)) / 100;
   const floor = cost + prep + profit;
   const target = Math.round(floor * 1.06 / 5) * 5;
-  let list = Math.ceil(target / (1 - pad) / 100) * 100 - 1;
+  const list = Math.ceil(target / (1 - pad) / 100) * 100 - 1;
   $('#pFloor').textContent = floor;
   $('#pTarget').textContent = target;
   $('#pList').textContent = list;
 }
-
 function genTitle() {
   const model = ($('#tModel').value || '电动车').trim();
   const batt = ($('#tBatt').value || '锂电池').trim();
@@ -1712,51 +2035,137 @@ function genTitle() {
   const extras = $$('.tExtra').filter(x => x.checked).map(x => x.value);
   const exTxt = extras.length ? extras.join('｜') : '车况良好';
   const pTxt = price ? price + '可小刀' : '诚心可小刀';
-
   const t1 = model + '转让｜' + batt + '·实测' + range + 'km｜' + (extras.indexOf('手续齐全可上牌') >= 0 ? '手续齐全可上牌｜' : '') + loc + '自提';
   const t2 = '【学生自用】' + model + ' 代步神车 ' + range + 'km续航 ' + (extras.indexOf('电池去年新换') >= 0 ? '电池新换 ' : '') + '换车急出｜' + loc + '可试骑';
   const t3 = loc + '｜' + model + ' ' + batt + ' 上下课代步，' + range + 'km一周充一次｜' + pTxt + '，屠龙刀勿扰';
-
   const body =
-    '【车型】' + model + '\n' +
-    '【电池】' + batt + '（实测续航 ' + range + 'km，载人约 ' + Math.max(10, Math.round(range * 0.8)) + 'km）\n' +
-    '【手续】发票 / 合格证 / 行驶证齐全，配合过户上牌\n' +
-    '【车况】自己上下课骑的，无事故无泡水；小瑕疵写在图里不藏\n' +
-    '【亮点】' + exTxt + '\n' +
-    '【交易】' + loc + '自提，先试骑后付款；3公里内可帮您骑过去\n' +
-    '【价格】' + (price || '面议') + '，' + pTxt + '\n' +
-    '【说明】只看车不买也没事，别砍到电池成本以下就行 😄\n\n' +
-    '— 拍照清单 —\n' +
-    '① 车头45°全车 ② 仪表盘上电亮屏 ③ 电池铭牌特写（生产日期）\n' +
-    '④ 车架焊缝 ⑤ 轮胎花纹 ⑥ 手续平铺\n' +
-    '— 发布建议 —\n' +
-    '晚 8:00-10:00 发，标题带校区名，第一张图用全车+亮屏同框。';
-
+    '【车型】' + model + '\n【电池】' + batt + '（实测 ' + range + 'km，载人约 ' + Math.max(10, Math.round(range * 0.8)) + 'km）\n' +
+    '【手续】发票 / 合格证 / 行驶证齐全，配合过户上牌\n【车况】自己上下课骑的，无事故无泡水，小瑕疵写图里不藏\n' +
+    '【亮点】' + exTxt + '\n【交易】' + loc + '自提，先试骑后付款；3公里内可帮您骑过去\n' +
+    '【价格】' + (price || '面议') + '，' + pTxt + '\n【说明】只看车不买也没事，别砍到电池成本以下就行 😄\n\n' +
+    '— 拍照清单 —\n① 车头45°全车 ② 仪表盘上电亮屏 ③ 电池铭牌特写（生产日期）\n④ 车架焊缝 ⑤ 轮胎花纹 ⑥ 手续平铺\n' +
+    '— 发布建议 —\n晚 8:00-10:00 发，标题带校区名，第一张图用全车+亮屏同框。';
   $('#titleOut').style.display = 'block';
-  $('#titleOut').textContent =
-    '【标题 1】\n' + t1 + '\n\n【标题 2】\n' + t2 + '\n\n【标题 3】\n' + t3 + '\n\n【正文模板】\n' + body;
+  $('#titleOut').textContent = '【标题 1】\n' + t1 + '\n\n【标题 2】\n' + t2 + '\n\n【标题 3】\n' + t3 + '\n\n【正文模板】\n' + body;
   toast('已生成，长按可复制');
 }
 
-/* ================= 事件 ================= */
+/* ==================== 建表 SQL ==================== */
+const SCHEMA_SQL = `/* 卖车话术教练 · 榜单后端（Supabase → SQL Editor 全选执行） */
+create table if not exists public.xy_users (
+  id bigserial primary key,
+  username text unique not null,
+  salt text not null,
+  hash text not null,
+  level int not null default 0,
+  points int not null default 0,
+  role text not null default 'student',
+  note text default '',
+  created_at timestamptz default now()
+);
+alter table public.xy_users enable row level security;
+revoke all on public.xy_users from anon, authenticated;
+
+create or replace view public.xy_board as
+  select id, username, level, points, role, note, created_at from public.xy_users;
+grant select on public.xy_board to anon, authenticated;
+
+create or replace function public.xy_salt(p_user text) returns text
+language sql security definer set search_path=public as $$
+  select salt from xy_users where lower(username)=lower(trim(p_user));
+$$;
+grant execute on function public.xy_salt(text) to anon;
+
+create or replace function public.xy_register(p_user text, p_salt text, p_hash text)
+returns public.xy_board language plpgsql security definer set search_path=public as $$
+declare r public.xy_board;
+begin
+  if length(trim(p_user)) < 2 then raise exception '名字至少 2 个字'; end if;
+  insert into xy_users(username, salt, hash) values (trim(p_user), p_salt, p_hash)
+    returning id, username, level, points, role, note, created_at into r;
+  return r;
+exception when unique_violation then raise exception '这个名字已经有人用了';
+end $$;
+grant execute on function public.xy_register(text,text,text) to anon;
+
+create or replace function public.xy_login(p_user text, p_hash text)
+returns public.xy_board language plpgsql security definer set search_path=public as $$
+declare r public.xy_board;
+begin
+  select id, username, level, points, role, note, created_at into r from xy_users
+   where lower(username)=lower(trim(p_user)) and hash=p_hash;
+  if r.id is null then raise exception '名字或密码不对'; end if;
+  return r;
+end $$;
+grant execute on function public.xy_login(text,text) to anon;
+
+create or replace function public.xy_is_admin(p_user text, p_hash text) returns boolean
+language sql security definer set search_path=public as $$
+  select exists(select 1 from xy_users where lower(username)=lower(trim(p_user)) and hash=p_hash and role='admin');
+$$;
+
+create or replace function public.xy_admin_set(p_admin text, p_adminhash text, p_id bigint, p_points int, p_level int)
+returns void language plpgsql security definer set search_path=public as $$
+begin
+  if not xy_is_admin(p_admin, p_adminhash) then raise exception '没有管理权限'; end if;
+  update xy_users set points=greatest(0,p_points), level=coalesce(p_level,0) where id=p_id;
+end $$;
+grant execute on function public.xy_admin_set(text,text,bigint,int,int) to anon;
+
+create or replace function public.xy_admin_del(p_admin text, p_adminhash text, p_id bigint)
+returns void language plpgsql security definer set search_path=public as $$
+begin
+  if not xy_is_admin(p_admin, p_adminhash) then raise exception '没有管理权限'; end if;
+  if exists(select 1 from xy_users where id=p_id and role='admin') then raise exception '不能删除管理员'; end if;
+  delete from xy_users where id=p_id;
+end $$;
+grant execute on function public.xy_admin_del(text,text,bigint) to anon;
+
+create or replace function public.xy_admin_pass(p_admin text, p_adminhash text, p_id bigint, p_salt text, p_hash text)
+returns void language plpgsql security definer set search_path=public as $$
+begin
+  if not xy_is_admin(p_admin, p_adminhash) then raise exception '没有管理权限'; end if;
+  update xy_users set salt=p_salt, hash=p_hash where id=p_id;
+end $$;
+grant execute on function public.xy_admin_pass(text,text,bigint,text,text) to anon;
+
+create or replace function public.xy_self_pass(p_user text, p_oldhash text, p_salt text, p_hash text)
+returns void language plpgsql security definer set search_path=public as $$
+begin
+  if not exists(select 1 from xy_users where lower(username)=lower(trim(p_user)) and hash=p_oldhash) then
+    raise exception '旧密码不对'; end if;
+  update xy_users set salt=p_salt, hash=p_hash where lower(username)=lower(trim(p_user));
+end $$;
+grant execute on function public.xy_self_pass(text,text,text,text) to anon;
+
+-- 管理员账号：用户名 老板（密码在首次登录后自行修改）
+insert into public.xy_users(username,salt,hash,level,points,role,note)
+values ('老板','a1b2c3d4e5f60718','397e69b153f548ea03b770ec66310d8ff159badd8cacae3709f2c7739d43a6ec',3,300,'admin','boss')
+on conflict (username) do nothing;
+`;
+
+/* ==================== 导航 ==================== */
 function switchTab(name) {
   $$('.page').forEach(p => p.classList.remove('on'));
-  $('#page-' + name).classList.add('on');
-  $$('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  const pg = $('#page-' + name);
+  if (pg) pg.classList.add('on');
+  $$('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  document.body.dataset.tab = name;
   window.scrollTo({ top: 0 });
+  if (name === 'rank') renderRank();
+  if (name === 'me') { renderAcc(); renderCloud(); }
 }
 
-function init() {
+/* ==================== 启动 ==================== */
+async function init() {
   load();
-  // 每日金句
   const d = new Date();
   const idx = (d.getFullYear() * 372 + d.getMonth() * 31 + d.getDate()) % QUIPS.length;
-  $('#quip').innerHTML = '<b>今日一句</b>　' + esc(QUIPS[idx]);
+  $('#quip').innerHTML = '<b>今日一句</b>' + esc(QUIPS[idx]);
 
-  // tab
-  $$('nav.tabs button').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
-  $$('.subtabs button').forEach(b => b.onclick = () => {
-    $$('.subtabs button').forEach(x => x.classList.remove('on'));
+  $$('.tabs button').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+  $$('.seg [data-lib]').forEach(b => b.onclick = () => {
+    $$('.seg [data-lib]').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
     const t = b.dataset.lib;
     $('#libScenes').style.display = t === 'scenes' ? 'block' : 'none';
@@ -1764,28 +2173,34 @@ function init() {
     $('#libList').style.display = t === 'list' ? 'block' : 'none';
   });
 
-  // 查话术
   $('#btnAsk').onclick = ask;
-  $('#btnClear').onclick = () => { $('#askInput').value = ''; $('#askResult').innerHTML = ''; };
+  $('#btnClear').onclick = () => { $('#askInput').value = ''; $('#askResult').innerHTML = ''; $('#askIntro').style.display = 'block'; };
   $('#btnPaste').onclick = async () => {
     try { const t = await navigator.clipboard.readText(); if (t) { $('#askInput').value = t; ask(); } else toast('剪贴板是空的'); }
     catch (e) { toast('这台手机不让读剪贴板，长按输入框粘贴'); }
   };
+  const CHIPS = ['在吗','能便宜点吗','最低多少','电池还能跑多远','能上牌吗','是不是翻新电池','我再看看','能包售后吗','是不是骗子','能送到学校吗'];
   $('#chips').innerHTML = CHIPS.map(c => '<span class="chip">' + esc(c) + '</span>').join('');
-  $('#chips').onclick = e => {
-    if (!e.target.classList.contains('chip')) return;
-    $('#askInput').value = e.target.textContent;
+  const HOT = [
+    ['💰', '「能便宜点吗」怎么回', '能便宜点吗'],
+    ['🔋', '电池还能跑多远', '电池还能跑多远'],
+    ['🛡️', '客户怕被骗', '你是不是骗子啊'],
+    ['⏳', '「我再看看」怎么追', '我再看看']
+  ];
+  $('#hotList').innerHTML = HOT.map((h, i) =>
+    '<div class="hotrow" data-hot="' + i + '"><span class="em">' + h[0] + '</span><span>' + esc(h[1]) + '</span><span class="ar">›</span></div>').join('');
+  $('#hotList').onclick = e => {
+    const r = e.target.closest('[data-hot]');
+    if (!r) return;
+    $('#askInput').value = HOT[+r.dataset.hot][2];
     ask();
   };
+  $('#chips').onclick = e => { if (!e.target.classList.contains('chip')) return; $('#askInput').value = e.target.textContent; ask(); };
 
-  // 训练场
   const cats = [];
   SCENES.forEach(s => { if (cats.indexOf(s.c) < 0) cats.push(s.c); });
-  cats.forEach(c => {
-    const o = document.createElement('option');
-    o.value = c; o.textContent = c; $('#trainCat').appendChild(o);
-  });
-  $('#trainCat').onchange = () => { S.cat = $('#trainCat').value; pickQuestion(S.cat); };
+  $('#trainCat').innerHTML = '<option value="all">混合出题</option>' + cats.map(c => '<option value="' + escA(c) + '">' + esc(c) + '</option>').join('');
+  $('#trainCat').onchange = () => pickQuestion($('#trainCat').value);
   $('#btnScore').onclick = doScore;
   $('#btnSkip').onclick = () => pickQuestion($('#trainCat').value);
   $('#btnReview').onclick = () => {
@@ -1794,11 +2209,10 @@ function init() {
     const pool = SCENES.filter(s => ids.indexOf(s.id) >= 0);
     S.cur = pool[Math.floor(Math.random() * pool.length)].id;
     renderQuestion();
-    toast('复习模式：这题你之前没过 80');
+    toast('复习模式：这题之前没过 80');
   };
 
-  // 我的
-  ['cCost', 'cPrep', 'cProfit', 'cPad'].forEach(id => $('#' + id).addEventListener('input', calcPrice));
+  ['cCost','cPrep','cProfit','cPad'].forEach(id => $('#' + id).addEventListener('input', calcPrice));
   calcPrice();
   $('#btnTitle').onclick = genTitle;
   $('#btnExport').onclick = () => {
@@ -1806,7 +2220,7 @@ function init() {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = '话术教练备份_' + new Date().toISOString().slice(0, 10) + '.json';
-    a.click(); toast('已导出，存到网盘或发给自己');
+    a.click(); toast('已导出');
   };
   $('#btnImport').onclick = () => {
     const inp = document.createElement('input');
@@ -1816,39 +2230,39 @@ function init() {
       const rd = new FileReader();
       rd.onload = () => {
         try { Object.assign(S, JSON.parse(rd.result)); save(); renderStats(); toast('导入成功'); }
-        catch (e) { toast('文件读不了，换一个试试'); }
+        catch (e) { toast('文件读不了'); }
       };
       rd.readAsText(f);
     };
     inp.click();
   };
   $('#btnReset').onclick = () => {
-    if (!confirm('清空所有练习记录和错题本？')) return;
-    S = { trained: 0, total: 0, wrong: {}, seen: [], libTab: 'scenes', cur: null, cat: 'all', board: S.board };
-    save(); renderStats(); toast('已清空');
+    if (!confirm('清空练习记录和错题本？（账号和榜单不受影响）')) return;
+    S.trained = 0; S.total = 0; S.ok = 0; S.wrong = {}; save(); renderStats(); toast('已清空');
   };
 
-  renderLibScenes();
-  renderLibPrin();
-  renderLibList();
-  renderStats();
-  pickQuestion('all');
+  renderLibScenes(); renderLibPrin(); renderLibList(); renderStats(); pickQuestion('all');
   $('#trainResult').innerHTML = '';
 
-  // 榜单
-  parseSnapshot();
-  ensureBoard();
-  $('#ptsRules').innerHTML = PTS_RULES.map(x => '<div class="statline"><span>' + esc(x[0]) + '</span><b>' + x[1] + '</b></div>').join('');
   $('#page-rank').addEventListener('click', rankClick);
-  renderRank();
-  // 已经在页面里时点开分享链接（只有 hash 变化，不会重载）也要切到只读榜
-  window.addEventListener('hashchange', function () {
-    S.snapshot = null;
-    parseSnapshot();
-    renderRank();
+  $('#ptsRules').innerHTML =
+    '<div class="note" style="margin:0 0 8px">做题练习不加分。积分<b>只跟卖车挂钩</b>，加多少由老板当场定，下面只是参考。</div>' +
+    PTS_RULES.map(x => '<div class="statline"><span>' + esc(x[0]) + '</span><b>' + x[1] + '</b></div>').join('') +
+    LEVELS.map(L => '<div class="statline"><span>' + CN[L.n] + '级 ' + L.name + '（' + L.min + '分）</span><span style="font-size:11.5px;color:var(--sub);text-align:right">' + esc(L.right) + '</span></div>').join('');
+
+  parseSnapshot();
+  await ensureAdmin();
+  renderMePill();
+  renderAuth();
+  renderAcc();
+  renderCloud();
+  await renderRank();
+
+  if (S.snapshot) switchTab('rank');
+  window.addEventListener('hashchange', () => {
+    S.snapshot = null; parseSnapshot(); renderRank();
     if (S.snapshot) switchTab('rank');
   });
-  if (S.snapshot) { document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === 'rank')); switchTab('rank'); }
 }
 
 document.addEventListener('keydown', e => {
