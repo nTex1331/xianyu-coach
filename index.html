@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0A6B52">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%230E9F6E'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E7%94%B5%3C/text%3E%3C/svg%3E">
 <title>卖车话术教练 · 闲鱼版</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -1727,10 +1728,13 @@ async function renderRank() {
       '<div class="ptip">' + (S.me.level
         ? ('等级由老板指定，不随积分变动' + (nxp ? '（' + nxp.name + ' 需 ' + nxp.min + ' 分）' : ''))
         : (nx ? (nx.name + ' 还差 ' + Math.max(0, nx.min - S.me.points) + ' 分') : '已到顶 · 六级宗师')) + '</div>' +
-      '<div class="row"><button class="btn ghost sm" id="btnLogout" style="background:rgba(255,255,255,.14);color:#fff">退出登录</button>' +
+      '<div class="row">' +
+        (!Store.cloud() ? '<button class="btn ghost sm" id="btnMyCode" style="background:rgba(255,255,255,.14);color:#fff">我的入榜码</button>' : '') +
+        '<button class="btn ghost sm" id="btnLogout" style="background:rgba(255,255,255,.14);color:#fff">退出登录</button>' +
         (S.me.role === 'admin' ? '<button class="btn ghost sm" id="btnAdminMode" style="background:rgba(255,216,74,.16);color:#FFD84A">' + (adminOpen ? '收起管理' : '管理榜单') + '</button>' : '') +
       '</div></div>';
     $('#btnLogout').onclick = logout;
+    if ($('#btnMyCode')) $('#btnMyCode').onclick = showMyCode;
     if ($('#btnAdminMode')) $('#btnAdminMode').onclick = () => { adminOpen = !adminOpen; renderRank(); };
   } else meBox.innerHTML = snap ? '<div class="card"><div class="lab">只读榜单</div><p class="note" style="margin:0">这是老板 ' + esc(S.snapshot.t || '') + ' 发的快照。想上榜就在正式链接里注册一个名字。</p></div>' : '';
 
@@ -1811,7 +1815,12 @@ function renderAdmin() {
   box.innerHTML = '<div class="card"><div class="lab">管理员操作<span class="r">' + (Store.cloud() ? '云端' : '本机') + '</span></div>' +
     '<div class="row tight"><button class="btn ghost sm" data-act="report">复制战报</button>' +
     '<button class="btn ghost sm" data-act="snap">生成快照链接</button>' +
-    '<button class="btn ghost sm" data-act="add">手动加人</button></div>' +
+    '<button class="btn ghost sm" data-act="add">手动加人</button>' +
+    '<button class="btn ghost sm" data-act="codes">导入入榜码</button></div>' +
+    '<div id="codeWrap" style="display:none;margin-top:10px">' +
+      '<textarea id="codeTxt" placeholder="把学生发来的入榜码粘进来，一行一个（他们点「我的入榜码」复制）"></textarea>' +
+      '<div class="row"><button class="btn ghost sm" data-act="codesgo">确认导入</button></div>' +
+    '</div>' +
     '<div class="out" id="snapOut" style="display:none"></div>' +
     '<p class="note">改分会立刻写进榜单，学员刷新就能看到。'+ (Store.cloud() ? '' : '（当前是本机模式，只有这台手机能看见，要让学员跨手机注册请在「我的」里配云端）') +'</p>' +
     '</div>';
@@ -1872,6 +1881,16 @@ async function rankClick(e) {
     } catch (err3) { toast(err3.message || '添加失败'); }
     return;
   }
+  if (act === 'codes') {
+    const w = $('#codeWrap');
+    if (w) w.style.display = w.style.display === 'none' ? 'block' : 'none';
+    return;
+  }
+  if (act === 'codesgo') {
+    importCodes($('#codeTxt').value);
+    await renderRank();
+    return;
+  }
   if (act === 'report') { copyText(reportText()); return; }
   if (act === 'snap') {
     try {
@@ -1884,6 +1903,41 @@ async function rankClick(e) {
     } catch (err) { toast('生成失败'); }
     return;
   }
+}
+
+function showMyCode() {
+  const u = S.users.find(x => String(x.id) === String(S.me.id));
+  if (!u) { toast('拿不到本机账号，重新登录一次'); return; }
+  const code = b64e(['XY1', u.username, u.salt, u.hash].join('|'));
+  copyText(code);
+  let box = document.getElementById('codeOut');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'codeOut'; box.className = 'out';
+    box.style.marginTop = '12px';
+    box.style.background = 'rgba(255,255,255,.1)';
+    $('#meBox .me-card').appendChild(box);
+  }
+  box.style.display = 'block';
+  box.textContent = code + '\n\n把这段（已复制）发给老板，他粘进「导入入榜码」你就上榜了。';
+}
+
+function importCodes(txt) {
+  const lines = String(txt || '').split(/[\s,，]+/).filter(Boolean);
+  let ok = 0, dup = 0, bad = 0;
+  lines.forEach(line => {
+    try {
+      const parts = b64d(line).split('|');
+      if (parts[0] !== 'XY1' || parts.length !== 4) throw 0;
+      const name = String(parts[1]).trim();
+      if (validName(name)) throw 0;
+      if (S.users.some(x => x.username.toLowerCase() === name.toLowerCase())) { dup++; return; }
+      S.users.push({ id: 'u' + Date.now() + ok, username: name, salt: parts[2], hash: parts[3], level: 0, points: 0, role: 'student', note: '' });
+      ok++;
+    } catch (e) { bad++; }
+  });
+  save();
+  toast('导入 ' + ok + ' 人' + (dup ? '，重名跳过 ' + dup : '') + (bad ? '，无效 ' + bad : ''));
 }
 
 function boardPayload(users) {
