@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f8a5f">
+<title>卖车话术教练 · 闲鱼版</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f3f6f4;--card:#fff;--ink:#131a16;--sub:#6a7772;--line:#e5eae7;
+  --brand:#0f8a5f;--brand-d:#0a6d4a;--brand-soft:#e6f4ee;
+  --gold:#e59a12;--gold-soft:#fdf3e0;--red:#d94a3d;--red-soft:#fceceb;
+  --r:16px;--sh:0 1px 2px rgba(16,24,20,.04),0 8px 22px rgba(16,24,20,.055);
+}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  padding-bottom:calc(78px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:720px;margin:0 auto;padding:0 13px}
+header.top{
+  position:sticky;top:0;z-index:30;
+  background:rgba(243,246,244,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  padding:12px 0 10px;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+  width:38px;height:38px;border-radius:12px;flex:none;
+  background:linear-gradient(145deg,var(--brand),#12a873);
+  color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 14px rgba(15,138,95,.28);
+}
+.brand h1{font-size:17px;margin:0;letter-spacing:.3px;font-weight:800}
+.brand p{margin:1px 0 0;font-size:11.5px;color:var(--sub);letter-spacing:.2px}
+.quip{
+  margin-top:10px;font-size:12.5px;color:#3d5548;background:var(--brand-soft);
+  border-radius:10px;padding:8px 11px;line-height:1.5;
+}
+.quip b{color:var(--brand-d)}
+
+.page{display:none;padding-top:14px;animation:fade .22s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:12px}
+.lbl{display:block;font-size:12.5px;color:var(--sub);font-weight:600;margin-bottom:7px;letter-spacing:.2px}
+textarea{
+  width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;
+  font-size:16px;line-height:1.6;font-family:inherit;color:var(--ink);
+  background:#fbfcfb;resize:vertical;min-height:88px;outline:none;transition:border-color .15s;
+}
+textarea:focus{border-color:var(--brand);background:#fff}
+.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center}
+.btn{
+  border:0;border-radius:11px;padding:11px 16px;font-size:14.5px;font-weight:700;
+  font-family:inherit;cursor:pointer;transition:transform .08s,opacity .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--brand);color:#fff;flex:1;box-shadow:0 6px 16px rgba(15,138,95,.25)}
+.btn.ghost{background:#eef2f0;color:#41524a}
+.btn.small{padding:8px 12px;font-size:13px;border-radius:9px}
+select{
+  border:1.5px solid var(--line);border-radius:10px;padding:9px 10px;font-size:14px;
+  font-family:inherit;background:#fbfcfb;color:var(--ink);outline:none;
+}
+
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+.chip{
+  background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;font-size:12.5px;color:#42544b;cursor:pointer;white-space:nowrap;
+}
+.chip:active{background:var(--brand-soft);border-color:#b9e0cf}
+
+/* 场景卡 */
+.scene{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
+.sc-head{padding:13px 14px 11px;border-bottom:1px dashed var(--line)}
+.tag{
+  display:inline-block;font-size:11px;font-weight:700;color:var(--brand-d);
+  background:var(--brand-soft);border-radius:6px;padding:2px 7px;margin-bottom:6px;letter-spacing:.3px;
+}
+.sc-head h3{margin:0;font-size:15.5px;line-height:1.45;font-weight:800}
+.match{float:right;font-size:11px;color:var(--gold);font-weight:700}
+.sec{padding:11px 14px;border-bottom:1px solid #f2f5f3}
+.sec:last-child{border-bottom:0}
+.sec-t{font-size:11.5px;font-weight:800;color:var(--sub);letter-spacing:.6px;margin-bottom:6px}
+.sec p{margin:0;font-size:14.2px;line-height:1.66}
+.sec.why{background:#f7faf8}
+.sec.why p{font-size:13.6px;color:#3b4f45}
+.sec.bad{background:#fdf8f7}
+.sec.bad ul{margin:0;padding-left:18px;font-size:13.4px;color:#8a3b34}
+.sec.bad li{margin:2px 0}
+.reply{position:relative;background:#f6f9f7;border:1px solid #e7efeb;border-radius:11px;padding:10px 11px;margin-bottom:8px}
+.reply:last-child{margin-bottom:0}
+.rk{font-size:11px;font-weight:800;color:var(--brand-d);letter-spacing:.4px;margin-bottom:3px;padding-right:58px}
+.reply p{font-size:14.2px;margin:0}
+.copy{
+  position:absolute;right:7px;top:6px;border:0;background:var(--brand);color:#fff;
+  font-size:11.5px;font-weight:700;border-radius:8px;padding:5px 9px;cursor:pointer;font-family:inherit;
+}
+.copy:active{background:var(--brand-d)}
+.advice{margin:0 0 12px;font-size:12.5px;color:var(--sub);line-height:1.6;padding:0 4px}
+
+/* 空状态 */
+.empty{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px 14px;text-align:center;color:var(--sub);font-size:13.5px}
+.empty b{color:var(--ink);display:block;font-size:14.5px;margin-bottom:6px}
+
+/* 训练场 */
+.buyer{
+  background:#e9f3ee;border-radius:14px 14px 14px 4px;padding:12px 14px;margin:10px 0 12px;
+  font-size:15.5px;line-height:1.6;color:#17352a;position:relative;
+}
+.buyer .who{font-size:11px;color:#4e7a66;font-weight:800;letter-spacing:.5px;margin-bottom:4px}
+.trainbar{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub)}
+.trainbar b{color:var(--brand-d)}
+
+.scorecard{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:12px}
+.ring{
+  --p:0;width:78px;height:78px;flex:none;border-radius:50%;
+  background:conic-gradient(var(--brand) calc(var(--p)*1%),#e8eeeb 0);
+  display:flex;align-items:center;justify-content:center;position:relative;
+}
+.ring::after{content:'';position:absolute;inset:7px;background:#fff;border-radius:50%}
+.ring span{position:relative;z-index:1;font-size:23px;font-weight:800;color:var(--brand-d)}
+.ring.low{background:conic-gradient(var(--gold) calc(var(--p)*1%),#e8eeeb 0)}
+.ring.low span{color:#a86b00}
+.ring.worst{background:conic-gradient(var(--red) calc(var(--p)*1%),#e8eeeb 0)}
+.ring.worst span{color:#a52f24}
+.sinfo{flex:1;min-width:0}
+.grade{font-size:15.5px;font-weight:800;margin-bottom:4px}
+.kv{font-size:12.5px;line-height:1.6;margin:2px 0;color:#3d5148}
+.kv.good{color:var(--brand-d)}
+.kv.warn{color:#a86b00}
+.kv.err{color:#a52f24}
+
+/* 库 */
+.subtabs{display:flex;gap:6px;background:#e9eeeb;border-radius:12px;padding:4px;margin-bottom:13px}
+.subtabs button{
+  flex:1;border:0;background:transparent;padding:8px 4px;border-radius:9px;
+  font-size:13px;font-weight:700;color:#5a6b62;font-family:inherit;cursor:pointer;
+}
+.subtabs button.on{background:#fff;color:var(--brand-d);box-shadow:0 1px 4px rgba(0,0,0,.07)}
+details.sc{background:#fff;border-radius:13px;box-shadow:var(--sh);margin-bottom:9px;overflow:hidden}
+details.sc summary{
+  list-style:none;padding:12px 14px;cursor:pointer;font-size:14.5px;font-weight:700;
+  display:flex;align-items:center;gap:8px;
+}
+details.sc summary::-webkit-details-marker{display:none}
+details.sc summary::after{content:'›';margin-left:auto;color:#a9b6ae;font-size:20px;transition:transform .18s}
+details.sc[open] summary::after{transform:rotate(90deg)}
+.catrow{font-size:12px;font-weight:800;color:var(--sub);letter-spacing:1px;margin:16px 4px 8px}
+.pcard{background:#fff;border-radius:13px;box-shadow:var(--sh);padding:13px 14px;margin-bottom:10px}
+.pcard .book{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:.4px}
+.pcard h4{margin:3px 0 7px;font-size:15px;font-weight:800}
+.pcard .d{font-size:13.4px;color:#3d5148;margin:0 0 8px}
+.pcard .u{font-size:13.4px;color:#26382f;margin:0 0 8px;padding-left:10px;border-left:2.5px solid var(--brand-soft)}
+.pcard .say{font-size:13.2px;background:var(--brand-soft);color:#0d5b41;border-radius:9px;padding:8px 10px;line-height:1.55}
+.pcard .say b{font-size:10.5px;letter-spacing:.5px;display:block;margin-bottom:2px;color:#3d8a6d}
+.num{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand-d);
+  font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.li{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #f0f4f1;font-size:13.8px}
+.li:last-child{border-bottom:0}
+.red{background:var(--red-soft);color:#8a2f26;font-size:13.2px;border-radius:10px;padding:9px 11px;margin-bottom:8px;line-height:1.6}
+
+/* 计算器 */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.field label{display:block;font-size:12px;color:var(--sub);font-weight:700;margin-bottom:4px}
+.field input{
+  width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px;font-size:16px;
+  font-family:inherit;background:#fbfcfb;outline:none;color:var(--ink);
+}
+.field input:focus{border-color:var(--brand);background:#fff}
+.priceout{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.pbox{background:#f7faf8;border-radius:11px;padding:9px 8px;text-align:center}
+.pbox .n{font-size:9.5px;color:var(--sub);font-weight:800;letter-spacing:.3px}
+.pbox .v{font-size:19px;font-weight:800;color:var(--ink);line-height:1.3}
+.pbox.hi{background:var(--brand-soft)}
+.pbox.hi .v{color:var(--brand-d)}
+.pbox.mid{background:var(--gold-soft)}
+.pbox.mid .v{color:#a06a00}
+input[type=checkbox]{width:17px;height:17px;accent-color:var(--brand);margin-right:5px;vertical-align:-3px}
+.ckwrap{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;color:#33453c;margin-top:4px}
+.out{background:#0f1a15;color:#d7f0e5;border-radius:12px;padding:12px;font-size:12.8px;line-height:1.75;
+  white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,Menlo,Consolas,"PingFang SC",monospace;margin-top:11px}
+.statline{display:flex;justify-content:space-between;font-size:13.4px;padding:7px 0;border-bottom:1px solid #f0f4f1}
+.statline:last-child{border-bottom:0}
+.statline b{color:var(--brand-d)}
+
+/* 底部导航 */
+nav.tabs{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(16px);
+  border-top:1px solid var(--line);padding:6px 0 calc(6px + env(safe-area-inset-bottom));
+}
+nav.tabs button{
+  flex:1;border:0;background:transparent;font-family:inherit;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;color:#9aa8a1;
+}
+nav.tabs button .ic{font-size:19px;line-height:1;filter:grayscale(1);opacity:.65}
+nav.tabs button .tx{font-size:10.5px;font-weight:700;letter-spacing:.3px}
+nav.tabs button.on{color:var(--brand-d)}
+nav.tabs button.on .ic{filter:none;opacity:1}
+
+#toast{
+  position:fixed;left:50%;bottom:96px;transform:translate(-50%,16px);
+  background:rgba(18,26,22,.94);color:#fff;font-size:13.5px;font-weight:600;
+  padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;z-index:99;max-width:80vw;text-align:center;
+}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+footer.ft{text-align:center;font-size:11.5px;color:#a3b0a9;padding:16px 0 6px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">电</div>
+      <div>
+        <h1>卖车话术教练</h1>
+        <p>闲鱼 · 学生分销专用 · 45 个场景 / 29 条原理</p>
+      </div>
+    </div>
+    <div class="quip" id="quip"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ========== 查话术 ========== -->
+<section class="page on" id="page-ask">
+  <div class="card">
+    <label class="lbl">把买家说的话粘进来（整段聊天也行）</label>
+    <textarea id="askInput" placeholder="例如：老板这个车还在吗？电池还能跑多远？能便宜点不？"></textarea>
+    <div class="row">
+      <button class="btn primary" id="btnAsk">给我回复 →</button>
+      <button class="btn ghost small" id="btnPaste">粘贴</button>
+      <button class="btn ghost small" id="btnClear">清空</button>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
+  <div id="askResult"></div>
+</section>
+
+<!-- ========== 训练场 ========== -->
+<section class="page" id="page-train">
+  <div class="card">
+    <div class="trainbar">
+      <span>出题方式
+        <select id="trainCat" style="margin-left:6px">
+          <option value="all">混合出题</option>
+        </select>
+      </span>
+      <span id="trainStat">已练 <b>0</b> 题</span>
+    </div>
+    <div class="buyer">
+      <div class="who">买家发来 · 你要怎么回？</div>
+      <div id="trainQ">…</div>
+    </div>
+    <textarea id="trainA" placeholder="先自己写一句，写完再点评分。看完再写＝白练。"></textarea>
+    <div class="row">
+      <button class="btn primary" id="btnScore">提交评分</button>
+      <button class="btn ghost small" id="btnSkip">换一题</button>
+    </div>
+    <p class="advice" style="margin:10px 0 0">提示：写清楚「给什么信息 + 为什么 + 下一步」，分数自然高。</p>
+  </div>
+  <div id="trainResult"></div>
+  <div class="card" id="reviewCard" style="display:none">
+    <div class="sec-t">今日复习（错过的题，隔天再来一遍）</div>
+    <p style="font-size:13.5px;margin:0 0 10px;color:#3d5148" id="reviewTxt"></p>
+    <button class="btn ghost small" id="btnReview">开始复习</button>
+  </div>
+</section>
+
+<!-- ========== 话术库 ========== -->
+<section class="page" id="page-lib">
+  <div class="subtabs">
+    <button data-lib="scenes" class="on">场景库</button>
+    <button data-lib="prin">原理卡</button>
+    <button data-lib="list">SOP·红线</button>
+  </div>
+  <div id="libScenes"></div>
+  <div id="libPrin" style="display:none"></div>
+  <div id="libList" style="display:none"></div>
+</section>
+
+<!-- ========== 我的 ========== -->
+<section class="page" id="page-me">
+  <div class="card">
+    <div class="sec-t">定价计算器（留 12% 砍价空间）</div>
+    <div class="grid2">
+      <div class="field"><label>收车成本</label><input id="cCost" type="number" inputmode="numeric" value="700"></div>
+      <div class="field"><label>整备成本（换件/清洗）</label><input id="cPrep" type="number" inputmode="numeric" value="50"></div>
+      <div class="field"><label>想赚多少</label><input id="cProfit" type="number" inputmode="numeric" value="250"></div>
+      <div class="field"><label>砍价空间 %</label><input id="cPad" type="number" inputmode="numeric" value="12"></div>
+    </div>
+    <div class="priceout">
+      <div class="pbox mid"><div class="n">挂牌价</div><div class="v" id="pList">—</div></div>
+      <div class="pbox hi"><div class="n">目标成交</div><div class="v" id="pTarget">—</div></div>
+      <div class="pbox"><div class="n">底线（不破）</div><div class="v" id="pFloor">—</div></div>
+    </div>
+    <p class="advice" style="margin:9px 0 0">挂牌价尾数用 99，显得算过账；底线价只写在心里。</p>
+  </div>
+
+  <div class="card">
+    <div class="sec-t">闲鱼标题 / 文案生成器</div>
+    <div class="grid2">
+      <div class="field"><label>车型</label><input id="tModel" placeholder="爱玛小乔 / 雅迪DE2"></div>
+      <div class="field"><label>电池</label><input id="tBatt" placeholder="48V20Ah锂电"></div>
+      <div class="field"><label>实测续航 km</label><input id="tRange" type="number" inputmode="numeric" placeholder="40"></div>
+      <div class="field"><label>价格</label><input id="tPrice" type="number" inputmode="numeric" placeholder="1150"></div>
+    </div>
+    <div class="field" style="margin-top:9px"><label>位置（校区/小区）</label><input id="tLoc" placeholder="银杏学院红光校区"></div>
+    <div class="ckwrap" style="margin-top:10px">
+      <label><input type="checkbox" class="tExtra" value="手续齐全可上牌" checked>手续齐全可上牌</label>
+      <label><input type="checkbox" class="tExtra" value="电池去年新换">电池去年新换</label>
+      <label><input type="checkbox" class="tExtra" value="学生自用无事故">学生自用无事故</label>
+      <label><input type="checkbox" class="tExtra" value="可试骑">可试骑</label>
+      <label><input type="checkbox" class="tExtra" value="送充电器车衣">送充电器车衣</label>
+    </div>
+    <div class="row"><button class="btn primary" id="btnTitle">生成标题文案</button></div>
+    <div class="out" id="titleOut" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-t">训练数据（存在这台手机上）</div>
+    <div class="statline"><span>练过的题</span><b id="stCount">0</b></div>
+    <div class="statline"><span>平均分</span><b id="stAvg">0</b></div>
+    <div class="statline"><span>错题本</span><b id="stWrong">0</b></div>
+    <div class="statline"><span>掌握度（70分以上占比）</span><b id="stMaster">0%</b></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost small" id="btnExport">导出备份</button>
+      <button class="btn ghost small" id="btnImport">导入备份</button>
+      <button class="btn ghost small" id="btnReset" style="color:#a52f24">清空重来</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-t">这套东西怎么来的</div>
+    <p style="font-size:13.4px;margin:0;color:#3d5148;line-height:1.7">
+      话术骨架来自四本书：《关键对话》给安全感，《影响力》《先发影响力》给说服路径，《影响力大师》给团队落地，训练机制用《认知天性》的检索练习＋间隔重复。《毛选》负责定方向——抓主要矛盾、不打无准备之仗、集中优势兵力打歼灭战。<br><br>
+      它不是让你背话术，是让你在被问住的时候，知道下一句该往哪走。
+    </p>
+  </div>
+  <footer class="ft">卖车话术教练 · 数据只存在你手机本地<br>换手机先点“导出备份”</footer>
+</section>
+
+</div>
+
+<nav class="tabs">
+  <button data-tab="ask" class="on"><span class="ic">💬</span><span class="tx">查话术</span></button>
+  <button data-tab="train"><span class="ic">🎯</span><span class="tx">训练场</span></button>
+  <button data-tab="lib"><span class="ic">📚</span><span class="tx">话术库</span></button>
+  <button data-tab="me"><span class="ic">🧰</span><span class="tx">我的</span></button>
+</nav>
+
+<div id="toast"></div>
+
+<script>
+/* ================= 数据 ================= */
+const SCENES = [
+/* ===== 开场破冰 ===== */
+{
+  id:'op1', c:'开场破冰', t:'买家只发「在吗」',
+  b:['在吗','在不在','还在吗','车还在不','还在么','有人吗','在么'],
+  m:[['在的','还在','在'],['试骑','看车','定位','过来'],['电池','续航','手续','车况']],
+  r:[
+    {k:'稳重型', x:'在的！车还在。我先跟您交代清楚：车是我自己上下课骑的，电池实测还能跑【35-40公里】，发票合格证都齐，随时能来试骑。您几点方便？我把定位发您。'},
+    {k:'利落型', x:'在，随时能看车。您挑个时间，我提前把车充满电推下来，您绕校园骑一圈就知道值不值。'}
+  ],
+  p:'《关键对话》：先给安全感，再谈买卖。买家问“在吗”其实是在试探“你靠不靠谱”。第一句就把注意力引到“信息全、可试骑”上（《先发影响力》注意力前置），而不是引到“你要不要买”。',
+  n:'别停在“在”。立刻给时间或定位，把对话推进到「几点来」。',
+  a:['只回一个“在”','回“在的，你要买吗”（太急，人跑）','秒回一大段推销长文']
+},
+{
+  id:'op2', c:'开场破冰', t:'「你是学生吗 / 是自己卖吗」',
+  b:['你是学生','本人吗','自己卖','你是车行','中介','二道贩子','是不是商家'],
+  m:[['是','对','本人'],['学院','大二','大三','学生证','校园卡'],['自己骑','不是车行','换车']],
+  r:[
+    {k:'真实型', x:'对，我是【XX学院】的，车自己上下课骑了一年多，不是车行也不是中介，就一台。来看车我带着学生证，您随便验。'},
+    {k:'共情型', x:'是学生，所以我才卖这个价——车行卖车要赚一道，我就是换车腾地方。您也是学生的话，试骑完咱们都省事。'}
+  ],
+  p:'《影响力》喜好原则：人更容易答应“像自己的人”。《毛选》群众路线：先站到同一边，你和他是一个群体，不是买卖对立面。身份真实感比专业术语值钱。',
+  n:'顺势把身份变成信任凭证：学生证、宿舍楼下看车、校园里骑一年。',
+  a:['装成车行显得“专业”（一验就露）','含糊其辞说“帮朋友卖”']
+},
+{
+  id:'op3', c:'开场破冰', t:'「你为什么卖 / 是不是有问题」',
+  b:['为什么卖','怎么不骑了','干嘛卖','不骑了吗','要换车吗','是不是有毛病才卖'],
+  m:[['换','毕业','搬','新'],['实话','缺点','划痕','提前'],['因为','所以']],
+  r:[
+    {k:'坦白型', x:'实话实说：我换了台新的，这台放宿舍楼下占地方。它的缺点我提前讲——【外壳左侧有道划痕，照片第三张能看到】，其他都好。我不想让您跑一趟觉得被瞒着。'},
+    {k:'故事型', x:'毕业要走了，带不回去。这车陪我跑了一年图书馆和食堂，电池还有大半年好状态，卖给学弟比扔在车棚里强。'}
+  ],
+  p:'《先发影响力》展示弱点：主动说一个小缺点，会让“车况很好”这句话立刻可信。买家问这句时，心里其实已经默认“你在隐瞒”，你要做的是先把这个假设拆掉。',
+  n:'说完缺点马上补一句“其他都正常，来了当场验”，把主动权交回现场。',
+  a:['说“一点毛病没有”（越说越不信）','编一个煽情故事（售后一查就露）']
+},
+{
+  id:'op4', c:'开场破冰', t:'「车在哪 / 哪个校区」',
+  b:['在哪看车','哪个校区','自提吗','地址','在哪里','位置'],
+  m:[['苑','栋','门','校区','红光'],['几点','分钟','方便'],['试骑','推下来','充满']],
+  r:[
+    {k:'清晰型', x:'我在【红光街道·XX苑X栋】，从【学校东门】走过来大概8分钟。晚上7点后我都在，您到了发消息，我把车充满电推下来，您先骑一圈。'},
+    {k:'省事型', x:'【XX苑】楼下，随时能看。您从地铁【XX站】B口出来骑共享单车5分钟，我在这儿等您。'}
+  ],
+  p:'《影响力大师》结构性能力：把“来看车”这件难事变成“走8分钟”这件易事。路径越具体，行动成本越低，约成率越高。',
+  n:'给一个具体楼栋+一段具体路线，比“红光这边”强十倍。',
+  a:['只说“红光”','说“你搜一下XX苑”（让人自己找）','让买家先转定金才给地址']
+},
+{
+  id:'op5', c:'开场破冰', t:'开场就被问「能便宜吗」',
+  b:['能便宜吗','可以优惠','便宜点吧','少点钱','有没有优惠'],
+  m:[['能','可以','看'],['今天','这两天','过来','自提'],['让','优惠','空间']],
+  r:[
+    {k:'有条件型', x:'能，但得看怎么买。您今天定、自己过来骑走，我让【50】；要我送或者等一周，只能让【20】。不是我不松口，是松口得换点东西。'},
+    {k:'试探型', x:'价格留了点空间，您是打算这两天就骑走吗？您给我个准信，我按“马上成交”的价给您算。'}
+  ],
+  p:'《影响力》互惠+承诺一致：每一次让步都必须换一个条件（时间/自提/立刻付款）。无条件让步会告诉对方“我还能再让”，第二刀会比第一刀狠。',
+  n:'把“让多少”变成“什么条件下让多少”，一句话把还价变成条件谈判。',
+  a:['一口答应“可以便宜”','直接报底线（后面没得谈）']
+},
+
+/* ===== 车况专业度 ===== */
+{
+  id:'q1', c:'车况专业度', t:'「电池几年了 / 还能跑多远」——最核心的问题',
+  b:['电池','还能跑多远','续航','多久换的','几成新','跑多少公里','电池几年'],
+  m:[['电池','续航'],['实测','公里','我自己骑','天'],['区间','左右','不是官网','打七折']],
+  r:[
+    {k:'实测型', x:'电池是【去年X月】的，我天天骑，实测能跑【35-40公里】。这个数是我自己骑出来的，不是官网标的——官网标的您得打七折看。您来自己骑一圈，仪表盘掉几格一目了然。'},
+    {k:'拆解型', x:'分两块说：电池是【48V20Ah锂电，去年换的】，续航实测【35公里左右，载人会掉到28】。我住XX苑，上课在XX楼，一天来回12公里，充一次骑三天。这个强度您参考一下。'}
+  ],
+  p:'《影响力》权威不是靠形容词，是靠“可核对的数字+场景”。主动把官网标的打折，反而让你说的每个数字都变可信（预期管理）。',
+  n:'说完给一个可验证动作：“您来骑，仪表盘自己看”，把承诺变成现场证据。',
+  a:['吹“能跑80公里”（买家骑两天就穿帮，必退）','说“我也不太清楚”（专业度归零）']
+},
+{
+  id:'q2', c:'车况专业度', t:'「是不是翻新电池 / 换过电池吗」',
+  b:['翻新','原装电池','假电池','换过电池吗','电池修过','电芯'],
+  m:[['不是翻新','品牌','去年'],['票据','照片','拍给','凭据'],['冬天掉电','不做','便宜两百']],
+  r:[
+    {k:'给凭据型', x:'不是翻新的。这块是【去年X月在XX换的品牌电芯】，换的时候有票据，我拍给您看。翻新电池能便宜两百块，但冬天掉电特别快，我不给您用这个。'},
+    {k:'专业型', x:'您可以自己看：电池外壳的生产日期是【XX年XX月】，序列号我拍特写给您，扫一下就能查。翻新的一般是外壳新、接头旧，您现场一看就知道。'}
+  ],
+  p:'《关键对话》STATE：说事实（日期、票据）→ 说自己的判断 → 给出验证路径。不辩论“我有没有骗你”，而是把判断权交给证据。',
+  n:'拍一张电池铭牌特写发过去，图比嘴硬。',
+  a:['赌咒“绝对原装”却拿不出任何凭证','说“上一任车主换的我不知道”']
+},
+{
+  id:'q3', c:'车况专业度', t:'「是不是事故车 / 泡过水」',
+  b:['事故','摔过吗','泡水','撞过','出过事','翻车'],
+  m:[['没有','没出过'],['焊缝','龙头','电机','三处','看'],['修车店','验','第三方','随便']],
+  r:[
+    {k:'教他验型', x:'没出过事故、没泡过水。您来了看三处就能判断：车架焊缝、龙头锁孔、电机接线口——事故车这三处藏不住。您也可以带去随便哪家修车店验，验出问题我请您喝水。'},
+    {k:'直接型', x:'没有，我这一年就是上下课骑，最远到过【XX广场】。车架原漆，没补过漆，您来了用手摸焊缝，补过漆的地方是能摸出来的。'}
+  ],
+  p:'《影响力》权威+可验证：把鉴定权交给第三方（修车店），是二手车最难被反驳的信任动作。你敢让他验，就说明你不怕。',
+  n:'主动说“随便验，验出问题我认”，比一百句保证有用。',
+  a:['“应该没有吧”（等于承认不知道）','“我看着挺好的”']
+},
+{
+  id:'q4', c:'车况专业度', t:'「能上牌吗 / 是不是新国标」——成都的硬门槛',
+  b:['能上牌','新国标','有牌照','上户','超标车','能不能上牌','牌照'],
+  m:[['新国标','已上牌','牌照'],['行驶证','手续','过户','配合'],['成都','超标','现在不好上']],
+  r:[
+    {k:'合规型', x:'这车是【新国标/已上牌】，牌照和行驶证都在，过户我全程配合去。成都这边超标车现在上牌卡得紧，所以手续全的车其实不好找，这个是它的加分项。'},
+    {k:'老实型', x:'车子本身是新国标，能上牌；但现在成都上牌要预约，我陪您去，材料我全给您。我不敢替车管所打包票，但该我出的我一样不少。'}
+  ],
+  p:'《影响力》稀缺原则：合规手续在成都二手电车市场是真稀缺，要把“合规”当卖点讲，而不是当免责声明讲。同时诚实划边界——你不承诺你控制不了的事，信任反而涨。',
+  n:'把“牌照+行驶证+过户配合”三件事一起说，听完这句“怕上不了牌”的异议就没了。',
+  a:['含糊“应该能上”','拍胸脯“包上牌”（办不到就是欺诈，学生背不起）']
+},
+{
+  id:'q5', c:'车况专业度', t:'「有发票合格证吗 / 手续全不全」',
+  b:['发票','合格证','手续','行驶证','收据','有没有证'],
+  m:[['都有','齐','在'],['拍照','拍给','发您'],['协议','签字','手印']],
+  r:[
+    {k:'规范型', x:'发票、合格证、行驶证都有，我拍给您看。交易的时候一起给您，咱们再写一张转让协议，双方签字按手印，写清车架号——对您我都保险。'},
+    {k:'省心型', x:'手续齐的，这也是我卖这个价的底气。您要是给家里孩子买，拿着这些材料他们才放心。'}
+  ],
+  p:'《关键对话》安全感双条件（共同目的+相互尊重）：协议不是防你，是防“以后说不清”。买家听到“对您我都保险”，对抗感就没了。',
+  n:'主动提转让协议——这是学生卖家最能显出“正规”的一招，成本一张A4纸。',
+  a:['“发票丢了”还硬撑','说“二手的东西要啥发票”']
+},
+{
+  id:'q6', c:'车况专业度', t:'「能跑多快 / 能载人吗 / 能爬坡吗」',
+  b:['多快','载人','爬坡','带人','上坡','跑得快'],
+  m:[['限速','25','国标'],['能','带','一个人'],['不合适','山路','两个大人']],
+  r:[
+    {k:'诚实型', x:'限速25，能带一个人，红光这边的坡没问题——我们学校后门那个坡我天天带人上。但您要带两个大人、或者天天跑龙泉山那种坡，我就直说不合适，别耽误您。'},
+    {k:'场景型', x:'您平时从哪儿到哪儿？我按您的路说。校内+菜市场+地铁站，这车绰绰有余；要是每天过【XX大桥】那种长坡，载人上坡会明显掉速，我得提前告诉您。'}
+  ],
+  p:'《影响力》诚实筛选客户：主动说“不合适”会淘汰一小部分买家，但留下来的这部分人信任你到可以直接付款。二手生意最贵的成本是退货和扯皮，不是少卖一台。',
+  n:'反问一句“您平时骑哪条路”，把参数问题变成他的场景问题。',
+  a:['吹“能跑50”（违法又危险，出事全责在你）','说“随便带几个都行”']
+},
+{
+  id:'q7', c:'车况专业度', t:'要实拍 / 实测视频',
+  b:['拍个视频','实测','录一下','拍照片','多拍几张','有没有细节图'],
+  m:[['行','可以','好'],['来回','仪表盘','不剪','实拍'],['半小时','马上','现在']],
+  r:[
+    {k:'爽快型', x:'行，我给您录一段：从【A点骑到B点】再回来，拍仪表盘全程，不剪不加速。半小时内发您。'},
+    {k:'附加值型', x:'我拍四段给您：①整车四面 ②电池铭牌特写 ③仪表盘上电 ④骑出去200米刹车和喇叭。您还想看哪儿，直接说，我补拍。'}
+  ],
+  p:'《认知天性》生成式学习：让人自己得出“这车不错”的结论，比你告诉他有效得多。视频的作用不是展示，是让他自己观察。',
+  n:'拍完补一句“您也可以自己来骑，自己骑出来的数最算数”。',
+  a:['只发精修九宫格','说“照片拍不出来效果”（显得心虚）']
+},
+{
+  id:'q8', c:'车况专业度', t:'「这车有什么毛病」',
+  b:['有什么毛病','坏的地方','哪里不好','有没有问题','有哪些瑕疵','缺点'],
+  m:[['毛病','缺点'],['划痕','外壳','后胎','具体'],['其他','都','当场试']],
+  r:[
+    {k:'一次说完型', x:'毛病我一次说完，不藏：一是【外壳左侧有道划痕，第三张图能看到】；二是【后胎刚换新的，所以不算毛病，算加分】。其他都好，刹车、灯、喇叭您当场试。'},
+    {k:'加分型', x:'小瑕疵有两个：【座垫有一道裂口，我套了个套子】、【前筐有点歪，扳一下就好】。大件——电机、控制器、电池、车架——都没动过。您来看的时候我带工具，能当场弄的我给您弄好。'}
+  ],
+  p:'《先发影响力》展示弱点：主动列缺点会让“大件没动过”这句话瞬间变可信。心理学上叫“双向信息传递”，说缺点的销售反而更被信任。',
+  n:'缺点要具体、要有图、要“小”；列完立刻把大件摘出来说“没动过”。',
+  a:['“一点毛病没有”','“我也没细看过”']
+},
+{
+  id:'q9', c:'车况专业度', t:'「怎么这么便宜 / 是不是有猫腻」',
+  b:['这么便宜','是不是有问题','价格低','这么低','为什么这么低'],
+  m:[['因为','急着','换车','搬'],['不是车的问题','自己降','降价'],['这两天','时间','红利']],
+  r:[
+    {k:'给理由型', x:'因为我急着出手——【月底要搬宿舍/新车已经买了】。价是我自己往下调的，不是车有问题。您要时间宽裕可以慢慢比价；想这两天就骑走，这个价就是您的时间红利。'},
+    {k:'坦率型', x:'便宜只有一个原因：我不想在这台车上耗时间。二手电车压手里一天就是一天的风险，我宁愿少赚点快点出手。车况您现场验，验出问题我原价退。'}
+  ],
+  p:'《先发影响力》“因为”两个字的威力：只要给出理由，哪怕理由很普通，答应率都会显著上升。低价必须配一个可信的动机，否则买家自动判定“有猫腻”。',
+  n:'理由要具体到时间（月底搬走），越具体越像真的。',
+  a:['“我无所谓，随便卖”（更可疑）','“我也不知道行情”']
+},
+
+/* ===== 砍价攻防 ===== */
+{
+  id:'p1', c:'砍价攻防', t:'「能便宜点吗」——最常出现的一句',
+  b:['便宜点','能少点','优惠点','让点价','可以少吗'],
+  m:[['能','看'],['今天','过来','自提','定'],['让','条件','换']],
+  r:[
+    {k:'条件型', x:'能，看怎么个买法。今天定、自己来骑走，我让【50】；要送、要等，只能让【20】。我不是不松口，是松口得有价值交换。'},
+    {k:'置换型', x:'价格我动不了太多，但我能加东西：您今天骑走，我把【充电器、车衣、打气筒】都给您带上，等于省了百来块。'}
+  ],
+  p:'《影响力》互惠+承诺一致：让价必须换条件。同时准备“不降价但加赠品”的第二方案——保住价格体系，又让买家有赢的感觉。',
+  n:'先问“您打算什么时候骑走”，再决定让多少。顺序错了，价就白让了。',
+  a:['“你想多少”（把刀递给他）','“我不挣钱”（没人信）']
+},
+{
+  id:'p2', c:'砍价攻防', t:'跳崖报价：「800 卖不卖」',
+  b:['800','700','600','500','这个价卖不','就这个价','一千以下'],
+  m:[['卖不了','不够','不行'],['实价','1150','这个数'],['还有台','另一台','配置低']],
+  r:[
+    {k:'不接招型', x:'800 我真卖不了，那个价我连电池钱都不够。我说个实在的：【1150】，这两天能给的价，您今天来骑走就这个数。'},
+    {k:'留客户型', x:'800 拿不了这台，但我这边有台【X】的，配置低点，【900】能出，您要是只代步也够用。要不两台都看看？'}
+  ],
+  p:'《关键对话》不接招+锚定效应：对方报的价是“锚”，你不能在锚附近讨价，要直接抛回你的锚并给理由。同时给替代方案，不丢客户。',
+  n:'拒绝要快、要短、要给新锚，不要解释三句以上（解释越多越像能让）。',
+  a:['“不可能”（生硬，人跑了）','反问“你哪只眼睛看到这个价”（吵起来）','在 800 和 1150 之间磨（最后 900 成交，亏）']
+},
+{
+  id:'p3', c:'砍价攻防', t:'「最低多少 / 给个底价」',
+  b:['最低多少','底价','实价多少','多少钱能卖','一口价'],
+  m:[['底价','1150','实价'],['今天','自己来','这两天'],['不再','往下','留住']],
+  r:[
+    {k:'一口型', x:'底价给您：您自己来骑、这两天定，【1150】。这个价我不再往下走了——再低我宁愿留着骑。您能接受，我把定位发您。'},
+    {k:'坦诚型', x:'我一次说完，省得您来回问：挂牌【1299】，底价【1150】，能到这个价的条件是自己来、这两天。您要是还要砍，那我这边真没空间了，您也可以去看看别家。'}
+  ],
+  p:'《影响力》稀缺+承诺：报底价的同时绑条件，一次性关掉还价空间。报完必须守住——守不住一次，以后所有买家都会砍到你的“第二次底价”。',
+  n:'报完底价立刻推进动作（发定位/约时间），别停在价格上。',
+  a:['先说“最低1150”，被磨两句就让到1100（信用直接破产）','说“你说多少”（把定价权送人）']
+},
+{
+  id:'p4', c:'砍价攻防', t:'「别人家更便宜 / 同款才 600」',
+  b:['别人更便宜','有600的','同款','网上才','别家','隔壁'],
+  m:[['电池','手续','老款','原因'],['可以去看','看完再回','不涨价'],['总成本','换电池','三个月']],
+  r:[
+    {k:'换坐标型', x:'600 那台我猜是【电池快不行了/没手续/老款非国标】。您可以去看，看完再回来，我这台不涨价。提醒一句：二手电车最贵的从来不是车价，是三个月后换电池那 500 块。'},
+    {k:'算账型', x:'咱们算笔账：600 的车 + 换块电池【550】+ 上牌折腾 = 1150 以上，还多花两周。我这台 1150 骑回家就能用。您要的是省钱，还是省钱的感觉？'}
+  ],
+  p:'《先发影响力》重新定义比较维度：不要在“价格”这个维度上比，把战场换到“总成本/时间成本/合规风险”上。谁定义比较维度，谁就赢。',
+  n:'给一个让他真去看的许可（“看完再回来”），反而显得你不怕比。',
+  a:['骂同行“他那都是垃圾”','跟着降价到 900（把自己拖进粪坑）']
+},
+{
+  id:'p5', c:'砍价攻防', t:'「我是修车的 / 我懂行，这车不值」',
+  b:['我是修车','我懂行','不值这个价','这车值不了','我干这行'],
+  m:[['太好了','省事','一起看'],['电机','控制器','您看'],['按实价','不玩虚','同行']],
+  r:[
+    {k:'结盟型', x:'那太好了，跟懂行的聊省事。您看车的时候顺手帮我看看【电机和控制器】，有问题您直说，我不还嘴。价格我按实价走——【1150】，同行来我也是这个价。'},
+    {k:'反将型', x:'您懂行那就更好谈了。您说这车值多少，理由是什么？要是您指出的问题我真没看到，价我认；要是挑毛病压价，那我这边就到这儿。'}
+  ],
+  p:'《毛选》统一战线：把“对手”变成“同盟”——先请他帮你看车，把对抗关系变成合作关系。同时不给“专家折扣”，否则他会一直用这招。',
+  n:'让他先说价和理由，你再定；不要在他报完价之前自我降价。',
+  a:['跟他辩技术（他比你懂，必输）','一紧张主动让 100']
+},
+{
+  id:'p6', c:'砍价攻防', t:'「我诚心买，给个实在价」',
+  b:['诚心买','实心买','真心想买','马上要','诚心要'],
+  m:[['信','诚心'],['1150','已经挂出来','实价'],['试骑','过来','当场']],
+  r:[
+    {k:'转化型', x:'我信您诚心。诚心的价我已经挂出来了：【1150】。诚心不用加钱，也不用我多让——您过来试骑，骑完觉得值，咱们当场就成。'},
+    {k:'反要求型', x:'您是诚心，我也是实价。这样，您今天能过来看车，我给您把车擦干净充满电等着；价格就按挂的走，我不跟您玩虚的。'}
+  ],
+  p:'《影响力》承诺一致：把“诚心”这个虚词引导成一个具体行为（今天来看车/试骑）。他不做，说明“诚心”只是砍价台词。',
+  n:'听到“诚心”别让价，要一个具体承诺：今天来不来。',
+  a:['因为“诚心”两字就让价（下次他还用这招，且会教别人用）']
+},
+{
+  id:'p7', c:'砍价攻防', t:'「我是学生，预算有限」',
+  b:['学生党','预算有限','没多少钱','生活费','穷'],
+  m:[['我也是','懂','理解'],['留','预算','多少'],['试骑','不想买也没关系','生活费']],
+  r:[
+    {k:'同类型', x:'我也是学生，太懂了。那咱们换个思路：您预算多少？我这边有台【X】的可以给您留着；这台我也能给您留到【发生活费那天】，价格按今天算。您先来试骑，骑完不想买也没关系。'},
+    {k:'不降价给方案型', x:'价我真降不动了，但我能帮您省钱：充电器、车衣、锁我这儿都有富余，您拿去不用买；您要是骑到【XX】没电，我这边能借您充电器。'}
+  ],
+  p:'《毛选》群众路线+统一战线：你们是同一群体，先给共情再给方案。但共情≠降价——降价会让你的价格体系崩，给“留车/送配件/借充电器”更值钱。',
+  n:'问一句“您预算多少”，可能推给他另一台车，成交率比硬磨高。',
+  a:['“没钱就别买”','直接砍 150（你成了他口中“好欺负的学弟”）']
+},
+{
+  id:'p8', c:'砍价攻防', t:'「我现在就打钱，便宜 100」',
+  b:['现在打钱','马上付','立刻转账','现在就转','马上拍'],
+  m:[['让','50','不行'],['成本','压到','电池'],['充满','擦干净','明天']],
+  r:[
+    {k:'收口型', x:'您这诚意我接。这样：您现在拍下付款，我让【50】，再多真不行——价已经压到电池成本线上了。付款后我给您把车擦干净、充满电，明天您来骑走。'},
+    {k:'加值型', x:'100 让不了，但我把【头盔+车衣】给您带上，值个六七十。您现在就拍，我今晚就给您把车整好。'}
+  ],
+  p:'《影响力》即时承诺换即时收益：让幅一定要小于他的预期，否则他会觉得“早知多要”。省下来的额度换成赠品，感受更值钱。',
+  n:'让完立刻锁动作：几点来、在哪见、带什么。',
+  a:['一激动让 100，后面还得补送东西','让他先转微信（脱离平台，出纠纷你全责）']
+},
+{
+  id:'p9', c:'砍价攻防', t:'要赠品：「送头盔/锁/充电器/雨衣」',
+  b:['送头盔','送充电器','送锁','送雨衣','能不能送','赠品','送点什么'],
+  m:[['充电器','原装','标配'],['头盔','车衣','打气筒','送'],['自己买','安全','不送']],
+  r:[
+    {k:'分级型', x:'充电器和原装钥匙肯定给，这是标配。头盔我这有一个自己用过的，您不嫌弃就拿走；锁您自己买新的更放心，二十几块。我再给您带上【打气筒+车衣】，这俩我留着也没用。'},
+    {k:'置换型', x:'赠品我可以给，但得换个条件：您今天骑走，这些东西全给您；改天的话就只带标配。'}
+  ],
+  p:'《影响力》互惠：送成本极低但感受很高的东西（旧头盔、车衣、打气筒），比降价划算得多。但安全件（刹车、锁）不要送旧的——出了事说不清。',
+  n:'把赠品说成“我留着也没用”，比“送你”更让人舒服，也不显得你急于成交。',
+  a:['一口答应送一堆','送旧头盔却不说清楚是旧的']
+},
+{
+  id:'p10', c:'砍价攻防', t:'「包送 / 帮我上牌」',
+  b:['包送','送货上门','帮我上牌','包上牌','能送过来吗'],
+  m:[['送','3公里','免费'],['配合','材料','车管所'],['不敢','打包票','看车管所']],
+  r:[
+    {k:'有边界型', x:'【3公里内】我给您骑过去，免费；远一点您给个充电钱。上牌我陪您去、材料我全给您，但能不能上得看车管所，我不敢替他们打包票。'},
+    {k:'换条件型', x:'送没问题，但得约在我有空的时候——【今天7点后或明天中午】。您要的时间我送不了，就得您自己过来，我给您留车充满电。'}
+  ],
+  p:'《关键对话》划清边界=长期信任。承诺自己控制不了的事（上牌、过户、审批），一次翻车就毁掉整个口碑。',
+  n:'把“免费”的范围说清（3公里），超出部分给个理由收钱，别当免费跑腿。',
+  a:['承诺“包上牌”（办不到就是欺诈）','免费送十几公里（时间成本比利润高）']
+},
+
+/* ===== 犹豫拖延 ===== */
+{
+  id:'h1', c:'犹豫拖延', t:'「我再看看 / 考虑一下」',
+  b:['再看看','考虑一下','想一想','我先看看','不着急','再比较'],
+  m:[['行','可以','没问题'],['电池','还','半年'],['留到','后天','时间']],
+  r:[
+    {k:'设边界型', x:'行，看车不用急。给您两个信息帮您比：一是这车电池还有【大半年】好状态，二是这个价我留到【后天晚上】。您看完别家随时问我，我这边不玩涨价那套。'},
+    {k:'降门槛型', x:'应该的。您要是拿不准，就来骑十分钟，不买也没关系——骑完您心里就有数了，比看十张图强。'}
+  ],
+  p:'《先发影响力》给“考虑”设一个具体边界（时间锚）：比“随时联系我”有效得多。同时把决策门槛降到“骑十分钟”，从“买不买”变成“来不来”。',
+  n:'一定要留一个具体时间点（后晚/明晚），然后到点真的发一条。',
+  a:['只回“好的”（对话直接死）','秒降 100 挽留（告诉他还会再降）']
+},
+{
+  id:'h2', c:'犹豫拖延', t:'已读不回 / 半天没动静',
+  b:['（未回复）','已读不回','不回消息','半天没回'],
+  m:[['打扰','不好意思','问一下'],['留到','明天','中午'],['视频','拍了','发您']],
+  r:[
+    {k:'紧迫型', x:'打扰一下——这台车明天可能有别人来看，您要是还想要，我先给您留到明天中午12点，您回我一个“要”字就行。'},
+    {k:'给内容型', x:'刚拍了段实骑视频（附仪表盘），您看看。看完不买也没关系，就当帮您对比一下行情。'}
+  ],
+  p:'《影响力》稀缺+损失厌恶：给一个极低成本的动作（回一个字），比“还在考虑吗”有效十倍。第二条不要重复催促，要带新信息（视频/降价倒计时/别人来看）。',
+  n:'最多追两次：一次给新信息，一次给时间边界。第三次就放过，把精力给新客户。',
+  a:['连发十条“在吗”','“你不要我卖别人了”（情绪化，掉价）']
+},
+{
+  id:'h3', c:'犹豫拖延', t:'「我跟家里人商量一下」',
+  b:['商量','问问我爸妈','家里人','我妈','我爸','对象'],
+  m:[['应该的','商量'],['整理','一条','转给他们'],['视频','看车','放心']],
+  r:[
+    {k:'替他想型', x:'应该的，这种事得商量。我把资料整理成一条发您，您直接转给他们：车况、电池、手续、价格、能试骑。他们要是还不放心，我可以视频给他们看车，或者跟他们通个电话。'},
+    {k:'降低顾虑型', x:'给家里人看车，他们最关心三件事：安不安全、能不能上牌、坏了好不好修。我一条一条回您：限速25、手续全能上牌、学校旁边就有修车店。'}
+  ],
+  p:'《影响力大师》结构性能力：把信息做成“可转发的一条”，降低他的转述成本。转述越容易，家里人越可能点头。',
+  n:'直接给一段可以复制转发的文字，别让他自己总结。',
+  a:['“这有啥好商量的”','“你多大了还问家里”（直接得罪）']
+},
+{
+  id:'h4', c:'犹豫拖延', t:'「等我发工资 / 下个月再买」',
+  b:['下个月','发工资','过几天','等我','月底','下周'],
+  m:[['可以','留'],['定金','100','锁车'],['反悔','退','一半']],
+  r:[
+    {k:'定金锁车型', x:'可以，我先给您留着。不过说实话我这边也在卖，这样吧：您付【100】定金，我把链接下架给您锁车，您反悔我退您一半，我这边也踏实。'},
+    {k:'不锁车型', x:'那我不能给您空留，压一天是一天的风险。您发工资那天第一时间找我，要是车还在，我按今天这个价给您；不在了我帮您留意下一台。'}
+  ],
+  p:'《影响力》承诺一致（定金=承诺的物理形式）+ 稀缺。口头“留车”是最容易被放鸽子的承诺，要么收定金，要么明说不留。',
+  n:'定金一定要走平台拍下，不要微信转账；规则（逾期退一半）提前说清。',
+  a:['白留车（大概率被放鸽子，还错过别的买家）','“那你别买了”（丢客户）']
+},
+
+/* ===== 信任安全 ===== */
+{
+  id:'t1', c:'信任安全', t:'「你是不是骗子 / 我怕被坑」',
+  b:['骗子','套路','不敢','怕被坑','靠谱吗','可信吗','会不会骗'],
+  m:[['理解','防','正常'],['平台','不私下','闲鱼'],['学生证','校园卡','验','随便']],
+  r:[
+    {k:'三条型', x:'理解，二手交易谁都得防。给您三条：一，只走闲鱼平台，不私下转账；二，来看车带个同学，随便试随便验；三，学生证、校园卡、宿舍楼都能给您看。您觉得哪条不够，我再补。'},
+    {k:'反向型', x:'您这么问是对的。我这边就一台车、一个学校、一个宿舍楼，跑不了；真骗人，我明天还得在这儿上课。您来了先看人，再看车。'}
+  ],
+  p:'《关键对话》先接情绪再给方案：安全感优先于道理。这时你讲“我怎么会骗你”是火上浇油，讲“防骗的三条规矩”才是降火。',
+  n:'被质疑时不要急，把“防”变成你主动提供的东西。',
+  a:['“我骗你干嘛”（对抗，必吵）','“爱信不信”（口碑炸）']
+},
+{
+  id:'t2', c:'信任安全', t:'「能货到付款 / 走平台担保吗」',
+  b:['货到付款','走平台','担保交易','先验货','平台交易','能不能到付'],
+  m:[['同城','来看车','最稳'],['平台','担保','可以'],['不私下','不转账','规矩']],
+  r:[
+    {k:'规矩型', x:'同城我建议直接来看车，最稳。要发外地就走闲鱼担保交易，我不接受私下转账，也不接受先发货——不是不信您，是这行的规矩，对双方都好。'},
+    {k:'流程型', x:'走平台完全没问题。流程是：您拍下付款 → 约时间 → 现场验车试骑 → 满意了确认收货。有一步不满意，当场取消，钱原路退您。'}
+  ],
+  p:'《关键对话》共同目的：把“我不信你”翻译成“这是行的规矩”，双方都不丢面子。风控对等，才有信任。',
+  n:'把流程一步一步写出来——流程清晰本身就是专业感。',
+  a:['答应私下微信转账（出纠纷你全责，平台不管）','答应“先发货后付款”']
+},
+{
+  id:'t3', c:'信任安全', t:'「要交定金吗 / 先付多少」',
+  b:['定金','押金','先付','留车费','要交多少'],
+  m:[['100','定金','拍下'],['平台','不要微信','别转我'],['3天','逾期','退一半']],
+  r:[
+    {k:'规范型', x:'定金【100】，走闲鱼拍下付款就行，别微信转我。我收到就把车下架给您留着，您【3天内】来骑走；逾期不来的话定金退您一半，当保管费。'},
+    {k:'不催型', x:'要是不放心定金，也可以不付——但那我就不给您留车了，谁先来谁骑走。您自己定，两种我都行。'}
+  ],
+  p:'《影响力》承诺一致+规则前置：定金是把“我想买”变成“我已经付了钱”的物理动作。规则提前说清，后面才不扯皮。',
+  n:'定金一律走平台订单，禁止微信/支付宝私转——这是学生最容易踩的坑。',
+  a:['微信收定金（平台不认，出事你自己赔）','收全款再见面']
+},
+{
+  id:'t4', c:'信任安全', t:'「能不能先骑两天再给钱」',
+  b:['先骑两天','试用','先骑','过几天给钱','用两天','试骑几天'],
+  m:[['不行','真不行','说不清'],['骑个够','二十分钟','绕校园'],['满意','再付','付完骑走']],
+  r:[
+    {k:'带替代型', x:'这个真不行，车一出门就说不清了。但我可以让您骑个够：来看车的时候绕校园骑二十分钟，上坡、刹车、灯光都试。满意了再付钱，付完您直接骑走。'},
+    {k:'讲道理型', x:'不是不信您，是车离手就变成“谁弄的说不清”。您要真想多试，我陪您骑到【XX】再骑回来，半小时，够您判断了。'}
+  ],
+  p:'《关键对话》说“不”要带替代方案：拒绝别关门。你拒绝的是“先骑后付”，给的是“现场随便试”——他要的其实不是白骑，是确定性。',
+  n:'把“试”的时间放在你眼皮底下，成本最低、风险最小。',
+  a:['答应试骑两天（大概率收不回钱，也收不回信任）']
+},
+
+/* ===== 交易推进 ===== */
+{
+  id:'d1', c:'交易推进', t:'「什么时候看车 / 约时间」',
+  b:['什么时候','几点','看车','约个时间','今天有空','明天'],
+  m:[['7点','中午','明天','今天'],['苑','楼下','定位'],['充电','推下来','等您']],
+  r:[
+    {k:'二选一型', x:'【今天7点以后】或【明天中午12点半】，您挑一个。我在【XX苑X栋楼下】，到了发消息，我把车充满电推下来等您。'},
+    {k:'立刻型', x:'我现在就在楼下，您要方便二十分钟就能看。不方便就明天中午，您说个时间我记下。'}
+  ],
+  p:'《影响力》假选择（二选一）：给两个具体时间，比“你什么时候都行”约成率高得多——后者等于把决定权推给对方，等于没有约定。',
+  n:'定了时间就发定位+“到了发消息”，再补一句“我提前把车充满”。',
+  a:['“你什么时候都行”（永远约不上）','只说“在XX苑”，不说楼栋']
+},
+{
+  id:'d2', c:'交易推进', t:'「能送到我学校吗」',
+  b:['送过来','能送吗','上门','太远了','送一下'],
+  m:[['3公里','免费','骑过去'],['地铁','共享单车','报销'],['哪个方便','中间点','选']],
+  r:[
+    {k:'有范围型', x:'【3公里内】我给您骑过去，您在楼下试骑；远了咱们约中间点，或者您过来，我给您报销【共享单车/地铁】的钱。您看哪个方便？'},
+    {k:'换条件型', x:'送可以，但得约我有空的时间；您要的时间我送不了，就您过来一趟，我给您把车整好等着。'}
+  ],
+  p:'《影响力》互惠：小额补贴（地铁票钱）换成交，成本几块钱，感受是“这人实在”。同时用范围划边界，不做免费跑腿。',
+  n:'给两个方案让他选，而不是讨论“送不送”。',
+  a:['免费送十几公里（来回两小时，值不回利润）','一句“不送”（本来能成的单也跑了）']
+},
+{
+  id:'d3', c:'交易推进', t:'「少 50 我马上拍」',
+  b:['少50','便宜50','马上拍','立刻下单','少一点我就买'],
+  m:[['可以','行'],['现在就拍','今天','送到'],['改价','原价','条件']],
+  r:[
+    {k:'条件型', x:'50 可以，但只在这个条件下：您现在拍，我今天/明天给您送到【地点】。改天就按原价。您拍吧，我这边改价。'},
+    {k:'守价型', x:'50 让不了，但我给您加【头盔+车衣】，值六七十。您现在就拍，我今晚给您整好。'}
+  ],
+  p:'《影响力》承诺一致：把“马上”变成真金白银。先改价再等他付款=你单方面让步；他先拍你再改价=双向承诺。',
+  n:'顺序很关键：让他先拍下（或先付定金），你再改价。',
+  a:['先改价，然后等他不付款','让完 50 又说“那再加个头盔吧”（越让越乱）']
+},
+{
+  id:'d4', c:'交易推进', t:'「拍下后怎么给车 / 多久」',
+  b:['拍下','发货','怎么给','自提','多久到','几天'],
+  m:[['同城','当天','第二天'],['现场','验车','试骑'],['取消','原路退','不满意']],
+  r:[
+    {k:'流程型', x:'您拍完咱们约时间，同城当天或第二天给您。到现场您验车、试骑，没问题再确认收货。有一步不满意，当场取消，钱原路退您。'},
+    {k:'安心型', x:'流程我发您一遍，您存着：①拍下 ②约时间地点 ③现场验车试骑 ④满意确认收货 ⑤我给您手续和转让协议。任何一步不满意都可以停。'}
+  ],
+  p:'《关键对话》安全感：把流程写清楚，买家最怕的不是花钱，是“钱花了车不对”。流程=专业=敢下单。',
+  n:'五步流程可以直接复制，学生照着发给所有客户，口径统一。',
+  a:['“拍了就等着吧”','催买家“快点确认收货”']
+},
+{
+  id:'d5', c:'交易推进', t:'「能退吗 / 包售后多久」',
+  b:['能退吗','售后','保修','坏了怎么办','包多久','有保障吗'],
+  m:[['二手','不骗您','说清'],['7天','电路','负责'],['聊天记录','留着','按这个来']],
+  r:[
+    {k:'敢承诺型', x:'车是二手的，我不骗您说包一年。我给的是：【7天内非人为的电路问题我负责】；电池我给您实测数据，您来看车时自己骑一遍。这条聊天记录您留着，咱们按这个来。'},
+    {k:'划边界型', x:'能修的我负责：电路、控制器、刹车这些我认。人为的（摔了、泡水、自己改装）我不认，这个得提前说清。您觉得这样合理，咱们就谈。'}
+  ],
+  p:'《影响力》承诺一致（白纸黑字）+ 边界清晰：敢承诺具体条款的卖家才可信，模糊的“包你满意”反而没人信。',
+  n:'承诺范围要小、要具体、要写下来。宁可少承诺，不要做不到。',
+  a:['“包你一年”（一次翻车毁全部口碑）','“二手的东西没有售后”（直接丢单）']
+},
+
+/* ===== 售后纠纷 ===== */
+{
+  id:'s1', c:'售后纠纷', t:'「刚买就坏了 / 电池不耐用」',
+  b:['坏了','不耐用','掉电','跑不到','有问题','骑不动'],
+  m:[['别急','一起看','先'],['拍','仪表盘','电池仓'],['我负责','明天','过去看']],
+  r:[
+    {k:'先共情型', x:'别急，咱们一起看。您先拍个仪表盘和电池仓给我。是电路问题我按约定负责，我明天带工具过去；要是骑行习惯（一直满把、载人上坡）导致的掉电，我教您怎么骑更省电。'},
+    {k:'担责型', x:'这事儿我认，先解决问题再分责任。您现在能骑吗？不能骑我明天过去看；能骑就先用着，我今晚给您查一下是电池还是控制器。'}
+  ],
+  p:'《关键对话》先处理情绪再处理问题：这时候讲“我骑的时候好好的”等于宣战。把“你的错”换成“我们的问题”，人就不防御了。',
+  n:'第一时间到场或给时间点，千万别拖。学生的口碑就是同学群，一个差评能毁十单。',
+  a:['“我骑的时候好好的”（立刻对立）','拉黑、不回消息（口碑核弹）']
+},
+{
+  id:'s2', c:'售后纠纷', t:'「我要退车 / 退款」',
+  b:['退货','退款','退车','不要了','退钱'],
+  m:[['可以谈','按约定','说'],['电路','负责','修'],['不喜欢','家里','平台规则']],
+  r:[
+    {k:'按约定型', x:'可以谈，但咱们按约定来：非人为的电路问题我负责修或换；不喜欢、家里不同意这种，二手平台规则是不退的。您先说是什么问题，能修的我马上安排。'},
+    {k:'给台阶型', x:'您先说说什么情况。是我没交代清楚的地方，我负责；要是您改主意了，我这边也能帮您转卖——我群里还有几个学生在找车，能卖出去我退您钱。'}
+  ],
+  p:'《关键对话》共同目的+事实边界：不硬顶也不无限让步。给一个“不退款但帮你转卖”的第三条路，往往比吵赢更有用。',
+  n:'先问原因，再给方案；态度要软，规则要硬。',
+  a:['直接拒绝不说话（平台介入你必输）','一口答应全退（后面纠纷更多，还开了口子）']
+},
+{
+  id:'s3', c:'售后纠纷', t:'客户爽约 / 放鸽子',
+  b:['（爽约）','没来','迟到','改天吧','临时有事'],
+  m:[['没事','改天','也行'],['定金','留着','锁车'],['先来','谁先','不玩虚']],
+  r:[
+    {k:'不失态型', x:'没事，改天也行。不过我这车这两天问的人不少——您要是确定要，先拍个定金我给您留着；不确定就先不留，谁先来谁骑走，我不玩虚的。'},
+    {k:'给下次型', x:'行，那咱们定个准的：【明天中午12点半】，您要是来不了提前一小时说一声，我好安排。'}
+  ],
+  p:'《影响力》稀缺+把不确定性交回对方：不为对方的失信买单，但也不生气。情绪稳定的卖家，反而让人觉得靠谱。',
+  n:'爽约一次就要定金；不要在同一个人身上浪费第三次时间。',
+  a:['生气骂人（对方截图发群，你损失更大）','无限等、无限改约']
+},
+
+/* ===== 特殊买家 ===== */
+{
+  id:'x1', c:'特殊买家', t:'家长代买（给孩子买）',
+  b:['我妈','我爸','家长','给孩子买','父母买','我女儿','我儿子'],
+  m:[['安全','限速','不高'],['手续','上牌','协议'],['视频','刹车','试一遍']],
+  r:[
+    {k:'卖放心型', x:'给孩子买是吧？那我多说两句：这车限速25、座高不高，学生骑安全；手续齐全能上牌，我可以写个转让协议。您方便的话我拍个视频给您，把刹车和灯都试一遍。'},
+    {k:'替家长想型', x:'您最关心的应该是安全和售后。安全上：车身不高、能双脚落地、刹车我当场试给您看；售后上：7天内电路问题我负责，学校旁边就有修车店。'}
+  ],
+  p:'《影响力》权威+安全诉求：家长买的不是“便宜”，是“放心”。跟家长谈价格会输，谈安全、手续、售后会赢。',
+  n:'主动提出“视频验车”“写协议”，这两招对家长杀伤力最大。',
+  a:['跟家长谈性价比、跟着砍价','说“学生骑没事的”（家长最怕这句）']
+},
+{
+  id:'x2', c:'特殊买家', t:'外卖 / 跑腿骑手',
+  b:['跑外卖','骑手','跑单','送餐','跑腿','全职跑'],
+  m:[['说实话','全职','兼职'],['续航','电池更大','不合适'],['两台','试试','推荐']],
+  r:[
+    {k:'诚实型', x:'跑单我说实话：这台适合兼职，一天二三十公里没问题；要是全职一天一百公里，您得看电池更大的。我这边有台【X】续航更稳，您可以两台都试试。'},
+    {k:'算账型', x:'您一天跑多少公里？按 80 公里算，这台得中途补一次电，会耽误您两单。全职我建议直接上【60V】的，我这台更适合校内代步。'}
+  ],
+  p:'《毛选》实事求是：不合适就说不合适。骑手圈子极小，你坑一个，整个站点都不会找你买。',
+  n:'先问“一天跑多少公里”，用他的数字推结论，不要用你的参数。',
+  a:['为了成交硬推不合适的车（一周后必退，还带差评）']
+},
+{
+  id:'x3', c:'特殊买家', t:'女生买家（怕重、怕不安全）',
+  b:['女生','女孩子','轻一点','好推','个子矮','我比较矮','不敢骑'],
+  m:[['不重','斤','能提'],['座高','调低','落地'],['教','上下车','稳']],
+  r:[
+    {k:'安全感型', x:'这台不重，我一只手能提起来（大概【40】斤），座高能调低，您一米五五也能双脚落地。您来试的时候我教您怎么上下车最稳。'},
+    {k:'场景型', x:'您平时是不是从宿舍到教学楼？那段路我这车天天骑，很好推、拐弯也稳。您来试，我陪您骑一圈，觉得不稳咱们再看别的。'}
+  ],
+  p:'《先发影响力》注意力引导：她要的不是“电机多少瓦”，是“我能不能hold住”。把注意力引到重量、座高、双脚落地，成交就快了。',
+  n:'一定要约现场试骑，女生最怕的是“想象中骑不了”。',
+  a:['一直讲电机功率、扭矩参数','说“女生骑这个正好”（略带冒犯）']
+},
+{
+  id:'x4', c:'特殊买家', t:'同行 / 收车的来压价',
+  b:['我是收车的','同行','批量','收你的车','我收车'],
+  m:[['同行','不绕','实价'],['1050','1050','价格'],['今天','明天','自己出']],
+  r:[
+    {k:'不绕型', x:'同行来我不绕：这车我成本就不低，给您【1050】，您拿去能挣。但只限今天，明天我就自己出给个人客户了。'},
+    {k:'抬价型', x:'您收车肯定要压价，我理解。但我这台手续全、电池还有大半年，个人客户能卖【1250】。您要【1100】拿走，我今天就交货。'}
+  ],
+  p:'《影响力》稀缺+明确上限：对同行不聊情怀只聊账。给他一个“今天有效”的价，逼他当场决定。',
+  n:'同行不谈车况细节，谈“你能挣多少”，一分钟结束。',
+  a:['跟同行聊车况聊半小时（他要的是价，不是故事）','被他一压就降 200']
+},
+{
+  id:'x5', c:'特殊买家', t:'「能分期 / 先付一半」',
+  b:['分期','先付一半','一半','花呗','能不能分期','先给一半'],
+  m:[['做不了','分期','不行'],['70%','一半','先付'],['字据','身份证','凭据']],
+  r:[
+    {k:'改结构型', x:'分期我这边做不了。但可以这样：您先付【70%】把车骑走，剩下的【一周内】结清，咱们写个字据、留个身份证照片。我不催您，但得有个凭据。'},
+    {k:'拒绝型', x:'分期不行，我不是车行，压不起这个账。您要是预算差一点，我这边有台便宜些的【X】，或者您找同学一起拼一台。'}
+  ],
+  p:'《影响力》承诺一致+风控：把“零风险”变成“有凭据的风险”。学生之间最容易出事的就是“先给车后给钱没有字据”。',
+  n:'要字据+身份证照片+约定日期，三样齐全再交车。',
+  a:['无凭据先给车（90% 收不回来，还伤同学关系）']
+}
+];
+const PRINCIPLES = [
+/* 《影响力》 */
+{b:'《影响力》', n:'互惠', d:'先给别人一点东西，对方会产生“得还回去”的心理压力。',
+ u:'先免费给：验车、试骑、借充电器、帮查上牌流程、发对比行情。给的不是钱，是“我先付出了”的事实。',
+ s:'电池我帮您约个检测，不要钱，您验完再决定买不买。'},
+{b:'《影响力》', n:'承诺与一致', d:'人一旦做出小承诺，就会倾向于用后续行为让它保持一致。',
+ u:'把“我想买”变成具体动作：回一个字、发个定位、约个时间、拍个定金。小承诺是最好的推进器。',
+ s:'您不用现在决定，先回我一个字：今天来还是明天来？'},
+{b:'《影响力》', n:'社会认同', d:'不确定时，人看别人怎么做。',
+ u:'说同学/同校的成交案例、说“这个月出了三台给XX学院”。要真实，最好能截图。',
+ s:'上周刚出给对面楼一个学弟一台同款，他天天骑去实习。'},
+{b:'《影响力》', n:'喜好', d:'人更容易答应自己喜欢、和自己相似的人。',
+ u:'暴露同类身份（同校、同城、也缺钱）、找共同点（都骑这条路上课）、真诚夸一句不油腻。',
+ s:'我也住XX苑，天天骑那条路，雨天积水那段我都是推过去的。'},
+{b:'《影响力》', n:'权威', d:'专业符号会让人自动降低戒备。',
+ u:'不是装专家，是给可核对的事实：电池生产日期、车架号、手续、第三方检测、修车店老板的话。',
+ s:'电池铭牌我拍特写给您的，生产日期是去年3月，扫序列号能查。'},
+{b:'《影响力》', n:'稀缺', d:'越少越想要，尤其是“时间在减少”。',
+ u:'价格有效期、别人也在问、只有一台、月底搬走。稀缺必须是真的，假的会被记住。',
+ s:'这个价我留到明晚，之后我按1299重新挂。'},
+
+/* 《先发影响力》 */
+{b:'《先发影响力》', n:'注意力前置（特权瞬间）', d:'在开口之前，先把对方注意力引到你想让他关注的点上。',
+ u:'买家还没问，你先说“电池实测”和“手续齐全”。他后面所有判断都绕着这两点转。',
+ s:'在说价格之前我先说两件更重要的事：电池和手续。'},
+{b:'《先发影响力》', n:'“因为”两个字的魔力', d:'只要给出理由，哪怕理由很普通，答应率也会明显上升。',
+ u:'所有请求、所有价格、所有拒绝，都带一句“因为……”。因为你给的理由就是他的台阶。',
+ s:'这个价不能再低了，因为我再低就宁愿留着自己骑。'},
+{b:'《先发影响力》', n:'先问一个小问题', d:'先让人回答一个容易的问题，他就进入了“配合模式”。',
+ u:'先问“您平时从哪儿骑到哪儿”，再讲续航；先问“您什么时候要”，再讲价格。',
+ s:'您一天大概骑几公里？我按您的路线说续航。'},
+{b:'《先发影响力》', n:'展示弱点（双向信息）', d:'主动说一个小缺点，会让你的大优点变得可信。',
+ u:'先说划痕、先说一个不影响使用的小毛病，再说“大件都没动过”。',
+ s:'缺点我先讲：外壳有道划痕。大件电机电池车架都没动过。'},
+{b:'《先发影响力》', n:'用画面代替形容词', d:'具体场景比抽象形容词更容易被记住、被相信。',
+ u:'不说“很好骑”，说“你从东门骑到图书馆，五分钟，不用等红灯”。',
+ s:'您骑这个，从宿舍到教学楼五分钟，比走路省十五分钟。'},
+
+/* 《关键对话》 */
+{b:'《关键对话》', n:'安全感双条件', d:'对话要能谈下去，必须同时有共同目的和相互尊重。',
+ u:'买家质疑、砍价、生气时，先补安全感：“我们都想这台车不出问题”。安全感没了，讲道理全是噪音。',
+ s:'咱们目标一样：您想买到能骑的车，我想卖个不惹麻烦的车。'},
+{b:'《关键对话》', n:'STATE 陈述法', d:'说事实 → 讲想法 → 问对方观点 → 试探性表达 → 鼓励反驳。',
+ u:'处理电池、事故、售后的质疑：先摆事实（日期、照片），再说判断，最后问“您觉得呢”。',
+ s:'事实是电池去年3月换的，我的判断是还能跑大半年，您看这样够用吗？'},
+{b:'《关键对话》', n:'对比说明（我不是…我只是…）', d:'先否掉对方最坏的猜测，再说明真实意图。',
+ u:'被怀疑骗人、被怀疑车有问题时，第一句就否掉最坏猜测。',
+ s:'我不是要催您下单，我只是怕您白跑一趟，先把缺点告诉您。'},
+{b:'《关键对话》', n:'不接招，只谈条件', d:'对方抛来情绪或极端报价，不接，直接把话题拉回条件。',
+ u:'800 卖不卖 → 不谈 800，谈“什么条件下 1150”。',
+ s:'800 我拿不了，但您今天来骑走，1150 这个价我认。'},
+
+/* 《认知天性》 */
+{b:'《认知天性》', n:'检索练习', d:'合上书回想，比反复阅读有效得多。',
+ u:'所以这个工具不给你看话术，先让你自己写；写完才给参考答案。写不出来的地方，才是你真正的短板。',
+ s:'先自己写一句，再看教练的版本，差的那半句就是你今天学会的。'},
+{b:'《认知天性》', n:'间隔重复', d:'隔几天再练一次，比一次练十遍记得牢。',
+ u:'错题自动进复习队列：今天错的，明天再出一次，三天后再出一次。',
+ s:'（工具自动安排：错过的题会在 1 天后、3 天后重新出现）'},
+{b:'《认知天性》', n:'交错练习', d:'不同类型混着练，比一个类型练到底更能迁移。',
+ u:'随机抽题会混着砍价、车况、售后一起出——因为真实客户就是这么乱问的。',
+ s:'（训练场默认混合出题，专练某一类可以手动选）'},
+{b:'《认知天性》', n:'生成式学习', d:'自己先尝试给出答案，哪怕错，也比被告知记得牢。',
+ u:'让买家自己试骑、自己看仪表盘、自己算账。他自己得出的结论，不用你说服。',
+ s:'您自己骑一圈，仪表盘掉几格您自己看，我不多说。'},
+{b:'《认知天性》', n:'及时反馈', d:'错了立刻纠正，学习效率最高；拖三天再改，等于重学。',
+ u:'学生聊完一单，当天就复盘：哪句说错了、该说什么。别攒到周末。',
+ s:'（每天收工花 5 分钟，把今天最难回的一句输进来练一次）'},
+
+/* 《影响力大师》 */
+{b:'《影响力大师》', n:'关键行为', d:'影响一大群人，不如先改一两个关键动作。',
+ u:'学生卖车不需要口才，只需要三个关键动作：先问需求、先说缺点、每次让价都要换条件。',
+ s:'别的都可以慢慢学，这三件事做到就够开单。'},
+{b:'《影响力大师》', n:'六源模型', d:'影响力来自个人、社会、结构三个层面的动机与能力。',
+ u:'个人（话术+信心）、社会（同学榜样+群里晒单）、结构（统一文案+统一价格+平台流程）。只靠打鸡血没用，得给工具。',
+ s:'（老板视角：给模板、给价格底线、给群里晒单，比开会骂人有用）'},
+
+/* 《毛选》 */
+{b:'《毛选》', n:'矛盾论：抓主要矛盾', d:'一堆问题里，总有一个是决定性的。',
+ u:'买家问十个问题，真正卡住他的通常只有一个：钱、电池、还是怕被骗。先判断这个，别平均分配口水。',
+ s:'您是不是主要在犹豫电池还能用多久？那咱们就只聊这个。'},
+{b:'《毛选》', n:'实践论：没有调查就没有发言权', d:'先搞清楚事实，再下结论。',
+ u:'推荐车型前先问：一天骑多少公里、走哪条路、载不载人、停车在哪。不了解就推荐，必退。',
+ s:'先问您三个问题，问完我才敢给您推荐，不然是瞎说。'},
+{b:'《毛选》', n:'群众路线', d:'从群众中来，到群众中去。',
+ u:'学生卖给学生：话术要像学生说话，不要像车行老板。让老客户（买过车的同学）帮你说一句，比你说十句强。',
+ s:'您要是不放心，可以问问XX栋那个买了同款的，他骑了两个月了。'},
+{b:'《毛选》', n:'集中优势兵力打歼灭战', d:'不平均用力，集中打一个点。',
+ u:'一天时间不要撒在二十个问价的人身上。挑三个“已经问了时间地点”的人重点跟，成交率差十倍。',
+ s:'（每天只重点跟3个高意向客户，其余发统一话术）'},
+{b:'《毛选》', n:'统一战线', d:'团结一切可以团结的力量。',
+ u:'把砍价的、懂行的、同行、修车店老板，都变成帮你的人。特别是修车店：他一句话顶你十句。',
+ s:'您可以去门口那家修车店问，老板认得我这台车。'},
+{b:'《毛选》', n:'不打无准备之仗', d:'有准备才有胜算。',
+ u:'发帖前把照片、视频、手续、常见问题答案全备好。买家一问就答，成交率完全不同。',
+ s:'（发帖前先过一遍“七步准备清单”）'},
+{b:'《毛选》', n:'伤其十指不如断其一指', d:'打十个半死，不如彻底解决一个。',
+ u:'跟一个客户聊到成交，比同时聊十个都聊到“再看看”值钱。一次只推进一个人到付款。',
+ s:'今天我就把您这单跟到底，别的先放一放。'}
+];
+const SOP = [
+ {n:'01', t:'发帖前：先备料', d:'四角照片（含电池铭牌特写）+ 20秒实骑视频 + 手续拍照 + 电池生产日期。缺一样都别发帖。'},
+ {n:'02', t:'定价：留出让价空间', d:'挂牌价 = 心理成交价 ÷ 0.88（留 12% 砍价空间），尾数用 99。底线价写在心里，不写嘴上。'},
+ {n:'03', t:'开场：先给信息，不逼单', d:'第一句交代电池、手续、可试骑。把“在吗”推进到“几点来”。'},
+ {n:'04', t:'探需求：三个问题', d:'①一天骑多少公里 ②从哪到哪 ③载不载人。问完再推荐，不合适就直说不合适。'},
+ {n:'05', t:'报价：先给锚，再给条件', d:'先报挂牌价，再给“今天自提”的成交价，每一次让步都换一个条件。'},
+ {n:'06', t:'临门一脚：二选一 + 定金', d:'“今天7点还是明天中午”，然后“拍个定金我给您锁车”。'},
+ {n:'07', t:'成交后：当天复盘 + 要转介绍', d:'把今天最难回的一句话输进训练场练一次；请买家帮你在群里说一句。'}
+];
+const REDLINES = [
+ '只走闲鱼平台交易，绝不私下微信/支付宝收定金或全款。',
+ '不承诺“包上牌/包过户/包一年”，只说“配合办、7天内电路问题我负责”。',
+ '不虚标续航，不隐瞒事故、泡水、电池翻新——一次翻车，全校区都知道。',
+ '不卖无手续、无牌照、改装超标的车给学生，出事说不清。',
+ '买家骂人、威胁、要求先骑后付：不吵不拖，一句“这个我做不了”，转给老板处理。'
+];
+
+const QUIPS = [
+ '客户说“我再看看”，八成不是因为他真想再看看，是因为你没给他一个现在下单的理由。',
+ '《毛选》：不打无准备之仗。照片没拍全就发帖，等于空手上阵。',
+ '你越急着成交，客户越觉得这车有问题。价格可以让，急不能露。',
+ '所有拒绝都要带一条替代方案，不然你拒绝的不是条件，是这个客户。',
+ '二手电车最贵的不是车价，是三个月后换电池那笔钱——这句话能救你很多单。',
+ '《关键对话》：对话谈不下去，多半不是道理不对，是安全感没了。',
+ '让价必须换条件，否则第二次还价一定比第一次狠。',
+ '《毛选》：伤其十指不如断其一指。今天把一个客户跟到付款，胜过陪聊十个“再看看”。',
+ '买家问“有发票吗”，他不是要发票，他要的是“我不会被坑”。',
+ '你不说缺点，客户就自己编缺点，而且编得比你狠。',
+ '《先发影响力》：加上“因为”两个字，同一句话的答应率会明显不一样。',
+ '真正会卖的人，话都不多，但每一句都在推进下一步。'
+];
+
+/* ================= 基础 ================= */
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const KEY = 'sy_coach_v1';
+
+let S = { trained: 0, total: 0, wrong: {}, seen: [], libTab: 'scenes', cur: null, cat: 'all' };
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) { const o = JSON.parse(raw); Object.assign(S, o); }
+  } catch (e) {}
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+}
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1600);
+}
+function copyText(txt) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(txt).then(() => toast('已复制，直接发给客户')).catch(() => fallbackCopy(txt));
+  } else fallbackCopy(txt);
+}
+function fallbackCopy(txt) {
+  const ta = document.createElement('textarea');
+  ta.value = txt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); toast('已复制，直接发给客户'); }
+  catch (e) { toast('复制失败，长按文字手动选'); }
+  document.body.removeChild(ta);
+}
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* ================= 匹配 ================= */
+function matchScenes(text) {
+  const q = String(text || '').replace(/\s+/g, '').replace(/[，。！？、,.!?~]/g, '');
+  if (!q) return [];
+  const out = [];
+  SCENES.forEach(s => {
+    let sc = 0; const hits = [];
+    (s.b || []).forEach(p => {
+      const k = p.replace(/\s+/g, '');
+      if (k && q.indexOf(k) >= 0) { sc += Math.min(14, 4 + k.length); hits.push(p); }
+    });
+    // 标题里的核心词也算一层
+    const tcore = s.t.replace(/[「」【】·—……：:]/g, '');
+    if (tcore.length >= 4 && q.indexOf(tcore) >= 0) sc += 10;
+    if (sc > 0) out.push({ s, sc, hits });
+  });
+  out.sort((a, b) => b.sc - a.sc);
+  return out;
+}
+
+/* ================= 场景卡 ================= */
+function sceneCard(s, matchScore) {
+  const reps = (s.r || []).map(x =>
+    '<div class="reply"><div class="rk">' + esc(x.k) + '</div><p>' + esc(x.x) + '</p><button class="copy">复制</button></div>'
+  ).join('');
+  const bad = (s.a || []).map(x => '<li>' + esc(x) + '</li>').join('');
+  return '<div class="scene">' +
+    '<div class="sc-head">' +
+      (matchScore ? '<span class="match">匹配 ' + matchScore + '</span>' : '') +
+      '<span class="tag">' + esc(s.c) + '</span>' +
+      '<h3>' + esc(s.t) + '</h3>' +
+    '</div>' +
+    '<div class="sec"><div class="sec-t">推荐回复（点复制直接发 · 把【】换成你的实数）</div>' + reps + '</div>' +
+    '<div class="sec why"><div class="sec-t">为什么这么说</div><p>' + esc(s.p) + '</p></div>' +
+    '<div class="sec"><div class="sec-t">下一句往哪走</div><p>' + esc(s.n) + '</p></div>' +
+    '<div class="sec bad"><div class="sec-t">千万别这么说</div><ul>' + bad + '</ul></div>' +
+  '</div>';
+}
+
+const FALLBACK = '<div class="empty"><b>没匹配到特别贴的场景</b>' +
+  '先别急着回，按这三步走：<br><br>' +
+  '① <b>先给信息</b>：电池实测续航 + 手续情况 + 可试骑<br>' +
+  '② <b>先给理由</b>：为什么是这个价（因为…）<br>' +
+  '③ <b>给二选一</b>：今天7点还是明天中午？<br><br>' +
+  '换个关键词再搜一次，比如「电池」「便宜」「定金」「上牌」「骗子」。</div>';
+
+/* ================= 页面：查话术 ================= */
+const CHIPS = ['在吗', '能便宜点吗', '最低多少', '电池还能跑多远', '能上牌吗',
+  '是不是翻新电池', '我再看看', '能包售后吗', '是不是骗子', '能送到学校吗'];
+
+function ask() {
+  const q = $('#askInput').value.trim();
+  const box = $('#askResult');
+  if (!q) { toast('先把买家说的话粘进来'); return; }
+  const rs = matchScenes(q);
+  if (!rs.length) { box.innerHTML = FALLBACK; return; }
+  const top = rs.slice(0, 3);
+  let html = '<p class="advice">找到 ' + rs.length + ' 个相关场景，按相关度排序。先看第一个，不够再往下翻。</p>';
+  html += top.map(x => sceneCard(x.s, x.sc)).join('');
+  if (rs.length > 3) {
+    html += '<div id="moreWrap"><button class="btn ghost" id="btnMore" style="width:100%">还有 ' +
+      (rs.length - 3) + ' 个相关场景，展开</button></div>';
+    box.innerHTML = html;
+    $('#btnMore').onclick = () => {
+      $('#moreWrap').outerHTML = rs.slice(3).map(x => sceneCard(x.s, x.sc)).join('');
+    };
+    bindCopy();
+    return;
+  }
+  box.innerHTML = html;
+  bindCopy();
+}
+function bindCopy() {
+  $$('#askResult .copy, #trainResult .copy, #libScenes .copy, #libPrin .copy').forEach(b => {
+    b.onclick = () => {
+      const p = b.closest('.reply') || b.closest('.say');
+      copyText(p ? (p.querySelector('p') || p).textContent.replace(/^复制$/, '').trim() : '');
+    };
+  });
+}
+
+/* ================= 训练场 ================= */
+function pickQuestion(cat) {
+  let pool = SCENES.filter(s => (cat === 'all' || s.c === cat));
+  // 错题优先：1/3 概率先出错过且没掌握的
+  const wrongIds = Object.keys(S.wrong).filter(id => S.wrong[id].n < 3);
+  if (cat === 'all' && wrongIds.length && Math.random() < 0.34) {
+    const w = SCENES.filter(s => wrongIds.indexOf(s.id) >= 0);
+    if (w.length) pool = w;
+  }
+  if (!pool.length) pool = SCENES;
+  S.cur = pool[Math.floor(Math.random() * pool.length)].id;
+  renderQuestion();
+}
+function renderQuestion() {
+  const s = SCENES.find(x => x.id === S.cur) || SCENES[0];
+  // 挑一句买家原话展示
+  const raw = (s.b || [''])[0];
+  const q = raw.indexOf('（') === 0 ? '（客户没有回复，半天没动静）' : raw;
+  $('#trainQ').textContent = q + '　—　' + s.t.replace(/[「」]/g, '');
+  $('#trainA').value = '';
+  $('#trainResult').innerHTML = '';
+  $('#trainA').focus();
+  renderStats();
+}
+function renderStats() {
+  const n = S.trained || 0;
+  const avg = n ? Math.round(S.total / n) : 0;
+  $('#trainStat').innerHTML = '已练 <b>' + n + '</b> 题 · 平均 <b>' + avg + '</b> 分';
+  $('#stCount').textContent = n;
+  $('#stAvg').textContent = avg;
+  $('#stWrong').textContent = Object.keys(S.wrong).length;
+  const mastered = n ? Math.round(((S.ok || 0) / n) * 100) : 0;
+  $('#stMaster').textContent = mastered + '%';
+  const wc = Object.keys(S.wrong).length;
+  if (wc) {
+    $('#reviewCard').style.display = 'block';
+    $('#reviewTxt').textContent = '你有 ' + wc + ' 道题没掌握（80分以下）。隔一天再练一次，比连着练五遍记得牢。';
+  } else {
+    $('#reviewCard').style.display = 'none';
+  }
+}
+
+function scoreReply(s, text) {
+  const t = (text || '').trim().replace(/\s+/g, '');
+  let score = 0; const hit = [], miss = [], bad = [], notes = [];
+  if (t.length < 10) {
+    return { score: 0, hit, miss: ['先写一句完整的话，至少给一条具体信息'], bad, notes: ['太短了。客户看到“嗯”“在的”就走了。'] };
+  }
+  (s.m || []).forEach(g => {
+    if (g.some(k => t.indexOf(k) >= 0)) hit.push(g[0]);
+    else miss.push(g[0]);
+  });
+  score += hit.length * 20;
+  if (/因为|所以|这样|如果|要是|只要|可以|不过/.test(t)) { score += 9; notes.push('给了理由或条件 —— 《先发影响力》“因为”效应'); }
+  if (/[?？]|吗|呢|好不好|行不行|要不要/.test(t)) { score += 8; notes.push('留了一个推进式提问，对话不会死在这儿'); }
+  if (/[0-9０-９]|一|二|三|两|几/.test(t)) { score += 8; notes.push('出现了具体数字，比“很好”“很多”可信'); }
+  if (/您|你/.test(t) && /我/.test(t)) { score += 5; notes.push('“你”“我”都在句子里，像人话，不像群发模板'); }
+  if (/来|过来|试骑|定位|发您|约|拍下|看车|骑走/.test(t)) { score += 6; notes.push('给了下一步动作，不是停在解释上'); }
+  if (t.length >= 35 && t.length <= 130) { score += 5; notes.push('长度正好：说清了事，又没把人吓跑'); }
+  const BAD = ['骗子', '傻', '最低', '爱要不要', '绝对', '百分百', '包你一年', '包上牌', '不可能', '随便', '不知道', '不议价', '勿扰', '爱买不买', '我骗你'];
+  BAD.forEach(b => { if (t.indexOf(b) >= 0) { score -= 13; if (bad.indexOf(b) < 0) bad.push(b); } });
+  if (score < 0) score = 0;
+  if (score > 100) score = 100;
+  return { score, hit, miss, bad, notes };
+}
+
+function gradeOf(n) {
+  if (n >= 85) return ['高手级，这单基本能拿下', ''];
+  if (n >= 70) return ['及格线以上，能开单', ''];
+  if (n >= 55) return ['方向对了，火候差一点', 'low'];
+  return ['容易被绕进去', 'worst'];
+}
+
+function doScore() {
+  const s = SCENES.find(x => x.id === S.cur);
+  const txt = $('#trainA').value;
+  if (!txt.trim()) { toast('先写一句你的回复'); return; }
+  const r = scoreReply(s, txt);
+  const g = gradeOf(r.score);
+  S.trained = (S.trained || 0) + 1;
+  S.total = (S.total || 0) + r.score;
+  if (r.score >= 70) S.ok = (S.ok || 0) + 1;
+  if (r.score < 80) {
+    const w = S.wrong[s.id] || { n: 0 };
+    w.n = (w.n || 0) + 1; w.last = Date.now();
+    S.wrong[s.id] = w;
+  } else if (S.wrong[s.id]) { delete S.wrong[s.id]; }
+  save(); renderStats();
+
+  const reps = s.r.map(x =>
+    '<div class="reply"><div class="rk">' + esc(x.k) + '</div><p>' + esc(x.x) + '</p><button class="copy">复制</button></div>'
+  ).join('');
+
+  $('#trainResult').innerHTML =
+    '<div class="scorecard">' +
+      '<div class="ring ' + g[1] + '" style="--p:' + r.score + '"><span>' + r.score + '</span></div>' +
+      '<div class="sinfo">' +
+        '<div class="grade">' + g[0] + '</div>' +
+        (r.hit.length ? '<div class="kv good">✓ 说到了：' + r.hit.map(esc).join('、') + '</div>' : '') +
+        (r.miss.length ? '<div class="kv warn">✗ 还差：' + r.miss.slice(0, 3).map(esc).join('、') + '</div>' : '') +
+        (r.bad.length ? '<div class="kv err">⚠ 踩雷：' + r.bad.map(esc).join('、') + '（这几句会让客户立刻防御）</div>' : '') +
+      '</div>' +
+    '</div>' +
+    (r.notes.length ? '<div class="card"><div class="sec-t">你做到的地方</div>' +
+      r.notes.map(n => '<div class="kv good" style="margin:3px 0">· ' + esc(n) + '</div>').join('') + '</div>' : '') +
+    '<div class="scene"><div class="sc-head"><span class="tag">' + esc(s.c) + '</span><h3>教练版参考：' +
+      esc(s.t) + '</h3></div><div class="sec"><div class="sec-t">推荐回复（【】里换成你的实数）</div>' + reps + '</div>' +
+      '<div class="sec why"><div class="sec-t">为什么这么说</div><p>' + esc(s.p) + '</p></div>' +
+      '<div class="sec"><div class="sec-t">下一句往哪走</div><p>' + esc(s.n) + '</p></div>' +
+      '<div class="sec bad"><div class="sec-t">千万别这么说</div><ul>' +
+        (s.a || []).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div></div>' +
+    '<div class="row"><button class="btn primary" id="btnNext">再来一题 →</button></div>';
+
+  bindCopy();
+  $('#btnNext').onclick = () => { pickQuestion($('#trainCat').value); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  $('#trainResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ================= 话术库 ================= */
+function renderLibScenes() {
+  const cats = [];
+  SCENES.forEach(s => { if (cats.indexOf(s.c) < 0) cats.push(s.c); });
+  let html = '';
+  cats.forEach(c => {
+    html += '<div class="catrow">' + esc(c) + '</div>';
+    SCENES.filter(s => s.c === c).forEach(s => {
+      html += '<details class="sc"><summary>' + esc(s.t) + '</summary>' + sceneCard(s, 0) + '</details>';
+    });
+  });
+  $('#libScenes').innerHTML = html;
+  bindCopy();
+}
+function renderLibPrin() {
+  let html = '', lastBook = '';
+  // 按书分组，保持数据顺序
+  PRINCIPLES.forEach(p => {
+    if (p.b !== lastBook) { html += '<div class="catrow">' + esc(p.b) + '</div>'; lastBook = p.b; }
+    html += '<div class="pcard"><div class="book">' + esc(p.b) + '</div><h4>' + esc(p.n) + '</h4>' +
+      '<p class="d">' + esc(p.d) + '</p>' +
+      '<p class="u">卖车怎么用：' + esc(p.u) + '</p>' +
+      '<div class="say"><b>直接能说</b><p style="margin:0">' + esc(p.s) + '</p></div></div>';
+  });
+  $('#libPrin').innerHTML = html;
+  bindCopy();
+}
+function renderLibList() {
+  let html = '<div class="catrow">七步成交 SOP</div>';
+  SOP.forEach(x => {
+    html += '<div class="card" style="padding:12px 14px"><div style="display:flex;gap:10px;align-items:flex-start">' +
+      '<span class="num">' + esc(x.n) + '</span><div><div style="font-weight:800;font-size:14.5px">' + esc(x.t) + '</div>' +
+      '<div style="font-size:13.4px;color:#3d5148;line-height:1.6;margin-top:2px">' + esc(x.d) + '</div></div></div></div>';
+  });
+  html += '<div class="catrow">五条红线（碰一条就停）</div>';
+  REDLINES.forEach((x, i) => {
+    html += '<div class="red">' + (i + 1) + '. ' + esc(x) + '</div>';
+  });
+  $('#libList').innerHTML = html;
+}
+
+/* ================= 我的 ================= */
+function calcPrice() {
+  const cost = +$('#cCost').value || 0;
+  const prep = +$('#cPrep').value || 0;
+  const profit = +$('#cProfit').value || 0;
+  const pad = Math.min(40, Math.max(0, +$('#cPad').value || 12)) / 100;
+  const floor = cost + prep + profit;
+  const target = Math.round(floor * 1.06 / 5) * 5;
+  let list = Math.ceil(target / (1 - pad) / 100) * 100 - 1;
+  $('#pFloor').textContent = floor;
+  $('#pTarget').textContent = target;
+  $('#pList').textContent = list;
+}
+
+function genTitle() {
+  const model = ($('#tModel').value || '电动车').trim();
+  const batt = ($('#tBatt').value || '锂电池').trim();
+  const range = ($('#tRange').value || '40').trim();
+  const price = ($('#tPrice').value || '').trim();
+  const loc = ($('#tLoc').value || '校区门口').trim();
+  const extras = $$('.tExtra').filter(x => x.checked).map(x => x.value);
+  const exTxt = extras.length ? extras.join('｜') : '车况良好';
+  const pTxt = price ? price + '可小刀' : '诚心可小刀';
+
+  const t1 = model + '转让｜' + batt + '·实测' + range + 'km｜' + (extras.indexOf('手续齐全可上牌') >= 0 ? '手续齐全可上牌｜' : '') + loc + '自提';
+  const t2 = '【学生自用】' + model + ' 代步神车 ' + range + 'km续航 ' + (extras.indexOf('电池去年新换') >= 0 ? '电池新换 ' : '') + '换车急出｜' + loc + '可试骑';
+  const t3 = loc + '｜' + model + ' ' + batt + ' 上下课代步，' + range + 'km一周充一次｜' + pTxt + '，屠龙刀勿扰';
+
+  const body =
+    '【车型】' + model + '\n' +
+    '【电池】' + batt + '（实测续航 ' + range + 'km，载人约 ' + Math.max(10, Math.round(range * 0.8)) + 'km）\n' +
+    '【手续】发票 / 合格证 / 行驶证齐全，配合过户上牌\n' +
+    '【车况】自己上下课骑的，无事故无泡水；小瑕疵写在图里不藏\n' +
+    '【亮点】' + exTxt + '\n' +
+    '【交易】' + loc + '自提，先试骑后付款；3公里内可帮您骑过去\n' +
+    '【价格】' + (price || '面议') + '，' + pTxt + '\n' +
+    '【说明】只看车不买也没事，别砍到电池成本以下就行 😄\n\n' +
+    '— 拍照清单 —\n' +
+    '① 车头45°全车 ② 仪表盘上电亮屏 ③ 电池铭牌特写（生产日期）\n' +
+    '④ 车架焊缝 ⑤ 轮胎花纹 ⑥ 手续平铺\n' +
+    '— 发布建议 —\n' +
+    '晚 8:00-10:00 发，标题带校区名，第一张图用全车+亮屏同框。';
+
+  $('#titleOut').style.display = 'block';
+  $('#titleOut').textContent =
+    '【标题 1】\n' + t1 + '\n\n【标题 2】\n' + t2 + '\n\n【标题 3】\n' + t3 + '\n\n【正文模板】\n' + body;
+  toast('已生成，长按可复制');
+}
+
+/* ================= 事件 ================= */
+function switchTab(name) {
+  $$('.page').forEach(p => p.classList.remove('on'));
+  $('#page-' + name).classList.add('on');
+  $$('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  window.scrollTo({ top: 0 });
+}
+
+function init() {
+  load();
+  // 每日金句
+  const d = new Date();
+  const idx = (d.getFullYear() * 372 + d.getMonth() * 31 + d.getDate()) % QUIPS.length;
+  $('#quip').innerHTML = '<b>今日一句</b>　' + esc(QUIPS[idx]);
+
+  // tab
+  $$('nav.tabs button').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+  $$('.subtabs button').forEach(b => b.onclick = () => {
+    $$('.subtabs button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    const t = b.dataset.lib;
+    $('#libScenes').style.display = t === 'scenes' ? 'block' : 'none';
+    $('#libPrin').style.display = t === 'prin' ? 'block' : 'none';
+    $('#libList').style.display = t === 'list' ? 'block' : 'none';
+  });
+
+  // 查话术
+  $('#btnAsk').onclick = ask;
+  $('#btnClear').onclick = () => { $('#askInput').value = ''; $('#askResult').innerHTML = ''; };
+  $('#btnPaste').onclick = async () => {
+    try { const t = await navigator.clipboard.readText(); if (t) { $('#askInput').value = t; ask(); } else toast('剪贴板是空的'); }
+    catch (e) { toast('这台手机不让读剪贴板，长按输入框粘贴'); }
+  };
+  $('#chips').innerHTML = CHIPS.map(c => '<span class="chip">' + esc(c) + '</span>').join('');
+  $('#chips').onclick = e => {
+    if (!e.target.classList.contains('chip')) return;
+    $('#askInput').value = e.target.textContent;
+    ask();
+  };
+
+  // 训练场
+  const cats = [];
+  SCENES.forEach(s => { if (cats.indexOf(s.c) < 0) cats.push(s.c); });
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c; $('#trainCat').appendChild(o);
+  });
+  $('#trainCat').onchange = () => { S.cat = $('#trainCat').value; pickQuestion(S.cat); };
+  $('#btnScore').onclick = doScore;
+  $('#btnSkip').onclick = () => pickQuestion($('#trainCat').value);
+  $('#btnReview').onclick = () => {
+    const ids = Object.keys(S.wrong);
+    if (!ids.length) { toast('错题本是空的'); return; }
+    const pool = SCENES.filter(s => ids.indexOf(s.id) >= 0);
+    S.cur = pool[Math.floor(Math.random() * pool.length)].id;
+    renderQuestion();
+    toast('复习模式：这题你之前没过 80');
+  };
+
+  // 我的
+  ['cCost', 'cPrep', 'cProfit', 'cPad'].forEach(id => $('#' + id).addEventListener('input', calcPrice));
+  calcPrice();
+  $('#btnTitle').onclick = genTitle;
+  $('#btnExport').onclick = () => {
+    const blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '话术教练备份_' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click(); toast('已导出，存到网盘或发给自己');
+  };
+  $('#btnImport').onclick = () => {
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = '.json,application/json';
+    inp.onchange = () => {
+      const f = inp.files[0]; if (!f) return;
+      const rd = new FileReader();
+      rd.onload = () => {
+        try { Object.assign(S, JSON.parse(rd.result)); save(); renderStats(); toast('导入成功'); }
+        catch (e) { toast('文件读不了，换一个试试'); }
+      };
+      rd.readAsText(f);
+    };
+    inp.click();
+  };
+  $('#btnReset').onclick = () => {
+    if (!confirm('清空所有练习记录和错题本？')) return;
+    S = { trained: 0, total: 0, wrong: {}, seen: [], libTab: 'scenes', cur: null, cat: 'all' };
+    save(); renderStats(); toast('已清空');
+  };
+
+  renderLibScenes();
+  renderLibPrin();
+  renderLibList();
+  renderStats();
+  pickQuestion('all');
+  $('#trainResult').innerHTML = '';
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    if ($('#page-ask').classList.contains('on')) ask();
+    else if ($('#page-train').classList.contains('on')) doScore();
+  }
+});
+
+init();
+</script>
+</body>
+</html>
